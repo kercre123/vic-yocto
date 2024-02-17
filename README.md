@@ -49,3 +49,4 @@ Result will be in poky/build/tmp-glibc/deploy/images/
 -	Migration guide for thud: https://docs.yoctoproject.org/migration-guides/migration-2.6.html
 -	Migration guide for sumo (includes new function definitions): https://docs.yoctoproject.org/migration-guides/migration-2.5.html
 -	Original Vector tarball: https://web.archive.org/web/20221102004123if_/https://anki-vic-pubfiles.anki.com/license/prod/1.0.0/licences/OStarball.v160.tgz
+-	Original Vector tarball (fixed so it builds): https://keriganc.com/opensource.tar.gz
