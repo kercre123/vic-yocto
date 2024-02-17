@@ -1,0 +1,16 @@
+Index: mDNSResponder-625.41.2/mDNSPosix/Makefile
+===================================================================
+--- mDNSResponder-625.41.2.orig/mDNSPosix/Makefile	2017-01-16 11:27:00.175285091 -0800
++++ mDNSResponder-625.41.2/mDNSPosix/Makefile	2017-01-16 11:27:38.919285086 -0800
+@@ -63,9 +63,9 @@
+ CP = cp
+ RM = rm
+ LN = ln -s -f
+-CFLAGS_COMMON = -I$(COREDIR) -I$(SHAREDDIR) -I$(OBJDIR) -fwrapv -W -Wall -DPID_FILE=\"/var/run/mdnsd.pid\" -DMDNS_UDS_SERVERPATH=\"/var/run/mdnsd\"
++CFLAGS_COMMON = -I$(COREDIR) -I$(SHAREDDIR) -I$(OBJDIR) -fwrapv -W -Wall -DPID_FILE=\"/var/run/mdnsd.pid\" -DMDNS_UDS_SERVERPATH=\"/var/run/mdnsd\" $(CFLAGS_EXTRA)
+ CFLAGS_PTHREAD =
+-LINKOPTS =
++LINKOPTS = $(LINKOPTS_EXTRA)
+ LINKOPTS_PTHREAD = -lpthread
+ LDSUFFIX = so
+ JAVACFLAGS_OS = -fPIC -shared -ldns_sd

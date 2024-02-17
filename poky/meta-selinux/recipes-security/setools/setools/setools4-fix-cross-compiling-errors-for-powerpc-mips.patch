@@ -1,0 +1,35 @@
+From dc86d880ae0d66233679112a2bf0115c39df68f1 Mon Sep 17 00:00:00 2001
+From: Wenzong Fan <wenzong.fan@windriver.com>
+Date: Fri, 17 Feb 2017 08:57:35 +0000
+Subject: [meta-selinux][PATCH] setools4: fix cross-compiling errors for powerpc, mips
+
+Fix build errors:
+| libqpol/policy.c: In function 'qpol_binpol_version':
+| libqpol/policy.c:95:24: error: implicit declaration of function 'bswap_32' [-Werror=implicit-function-declaration]
+| #define le32_to_cpu(x) bswap_32(x)
+
+Upstream-Status: Pending
+
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+---
+ libqpol/policy.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/libqpol/policy.c b/libqpol/policy.c
+index ae3acb5..b5b87f9 100644
+--- a/libqpol/policy.c
++++ b/libqpol/policy.c
+@@ -45,6 +45,10 @@
+ # include <asm/types.h>
+ #endif
+ 
++#if defined(_ARCH_PPC) || defined(mips)
++#include <byteswap.h>
++#endif
++
+ #include <sepol/debug.h>
+ #include <sepol/handle.h>
+ #include <sepol/policydb/flask_types.h>
+-- 
+2.11.0
+

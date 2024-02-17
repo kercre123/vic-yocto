@@ -1,0 +1,42 @@
+From 0034f5ce6ffc1c862999e3f1a979537b148fbca8 Mon Sep 17 00:00:00 2001
+From: Brian Chapados <chapados@anki.com>
+Date: Wed, 22 Aug 2018 02:41:59 -0700
+Subject: [PATCH] Skip calling xtables_insmod
+
+It always fails on our system and is crashing in connman-1.36
+---
+ src/iptables.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/iptables.c b/src/iptables.c
+index f3670e7..afb8288 100644
+--- a/src/iptables.c
++++ b/src/iptables.c
+@@ -1469,6 +1469,8 @@ static void table_cleanup(struct connman_iptables *table)
+ 	g_free(table);
+ }
+ 
++#define ENABLE_XTABLES_INSMOD 0
++
+ static struct connman_iptables *iptables_init(const char *table_name)
+ {
+ 	struct connman_iptables *table = NULL;
+@@ -1477,6 +1479,7 @@ static struct connman_iptables *iptables_init(const char *table_name)
+ 
+ 	DBG("%s", table_name);
+ 
++#if ENABLE_XTABLES_INSMOD
+ 	if (xtables_insmod("ip_tables", NULL, TRUE) != 0)
+ 		DBG("ip_tables module loading gives error but trying anyway");
+ 
+@@ -1488,6 +1491,7 @@ static struct connman_iptables *iptables_init(const char *table_name)
+ 		DBG("%s module loading gives error but trying anyway", module);
+ 
+ 	g_free(module);
++#endif
+ 
+ 	table = g_try_new0(struct connman_iptables, 1);
+ 	if (!table)
+-- 
+2.1.2
+

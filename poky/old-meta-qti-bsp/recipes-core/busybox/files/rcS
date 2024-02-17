@@ -1,0 +1,26 @@
+#! /bin/sh
+
+/bin/mount -a
+/bin/busybox --install
+/bin/mount -t sysfs none /sys
+/bin/mount -t devpts devpts /dev/pts
+
+if [ -d /sys/class/android_usb/android0 ]
+then
+    echo "Starting USB Android Gadget"
+    echo hsusb > /sys/devices/platform/usb_bam/enable
+    echo 0 > /sys/class/android_usb/android0/enable
+    echo 0x9025 > /sys/class/android_usb/android0/idProduct
+    echo 0x05C6 > /sys/class/android_usb/android0/idVendor
+    echo diag > /sys/class/android_usb/android0/f_diag/clients
+    echo smd,tty > /sys/class/android_usb/android0/f_serial/transports
+    echo smd,bam2bam > /sys/class/android_usb/android0/f_rmnet/transports
+    echo diag,adb,serial,rmnet,mass_storage > /sys/class/android_usb/android0/functions
+    echo 1 > /sys/class/android_usb/android0/enable
+fi
+
+/sbin/mdev -s
+/bin/ifconfig lo up
+/sbin/mknod /dev/null c 1 3
+/sbin/chmod 666 /dev/null
+/sbin/adbd &

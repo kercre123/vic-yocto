@@ -1,0 +1,215 @@
+---
+ Makefile |  109 ++++++++++++++++++++++++++-------------------------------------
+ 1 file changed, 46 insertions(+), 63 deletions(-)
+
+--- a/Makefile
++++ b/Makefile
+@@ -7,35 +7,36 @@ VERS_FULL=$(VERS).4
+ VERS_BSO =1.0
+ VERS_ESONAME =1
+ VERS_ESO     =$(VERS_ESONAME).0.4
+ 
+ DESTDIR =
+-prefix=/usr
+-datadir=$(prefix)/share
+-libdir=$(prefix)/lib
+-libexecdir=$(prefix)/libexec
+-bindir=$(prefix)/bin
+-includedir=$(prefix)/include
+-SHRDIR=$(datadir)/ustr-$(VERS_FULL)
+-DOCSHRDIR=$(datadir)/doc/ustr-devel-$(VERS_FULL)
+-EXAMDIR=$(SHRDIR)/examples
+-mandir=$(datadir)/doc/man
+-MBINDIR=$(libexecdir)/ustr-$(VERS_FULL)
++prefix		?= /usr
++datadir		?= $(prefix)/share
++libdir		?= $(prefix)/lib
++libexecdir	?= $(prefix)/libexec
++bindir		?= $(prefix)/bin
++includedir	?= $(prefix)/include
++SHRDIR		?= $(datadir)/ustr-$(VERS_FULL)
++DOCSHRDIR	?= $(datadir)/doc/ustr-devel-$(VERS_FULL)
++EXAMDIR		?= $(SHRDIR)/examples
++mandir		?=$(datadir)/doc/man
++MBINDIR		?=$(libexecdir)/ustr-$(VERS_FULL)
+ 
+ ###############################################################################
+ #  This is here to work around the "Fedora build system requirement" that a big
+ # pile of crap ends up in the build.log file even though all sane people don't
+ # want that. See rhbz#248231
+ ###############################################################################
+-HIDE=@
++#HIDE=@
+ 
+-CC = cc
+-AR = ar
+-RANLIB = ranlib
+-LDCONFIG = /sbin/ldconfig
++vsnp		?= 0
++CC		?= cc
++AR		?= ar
++RANLIB		?= ranlib
++LDCONFIG	?= /sbin/ldconfig
+ 
+-CFLAGS  = -O2 -g
++CFLAGS		?= -O2 -g
+ 
+ # Debug versions...
+ WARNS = -W -Wall -Wundef -Wshadow -Wpointer-arith -Wbad-function-cast -Wcast-align -Wwrite-strings -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wnested-externs -Wno-format-zero-length -Wformat-nonliteral -Wformat-security # -Wfloat-equal -- no floats
+ #  Fedora policies/"reviewers" are completely retarded and refuse to allow
+ # lowering the "Fedora build flags" even when it activley hurts their users,
+@@ -386,48 +387,46 @@ install: all-shared ustr.pc ustr-debug.p
+ 		install -d $(DESTDIR)$(mandir)/man1
+ 		install -d $(DESTDIR)$(mandir)/man3
+ 		install -d $(DESTDIR)$(bindir)
+ 		install -d $(DESTDIR)$(libdir)/pkgconfig
+ 		$(HIDE)echo Installing files
+-		install -m 644 -t $(DESTDIR)$(libdir) $(LIB_STATIC)
+-		install -m 755 -t $(DESTDIR)$(libdir) $(LIB_SHARED)
++		install -m 644 $(LIB_STATIC) $(DESTDIR)$(libdir)
++		install -m 755 $(LIB_SHARED) $(DESTDIR)$(libdir)
+ 		-rm -f $(DESTDIR)$(libdir)/$(OPT_LIB_SHARED_NAME)
+ 		ln -s $(OPT_LIB_SHARED) $(DESTDIR)$(libdir)/$(OPT_LIB_SHARED_NAME)
+ 		-rm -f $(DESTDIR)$(libdir)/$(OPT_LIB_SHAREDEV)
+ 		ln -s $(OPT_LIB_SHARED_NAME) $(DESTDIR)$(libdir)/$(OPT_LIB_SHAREDEV)
+ 		-rm -f $(DESTDIR)$(libdir)/$(DBG_LIB_SHARED_NAME)
+ 		ln -s $(DBG_LIB_SHARED) $(DESTDIR)$(libdir)/$(DBG_LIB_SHARED_NAME)
+ 		-rm -f $(DESTDIR)$(libdir)/$(DBG_LIB_SHAREDEV)
+ 		ln -s $(DBG_LIB_SHARED_NAME) $(DESTDIR)$(libdir)/$(DBG_LIB_SHAREDEV)
+ 		$(LDCONFIG) -n $(DESTDIR)$(libdir)
+-		install -pm 644 -t $(DESTDIR)$(includedir) $(SRC_HDRS)
+-		install -pm 644 -t $(DESTDIR)$(SHRDIR) $(SRC_SRCS)
+-		install -pm 644 -t $(DESTDIR)$(SHRDIR) $(XSRC_SRCS)
+-		install -pm 644 -t $(DESTDIR)$(DOCSHRDIR) $(DOCS)
+-		install -pm 644 -t $(DESTDIR)$(EXAMDIR) $(EXAMPLES)
+-		install -pm 644 -t $(DESTDIR)$(mandir)/man1 $(MAN_PAGES_1)
+-		install -pm 644 -t $(DESTDIR)$(mandir)/man3 $(MAN_PAGES_3)
+-		install -m 755 -t $(DESTDIR)$(bindir) ustr-import
+-		install -pm 644 -t $(DESTDIR)$(libdir)/pkgconfig ustr.pc ustr-debug.pc
++		install -pm 644 $(SRC_HDRS) $(DESTDIR)$(includedir)
++		install -pm 644 $(SRC_SRCS) $(DESTDIR)$(SHRDIR)
++		install -pm 644 $(XSRC_SRCS) $(DESTDIR)$(SHRDIR)
++		install -pm 644 $(DOCS) $(DESTDIR)$(DOCSHRDIR)
++		install -pm 644 $(EXAMPLES) $(DESTDIR)$(EXAMDIR)
++		install -pm 644 $(MAN_PAGES_1) $(DESTDIR)$(mandir)/man1
++		install -pm 644 $(MAN_PAGES_3) $(DESTDIR)$(mandir)/man3
++		install -m 755 ustr-import $(DESTDIR)$(bindir)
++		install -pm 644 ustr.pc ustr-debug.pc $(DESTDIR)$(libdir)/pkgconfig
+ 
+ ustr-import-multilib: ustr-import-multilib.in
+ 		sed -e 's,@INCLUDEDIR@,$(includedir),g' -e 's,@MBINDIR@,$(MBINDIR),g' < $< > $@
+ 
+-install-multilib-linux: install autoconf_64b ustr-import-multilib
++install-multilib-linux: install ustr-import-multilib
+ 		install -d $(DESTDIR)$(MBINDIR)
+-		$(HIDE)mlib=`./autoconf_64b`; \
+-                   if test "x$$mlib" = "x1"; then mlib=64; else mlib=32; fi; \
+-                   mv -f $(DESTDIR)$(includedir)/ustr-conf-debug.h \
+-                         $(DESTDIR)$(includedir)/ustr-conf-debug-$$mlib.h; \
++		mv -f $(DESTDIR)$(includedir)/ustr-conf-debug.h \
++                         $(DESTDIR)$(includedir)/ustr-conf-debug-$(mlib).h; \
+                    mv -f $(DESTDIR)$(includedir)/ustr-conf.h \
+-                         $(DESTDIR)$(includedir)/ustr-conf-$$mlib.h; \
++                         $(DESTDIR)$(includedir)/ustr-conf-$(mlib).h; \
+                    mv -f $(DESTDIR)$(bindir)/ustr-import \
+-                         $(DESTDIR)$(MBINDIR)/ustr-import-$$mlib
+-		install -m 644 -t $(DESTDIR)$(includedir) $(SRC_HDRS_MULTI_LIB)
++                         $(DESTDIR)$(MBINDIR)/ustr-import-$(mlib)
++		install -m 644 $(SRC_HDRS_MULTI_LIB) $(DESTDIR)$(includedir)
+ 		$(HIDE)mv -f $(DESTDIR)$(includedir)/ustr-conf-debug-multilib-linux.h $(DESTDIR)$(includedir)/ustr-conf-debug.h
+ 		$(HIDE)mv -f $(DESTDIR)$(includedir)/ustr-conf-multilib-linux.h $(DESTDIR)$(includedir)/ustr-conf.h
+-		install -m 755 -t $(DESTDIR)$(bindir) ustr-import-multilib
++		install -m 755 ustr-import-multilib $(DESTDIR)$(bindir)
+ 		$(HIDE)mv -f $(DESTDIR)$(bindir)/ustr-import-multilib $(DESTDIR)$(bindir)/ustr-import
+ 		$(HIDE)touch --reference ustr-conf-multilib-linux.h $(DESTDIR)$(includedir)/ustr-conf.h
+ 		$(HIDE)touch --reference ustr-conf-debug-multilib-linux.h $(DESTDIR)$(includedir)/ustr-conf-debug.h
+ 		$(HIDE)touch --reference ustr-import-multilib.in $(DESTDIR)$(bindir)/ustr-import
+ 
+@@ -442,31 +441,20 @@ clean:
+ 		$(HIDE)rm -f tst_*.c ctst_*.c otst_*.c octst_*.c
+ 		$(HIDE)rm -f ustr-import-multilib
+ 
+ distclean: clean
+ 		rm -f ustr-import
+-		rm -f autoconf_64b autoconf_vsnprintf
+ 		rm -f ustr-conf.h ustr-conf-debug.h
+ 		rm -rf lcov-output
+ 
+ 
+-ustr-import: ustr-import.in autoconf_64b autoconf_vsnprintf
++ustr-import: ustr-import.in
+ 		$(HIDE)echo Creating $@
+-		$(HIDE)sz64=`./autoconf_64b`; vsnp=`./autoconf_vsnprintf`; \
+-		sed -e 's,@INCLUDEDIR@,$(includedir),g' -e 's,@SHRDIR@,$(SHRDIR),g' -e 's,@VERS@,$(VERS),g'  -e 's,@VERS_FULL@,$(VERS_FULL),g' -e "s,@HAVE_64bit_SIZE_MAX@,$$sz64,g" -e "s,@HAVE_RETARDED_VSNPRINTF@,$$vsnp,g" < $< > $@
++		$(HIDE)if test "$(mlib)" = "64" ; then sz64=1; else sz64=0; fi; \
++		sed -e 's,@INCLUDEDIR@,$(includedir),g' -e 's,@SHRDIR@,$(SHRDIR),g' -e 's,@VERS@,$(VERS),g'  -e 's,@VERS_FULL@,$(VERS_FULL),g' -e "s,@HAVE_64bit_SIZE_MAX@,$$sz64,g" -e "s,@HAVE_RETARDED_VSNPRINTF@,$(vsnp),g" < $< > $@
+ 		$(HIDE)chmod 755 $@
+ 
+-# Use CFLAGS so that CFLAGS="... -m32" does the right thing
+-autoconf_64b: autoconf_64b.c
+-		$(HIDE)echo Compiling: auto configuration test:  64bit
+-		$(HIDE)$(CC) $(CFLAGS) -o $@ $<
+-
+-autoconf_vsnprintf: autoconf_vsnprintf.c
+-		$(HIDE)echo Compiling: auto configuration test:  vsnprintf
+-		$(HIDE)$(CC) -o $@ $<
+-
+-# Use LDFLAGS for LDFLAGS="-m32"
+ $(OPT_LIB_SHARED): $(LIB_SHARED_OPT)
+ 		$(HIDE)echo Linking SO OPT lib: $@
+ 		$(HIDE)$(CC) -shared $^ -Wl,-soname -Wl,$(OPT_LIB_SHARED_NAME) -Wl,-version-script -Wl,libustr.ver $(LDFLAGS) -o $@
+ 
+ $(DBG_LIB_SHARED): $(LIB_SHARED_DBG)
+@@ -480,46 +468,40 @@ libustr.a: $(LIB_STATIC_OPT)
+ libustr-debug.a: $(LIB_STATIC_DBG)
+ 		$(HIDE)echo Linking A DBG lib: $@
+ 		$(HIDE)$(AR) ru $@ $^
+ 		$(HIDE)$(RANLIB) $@
+ 
+-ustr-conf.h: ustr-conf.h.in autoconf_64b autoconf_vsnprintf
++ustr-conf.h: ustr-conf.h.in
+ 		$(HIDE)echo Creating $@
+ 		$(HIDE)have_stdint_h=0; dbg1=0; dbg2=0; \
+-                sz64=`./autoconf_64b`; vsnp=`./autoconf_vsnprintf`; \
+-                if test -f "/usr/include/stdint.h"; then have_stdint_h=1; fi; \
++		$(HIDE)if test "$(mlib)" = "64" ; then sz64=1; else sz64=0; fi; \
+                 if test -f "$(prefix)/include/stdint.h"; then have_stdint_h=1; fi; \
+                 if test -f "$(includedir)/stdint.h"; then have_stdint_h=1; fi; \
+-		sed -e "s,@HAVE_STDINT_H@,$$have_stdint_h,g" -e "s,@USE_ASSERT@,$$dbg1,g" -e "s,@USE_EOS_MARK@,$$dbg2,g" -e "s,@HAVE_64bit_SIZE_MAX@,$$sz64,g" -e "s,@HAVE_RETARDED_VSNPRINTF@,$$vsnp,g" < $< > $@
++		sed -e "s,@HAVE_STDINT_H@,$$have_stdint_h,g" -e "s,@USE_ASSERT@,$$dbg1,g" -e "s,@USE_EOS_MARK@,$$dbg2,g" -e "s,@HAVE_64bit_SIZE_MAX@,$$sz64,g" -e "s,@HAVE_RETARDED_VSNPRINTF@,$(vsnp),g" < $< > $@
+ 
+-ustr-conf-debug.h: ustr-conf.h.in autoconf_64b autoconf_vsnprintf
++ustr-conf-debug.h: ustr-conf.h.in
+ 		$(HIDE)echo Creating $@
+ 		$(HIDE)have_stdint_h=0; dbg1=1; dbg2=1; \
+-                sz64=`./autoconf_64b`; vsnp=`./autoconf_vsnprintf`; \
+-                if test -f "/usr/include/stdint.h"; then have_stdint_h=1; fi; \
++		$(HIDE)if test "$(mlib)" = "64" ; then sz64=1; else sz64=0; fi; \
+                 if test -f "$(prefix)/include/stdint.h"; then have_stdint_h=1; fi; \
+                 if test -f "$(includedir)/stdint.h"; then have_stdint_h=1; fi; \
+-		sed -e "s,@HAVE_STDINT_H@,$$have_stdint_h,g" -e "s,@USE_ASSERT@,$$dbg1,g" -e "s,@USE_EOS_MARK@,$$dbg2,g" -e "s,@HAVE_64bit_SIZE_MAX@,$$sz64,g" -e "s,@HAVE_RETARDED_VSNPRINTF@,$$vsnp,g" < $< > $@
++		sed -e "s,@HAVE_STDINT_H@,$$have_stdint_h,g" -e "s,@USE_ASSERT@,$$dbg1,g" -e "s,@USE_EOS_MARK@,$$dbg2,g" -e "s,@HAVE_64bit_SIZE_MAX@,$$sz64,g" -e "s,@HAVE_RETARDED_VSNPRINTF@,$(vsnp),g" < $< > $@
+ 
+ 
+ #  We don't use $(DEPS_NONC_ALL) as deps. because it then recompiles everything
+ # too much, and we care about speed more. Do make clean to "fix".
+ #  Yes, scons fixes this.
+ %-code-so-opt.o: %-opt-code.c %-code.h %.h $(DEPS_C_ALL)
+-		$(HIDE)echo Compiling for SO OPT lib: $<
+ 		$(HIDE)$(CC) $(CFLAGS)     -fPIC $(CFLG_LIB_OPT) -o $@ -c $<
+ 
+ %-code-so-dbg.o: %-dbg-code.c %-code.h %.h $(DEPS_C_ALL)
+-		$(HIDE)echo Compiling for SO DBG lib: $<
+ 		$(HIDE)$(CC) $(DBG_CFLAGS) -fPIC $(CFLG_LIB_DBG) -o $@ -c $<
+ 
+ %-code-a-opt.o:  %-opt-code.c %-code.h %.h $(DEPS_C_ALL)
+-		$(HIDE)echo Compiling for A  OPT lib: $<
+ 		$(HIDE)$(CC) $(CFLAGS)           $(CFLG_LIB_OPT) -o $@ -c $<
+ 
+ %-code-a-dbg.o:  %-dbg-code.c %-code.h %.h $(DEPS_C_ALL)
+-		$(HIDE)echo Compiling for A  DBG lib: $<
+ 		$(HIDE)$(CC) $(DBG_CFLAGS)       $(CFLG_LIB_DBG) -o $@ -c $<
+ 
+ 
+ perf-sizes: perf-sizes.c $(OBJS_C_OPT_ALL)
+ 		$(CC) $(WARNS) -O2 -g $(LDFLAGS) -o $@ $^

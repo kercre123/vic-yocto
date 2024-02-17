@@ -1,0 +1,36 @@
+From 81f2221ab707ca8d5e204b0f9be61d537888e439 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Wed, 7 Mar 2012 11:03:00 +0800
+Subject: [PATCH 7/7] setools: Fix output to match policy lines
+
+Integrated from Fedora:
+https://community.dev.fedoraproject.org/packages/setools/sources/patches/
+---
+ libapol/src/ftrule-query.c |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libapol/src/ftrule-query.c b/libapol/src/ftrule-query.c
+index 9c7a23b..1d5f5c8 100644
+--- a/libapol/src/ftrule-query.c
++++ b/libapol/src/ftrule-query.c
+@@ -282,7 +282,7 @@ char *apol_filename_trans_render(const apol_policy_t * policy, const qpol_filena
+ 		error = errno;
+ 		goto err;
+ 	}
+-	if (apol_str_appendf(&tmp, &tmp_sz, "transition_type %s ", tmp_name)) {
++	if (apol_str_appendf(&tmp, &tmp_sz, "type_transition %s ", tmp_name)) {
+ 		error = errno;
+ 		ERR(policy, "%s", strerror(error));
+ 		goto err;
+@@ -338,7 +338,7 @@ char *apol_filename_trans_render(const apol_policy_t * policy, const qpol_filena
+ 		goto err;
+ 	}
+ 
+-	if (apol_str_appendf(&tmp, &tmp_sz, " %s", tmp_name)) {
++	if (apol_str_appendf(&tmp, &tmp_sz, " \"%s\"", tmp_name)) {
+ 		error = errno;
+ 		ERR(policy, "%s", strerror(error));
+ 		goto err;
+-- 
+1.7.5.4
+

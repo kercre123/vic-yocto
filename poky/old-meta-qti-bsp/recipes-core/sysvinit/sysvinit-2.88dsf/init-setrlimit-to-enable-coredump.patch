@@ -1,0 +1,23 @@
+diff --git a/src/init.c b/src/init.c
+index 16107fe..af6188b 100644
+--- a/src/init.c
++++ b/src/init.c
+@@ -2553,6 +2553,7 @@ void init_main(void)
+   struct sigaction	sa;
+   sigset_t		sgt;
+   int			f, st;
++  struct rlimit rlim;
+ 
+   if (!reload) {
+   
+@@ -2604,6 +2605,10 @@ void init_main(void)
+   SETSIG(sa, SIGCONT,  cont_handler, SA_RESTART);
+   SETSIG(sa, SIGSEGV,  (void (*)(int))segv_handler, SA_RESTART);
+ 
++  getrlimit(RLIMIT_CORE, &rlim);
++  rlim.rlim_cur = rlim.rlim_max;
++  setrlimit(RLIMIT_CORE, &rlim);
++
+   console_init();
+ 
+   if (!reload) {

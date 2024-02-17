@@ -1,0 +1,70 @@
+libsepol: with pp to CIL, always write auditadm_r and secadm_r roles to the base module
+
+In fedora and refpolicy, the auditadm_r and secadm_r roles can be in
+either the base module or a non-base module, or they could be in both.
+This means that it is possible for duplicate role declarations to exist.
+CIL does not allow duplicate declarations of anything, but there is no
+way for the pp compiler to know if the roles are declared in which
+module, or if they are in both when compiling a single module. This
+means we cannot use the same hack that we use for user_r, staff_r, etc.,
+to generate CIL role declarations (i.e. only create role declarations
+for these when defined in base).
+
+So only for these two roles, always declare them as part of base,
+regardless of where or if they are defined. This means that turning off
+the auditadm module will never remove the auditamd_r role (likewise for
+secadm), whereas right now, in some cases it would. This also means that
+role allow rules will still exist for these roles even with the modules
+removed. However, this is okay because the roles would not have any
+types associated with them so no access would be allowed.
+
+Signed-off-by: Steve Lawrence <slawrence@tresys.com>
+Reported-by: Miroslav Grepl <mgrepl@redhat.com>
+
+Index: policycoreutils-2.4/hll/pp/pp.c
+===================================================================
+--- policycoreutils-2.4.orig/hll/pp/pp.c
++++ policycoreutils-2.4/hll/pp/pp.c
+@@ -2000,7 +2000,10 @@ static int role_to_cil(int indent, struc
+ 			                    !strcmp(key, "sysadm_r") ||
+ 			                    !strcmp(key, "system_r") ||
+ 			                    !strcmp(key, "unconfined_r"));
+-			if ((is_base_role && pdb->policy_type == SEPOL_POLICY_BASE) || !is_base_role) {
++			int is_builtin_role = (!strcmp(key, "auditadm_r") ||
++						!strcmp(key, "secadm_r"));
++			if ((is_base_role && pdb->policy_type == SEPOL_POLICY_BASE) ||
++				(!is_base_role && !is_builtin_role)) {
+ 				cil_println(indent, "(role %s)", key);
+ 			}
+ 		}
+@@ -3594,6 +3597,17 @@ static int generate_default_object(void)
+ 	return 0;
+ }
+ 
++static int generate_builtin_roles(void)
++{
++	// due to inconsistentencies between policies and CIL not allowing
++	// duplicate roles, some roles are always created, regardless of if they
++	// are declared in modules or not
++	cil_println(0, "(role auditadm_r)");
++	cil_println(0, "(role secadm_r)");
++
++	return 0;
++}
++
+ static int generate_gen_require_attribute(void)
+ {
+ 	cil_println(0, "(typeattribute " GEN_REQUIRE_ATTR ")");
+@@ -3678,6 +3692,12 @@ static int module_package_to_cil(struct
+ 		if (rc != 0) {
+ 			goto exit;
+ 		}
++
++		// roles that can exist in base, non-base module or both
++		rc = generate_builtin_roles();
++		if (rc != 0) {
++			goto exit;
++		}
+ 
+ 		// default attribute to be used to mimic gen_require in CIL
+ 		rc = generate_gen_require_attribute();

@@ -1,0 +1,72 @@
+Subject: [PATCH] refpolicy: fix optional issue on sysadm module
+
+init and locallogin modules have a depend for sysadm module because
+they have called sysadm interfaces(sysadm_shell_domtrans). Since
+sysadm is not a core module, we could make the sysadm_shell_domtrans
+calls optionally by optional_policy.
+
+So, we could make the minimum policy without sysadm module.
+
+Upstream-Status: pending
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/init.te       | 14 ++++++++------
+ policy/modules/system/locallogin.te |  4 +++-
+ 2 files changed, 11 insertions(+), 7 deletions(-)
+
+--- a/policy/modules/system/init.te
++++ b/policy/modules/system/init.te
+@@ -300,16 +300,18 @@ ifdef(`init_systemd',`
+ 
+ 	optional_policy(`
+ 		modutils_domtrans_insmod(init_t)
+ 	')
+ ',`
+-	tunable_policy(`init_upstart',`
+-		corecmd_shell_domtrans(init_t, initrc_t)
+-	',`
+-		# Run the shell in the sysadm role for single-user mode.
+-		# causes problems with upstart
+-		sysadm_shell_domtrans(init_t)
++	optional_policy(`
++		tunable_policy(`init_upstart',`
++			corecmd_shell_domtrans(init_t, initrc_t)
++		',`
++			# Run the shell in the sysadm role for single-user mode.
++			# causes problems with upstart
++			sysadm_shell_domtrans(init_t)
++		')
+ 	')
+ ')
+ 
+ ifdef(`distro_debian',`
+ 	fs_tmpfs_filetrans(init_t, initctl_t, fifo_file, "initctl")
+@@ -1109,6 +1111,6 @@ optional_policy(`
+ ')
+ 
+ # systemd related allow rules
+ allow kernel_t init_t:process dyntransition;
+ allow devpts_t device_t:filesystem associate;
+-allow init_t self:capability2 block_suspend;
+\ No newline at end of file
++allow init_t self:capability2 block_suspend;
+--- a/policy/modules/system/locallogin.te
++++ b/policy/modules/system/locallogin.te
+@@ -244,11 +244,13 @@ seutil_read_default_contexts(sulogin_t)
+ userdom_use_unpriv_users_fds(sulogin_t)
+ 
+ userdom_search_user_home_dirs(sulogin_t)
+ userdom_use_user_ptys(sulogin_t)
+ 
+-sysadm_shell_domtrans(sulogin_t)
++optional_policy(`
++	sysadm_shell_domtrans(sulogin_t)
++')
+ 
+ # suse and debian do not use pam with sulogin...
+ ifdef(`distro_suse', `define(`sulogin_no_pam')')
+ ifdef(`distro_debian', `define(`sulogin_no_pam')')
+ 

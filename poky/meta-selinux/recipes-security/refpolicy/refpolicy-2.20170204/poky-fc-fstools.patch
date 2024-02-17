@@ -1,0 +1,75 @@
+From b420621f7bacdb803bfd104686e9b1785d7a6309 Mon Sep 17 00:00:00 2001
+From: Wenzong Fan <wenzong.fan@windriver.com>
+Date: Mon, 27 Jan 2014 03:54:01 -0500
+Subject: [PATCH] refpolicy: fix real path for fstools
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+Signed-off-by: Shrikant Bobade <shrikant_bobade@mentor.com>
+---
+ policy/modules/system/fstools.fc |    9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+--- a/policy/modules/system/fstools.fc
++++ b/policy/modules/system/fstools.fc
+@@ -1,19 +1,23 @@
+ /sbin/badblocks		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/blkid		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
++/sbin/blkid/.util-linux		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/blockdev		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
++/sbin/blockdev/.util-linux		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/cfdisk		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/dosfsck		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/dump		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/dumpe2fs		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/e2fsck		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/e4fsck		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/e2label		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/fdisk		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
++/sbin/fdisk/.util-linux		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/findfs		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/fsck.*		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/hdparm		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
++/sbin/hdparm/.util-linux		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/install-mbr	--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/jfs_.*		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/losetup.*		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/lsraid		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/make_reiser4	--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+@@ -22,20 +26,22 @@
+ /sbin/mke4fs		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/mkfs.*		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/mkraid		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/mkreiserfs	--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/mkswap		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
++/sbin/mkswap/.util-linux		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/parted		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/partprobe		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/partx		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/raidautorun	--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/raidstart		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/reiserfs(ck|tune)	--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/resize.*fs	--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/scsi_info		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/sfdisk		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/swapoff		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
++/sbin/swapoff/.util-linux		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/swapon.*		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/tune2fs		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/zdb		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/zhack		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /sbin/zinject		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+@@ -83,10 +89,11 @@
+ /usr/sbin/parted		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /usr/sbin/partprobe		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /usr/sbin/partx			--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /usr/sbin/raidautorun		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /usr/sbin/raidstart		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
++/usr/sbin/raw		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /usr/sbin/reiserfs(ck|tune)	--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /usr/sbin/resize.*fs		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /usr/sbin/scsi_info		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /usr/sbin/sfdisk		--	gen_context(system_u:object_r:fsadm_exec_t,s0)
+ /usr/sbin/smartctl		--	gen_context(system_u:object_r:fsadm_exec_t,s0)

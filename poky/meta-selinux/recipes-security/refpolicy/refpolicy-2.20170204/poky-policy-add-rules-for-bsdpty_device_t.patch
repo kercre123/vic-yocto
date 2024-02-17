@@ -1,0 +1,149 @@
+From c0b65c327b9354ee5c403cbde428e762ce3f327e Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:37:23 +0800
+Subject: [PATCH 5/6] add rules for bsdpty_device_t to complete pty devices.
+
+Upstream-Status: Pending
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/kernel/terminal.if |   16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+--- a/policy/modules/kernel/terminal.if
++++ b/policy/modules/kernel/terminal.if
+@@ -585,13 +585,15 @@ interface(`term_getattr_generic_ptys',`
+ ## </param>
+ #
+ interface(`term_dontaudit_getattr_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dontaudit $1 devpts_t:chr_file getattr;
++	dontaudit $1 bsdpty_device_t:chr_file getattr;
+ ')
+ ########################################
+ ## <summary>
+ ##	ioctl of generic pty devices.
+ ## </summary>
+@@ -603,15 +605,17 @@ interface(`term_dontaudit_getattr_generi
+ #
+ # cjp: added for ppp
+ interface(`term_ioctl_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dev_list_all_dev_nodes($1)
+ 	allow $1 devpts_t:dir search;
+ 	allow $1 devpts_t:chr_file ioctl;
++	allow $1 bsdpty_device_t:chr_file ioctl;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Allow setting the attributes of
+@@ -625,13 +629,15 @@ interface(`term_ioctl_generic_ptys',`
+ #
+ # dwalsh: added for rhgb
+ interface(`term_setattr_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	allow $1 devpts_t:chr_file setattr;
++	allow $1 bsdpty_device_t:chr_file setattr;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Dontaudit setting the attributes of
+@@ -645,13 +651,15 @@ interface(`term_setattr_generic_ptys',`
+ #
+ # dwalsh: added for rhgb
+ interface(`term_dontaudit_setattr_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dontaudit $1 devpts_t:chr_file setattr;
++	dontaudit $1 bsdpty_device_t:chr_file setattr;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Read and write the generic pty
+@@ -665,15 +673,17 @@ interface(`term_dontaudit_setattr_generi
+ ## </param>
+ #
+ interface(`term_use_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dev_list_all_dev_nodes($1)
+ 	allow $1 devpts_t:dir list_dir_perms;
+ 	allow $1 devpts_t:chr_file { rw_term_perms lock append };
++	allow $1 bsdpty_device_t:chr_file { rw_term_perms lock append };
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Dot not audit attempts to read and
+@@ -687,13 +697,15 @@ interface(`term_use_generic_ptys',`
+ ## </param>
+ #
+ interface(`term_dontaudit_use_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dontaudit $1 devpts_t:chr_file { getattr read write ioctl };
++	dontaudit $1 bsdpty_device_t:chr_file { getattr read write ioctl };
+ ')
+ 
+ #######################################
+ ## <summary>
+ ##	Set the attributes of the tty device
+@@ -705,14 +717,16 @@ interface(`term_dontaudit_use_generic_pt
+ ## </param>
+ #
+ interface(`term_setattr_controlling_term',`
+ 	gen_require(`
+ 		type devtty_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dev_list_all_dev_nodes($1)
+ 	allow $1 devtty_t:chr_file setattr;
++	allow $1 bsdpty_device_t:chr_file setattr;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Read and write the controlling
+@@ -725,14 +739,16 @@ interface(`term_setattr_controlling_term
+ ## </param>
+ #
+ interface(`term_use_controlling_term',`
+ 	gen_require(`
+ 		type devtty_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dev_list_all_dev_nodes($1)
+ 	allow $1 devtty_t:chr_file { rw_term_perms lock append };
++	allow $1 bsdpty_device_t:chr_file { rw_term_perms lock append };
+ ')
+ 
+ #######################################
+ ## <summary>
+ ##	Get the attributes of the pty multiplexor (/dev/ptmx).

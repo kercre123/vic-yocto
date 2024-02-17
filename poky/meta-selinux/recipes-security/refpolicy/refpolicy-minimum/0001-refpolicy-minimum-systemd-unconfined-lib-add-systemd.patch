@@ -1,0 +1,121 @@
+From 17507a42ce91376b00069ff22b43786894910ed6 Mon Sep 17 00:00:00 2001
+From: Shrikant Bobade <shrikant_bobade@mentor.com>
+Date: Fri, 26 Aug 2016 17:51:32 +0530
+Subject: [PATCH 1/9] refpolicy-minimum: systemd:unconfined:lib: add systemd
+ services allow rules
+
+systemd allow rules for systemd service file operations: start, stop, restart
+& allow rule for unconfined systemd service.
+
+without this change we are getting these errors:
+:~# systemctl status selinux-init.service
+Failed to get properties: Access denied
+
+:~# systemctl stop selinux-init.service
+Failed to stop selinux-init.service: Access denied
+
+:~# systemctl restart  selinux-init.service
+audit: type=1107 audit: pid=1 uid=0 auid=4294967295 ses=4294967295 subj=
+system_u:system_r:init_t:s0 msg='avc:  denied  { start } for auid=n/a uid=0
+gid=0 path="/lib/systemd/system/selinux-init.service" cmdline="systemctl
+restart selinux-init.service" scontext=unconfined_u:unconfined_r:
+unconfined_t:s0-s0:c0.c1023 tcontext=system_u:object_r:lib_t:s0 tclass=service
+
+Upstream-Status: Pending
+
+Signed-off-by: Shrikant Bobade <shrikant_bobade@mentor.com>
+---
+ policy/modules/system/init.te       |  6 +++++-
+ policy/modules/system/libraries.te  |  3 +++
+ policy/modules/system/systemd.if    | 40 +++++++++++++++++++++++++++++++++++++
+ policy/modules/system/unconfined.te |  6 ++++++
+ 4 files changed, 54 insertions(+), 1 deletion(-)
+
+diff --git a/policy/modules/system/init.te b/policy/modules/system/init.te
+index d710fb0..f9d7114 100644
+--- a/policy/modules/system/init.te
++++ b/policy/modules/system/init.te
+@@ -1114,3 +1114,7 @@ optional_policy(`
+ allow kernel_t init_t:process dyntransition;
+ allow devpts_t device_t:filesystem associate;
+ allow init_t self:capability2 block_suspend;
++allow init_t self:capability2 audit_read;
++
++allow initrc_t init_t:system { start status };
++allow initrc_t init_var_run_t:service { start status };
+diff --git a/policy/modules/system/libraries.te b/policy/modules/system/libraries.te
+index 0f5cd56..df98fe9 100644
+--- a/policy/modules/system/libraries.te
++++ b/policy/modules/system/libraries.te
+@@ -144,3 +144,6 @@ optional_policy(`
+ optional_policy(`
+ 	unconfined_domain(ldconfig_t)
+ ')
++
++# systemd: init domain to start lib domain service
++systemd_service_lib_function(lib_t)
+diff --git a/policy/modules/system/systemd.if b/policy/modules/system/systemd.if
+index 3cd6670..822c03d 100644
+--- a/policy/modules/system/systemd.if
++++ b/policy/modules/system/systemd.if
+@@ -171,3 +171,43 @@ interface(`systemd_start_power_units',`
+ 
+ 	allow $1 power_unit_t:service start;
+ ')
++
++
++########################################
++## <summary>
++## Allow specified domain to start stop reset systemd service
++## </summary>
++## <param name="domain">
++## <summary>
++## Domain to not audit.
++## </summary>
++## </param>
++#
++interface(`systemd_service_file_operations',`
++         gen_require(`
++               class service { start status stop };
++         ')
++
++	allow $1 lib_t:service { start status stop };
++
++')
++
++
++########################################
++## <summary>
++## Allow init domain to start lib domain service
++## </summary>
++## <param name="domain">
++## <summary>
++## Domain to not audit.
++## </summary>
++## </param>
++#
++interface(`systemd_service_lib_function',`
++         gen_require(`
++               class service start;
++         ')
++
++	allow initrc_t $1:service start;
++
++')
+diff --git a/policy/modules/system/unconfined.te b/policy/modules/system/unconfined.te
+index 99cab31..87a1b03 100644
+--- a/policy/modules/system/unconfined.te
++++ b/policy/modules/system/unconfined.te
+@@ -220,3 +220,9 @@ unconfined_domain_noaudit(unconfined_execmem_t)
+ optional_policy(`
+ 	unconfined_dbus_chat(unconfined_execmem_t)
+ ')
++
++
++# systemd: specified domain to start stop reset systemd service
++systemd_service_file_operations(unconfined_t)
++
++allow unconfined_t init_t:system reload;
+-- 
+1.9.1
+

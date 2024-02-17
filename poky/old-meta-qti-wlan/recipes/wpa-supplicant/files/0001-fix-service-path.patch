@@ -1,0 +1,16 @@
+diff -uNr '--exclude=.git' a/Makefile b/Makefile
+--- a/Makefile	2018-01-12 07:25:46.043465593 -0800
++++ b/Makefile	2018-01-12 07:25:16.223465729 -0800
+@@ -6,9 +6,9 @@
+ CFLAGS = -MMD -O2 -Wall -g
+ endif
+ 
+-export LIBDIR ?= /usr/local/lib/
+-export INCDIR ?= /usr/local/include/
+-export BINDIR ?= /usr/local/sbin/
++export LIBDIR ?= /usr/lib/
++export INCDIR ?= /usr/include/
++export BINDIR ?= /usr/sbin/
+ PKG_CONFIG ?= pkg-config
+ 
+ CFLAGS += $(EXTRA_CFLAGS)

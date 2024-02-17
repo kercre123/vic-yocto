@@ -1,0 +1,26 @@
+From c35a8949e305666ffe7fdc89f7cf506c6e6821d0 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Fri, 3 Feb 2012 11:28:21 +0800
+Subject: [PATCH] Fix "__va_copy" not defined warning.
+
+ustr-compiler.h:19:16: warning: "__va_copy" is not defined [-Wundef]
+---
+ ustr-compiler.h |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/ustr-compiler.h b/ustr-compiler.h
+index 9e71276..642e6e8 100644
+--- a/ustr-compiler.h
++++ b/ustr-compiler.h
+@@ -16,7 +16,7 @@
+ #ifdef va_copy
+ # define USTR_CONF_HAVE_VA_COPY 1
+ # define USTR__VA_COPY(x, y)   va_copy(x, y)
+-#elif __va_copy
++#elif defined(__va_copy)
+ # define USTR_CONF_HAVE_VA_COPY 1
+ # define USTR__VA_COPY(x, y) __va_copy(x, y)
+ #else
+-- 
+1.7.5.4
+

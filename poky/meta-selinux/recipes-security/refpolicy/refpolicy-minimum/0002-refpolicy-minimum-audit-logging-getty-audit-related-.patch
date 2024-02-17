@@ -1,0 +1,67 @@
+From edbc234baecfbf5b8e2dbadc976750071d5e7f7f Mon Sep 17 00:00:00 2001
+From: Shrikant Bobade <shrikant_bobade@mentor.com>
+Date: Fri, 26 Aug 2016 17:51:44 +0530
+Subject: [PATCH 2/9] refpolicy-minimum: audit: logging: getty: audit related
+ allow rules
+
+add allow rules for audit.log file & resolve dependent avc denials.
+
+without this change we are getting audit avc denials mixed into bootlog &
+audit other avc denials.
+
+audit: type=1400 audit(): avc:  denied  { getattr } for  pid=217 comm="mount"
+name="/" dev="proc" ino=1 scontext=system_u:system_r:mount_t:s0 tcontext=system_0
+audit: type=1400 audit(): avc:  denied  { sendto } for  pid=310 comm="klogd"
+path="/run/systemd/journal/dev-log" scontext=sy0
+audit: type=1400 audit(): avc:  denied  { sendto } for  pid=310 comm="klogd"
+path="/run/systemd/journal/dev-log" scontext=system_u:system_r:klogd_t:s0
+audit(): avc:  denied  { open } for  pid=540 comm="agetty" path="/var/
+volatile/log/wtmp" dev="tmpfs" ino=9536 scontext=system_u:system_r:getty_t
+:s0 tcontext=system_u:object_r:tmpfs_t:s0 tclass=file permissive=0
+
+Upstream-Status: Pending
+
+Signed-off-by: Shrikant Bobade <shrikant_bobade@mentor.com>
+---
+ policy/modules/system/getty.te   | 3 +++
+ policy/modules/system/logging.te | 8 ++++++++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/policy/modules/system/getty.te b/policy/modules/system/getty.te
+index f6743ea..84eaf77 100644
+--- a/policy/modules/system/getty.te
++++ b/policy/modules/system/getty.te
+@@ -139,3 +139,6 @@ optional_policy(`
+ optional_policy(`
+ 	udev_read_db(getty_t)
+ ')
++
++allow getty_t tmpfs_t:dir search;
++allow getty_t tmpfs_t:file { open write lock };
+diff --git a/policy/modules/system/logging.te b/policy/modules/system/logging.te
+index 9b18aad..fdf86ef 100644
+--- a/policy/modules/system/logging.te
++++ b/policy/modules/system/logging.te
+@@ -238,6 +238,7 @@ allow audisp_t self:unix_stream_socket create_stream_socket_perms;
+ allow audisp_t self:unix_dgram_socket create_socket_perms;
+ 
+ allow audisp_t auditd_t:unix_stream_socket rw_socket_perms;
++allow audisp_t initrc_t:unix_dgram_socket sendto;
+ 
+ manage_sock_files_pattern(audisp_t, audisp_var_run_t, audisp_var_run_t)
+ files_pid_filetrans(audisp_t, audisp_var_run_t, sock_file)
+@@ -569,3 +570,10 @@ optional_policy(`
+ 	# log to the xconsole
+ 	xserver_rw_console(syslogd_t)
+ ')
++
++
++allow auditd_t tmpfs_t:file { getattr setattr create open read append };
++allow auditd_t tmpfs_t:dir { open read search add_name write getattr search };
++allow auditd_t initrc_t:unix_dgram_socket sendto;
++
++allow klogd_t initrc_t:unix_dgram_socket sendto;
+\ No newline at end of file
+-- 
+1.9.1
+

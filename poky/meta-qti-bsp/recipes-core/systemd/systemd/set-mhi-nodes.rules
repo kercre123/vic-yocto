@@ -1,0 +1,1 @@
+ACTION=="add", KERNEL=="mhi*", OWNER="root", GROUP="radio", MODE="0660"

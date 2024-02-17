@@ -1,0 +1,11 @@
+[Unit]
+Description=SELinux autorelabel service loading
+DefaultDependencies=no
+Before=sysinit.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/selinux-autorelabel.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,63 @@
+# /etc/inittab: init(8) configuration.
+# $Id: inittab,v 1.91 2002/01/25 13:35:21 miquels Exp $
+
+# The default runlevel.
+id:5:initdefault:
+
+# Boot-time system configuration/initialization script.
+# This is run first except when booting in emergency (-b) mode.
+si::sysinit:/etc/init.d/rcS
+
+# What to do in single-user mode.
+~~:S:wait:/sbin/sulogin
+
+sns:2345:respawn:start-stop-daemon -c sensors -S -a /usr/bin/sensors.qcom
+
+# NOTE: These entries should be above the rc
+#       run level entries with wait below.
+dvsk:2345:wait:mkdir -p -m 777 /dev/socket
+chmd:2345:wait:chmod 777 /dev/socket
+lprp:2345:respawn:start-stop-daemon -c leprop -S -a /sbin/leprop-service
+
+log1:2345:wait:echo 600 > /proc/sys/net/unix/max_dgram_qlen
+logd:2345:respawn:/sbin/logd
+
+node:2345:wait:mknod -m 660 /dev/media0 c 251 0
+chug:2345:wait:chown camera:system /dev/media0
+
+sys1:2345:wait:chmod 0222 /sys/kernel/debug/tracing/trace_marker
+
+qcam:2345:respawn:start-stop-daemon -c camera:sensors -S -a /system/bin/mm-qcamera-daemon
+srvm:2345:respawn:start-stop-daemon -c system -S -a /usr/bin/servicemanager
+qmfs:2345:respawn:start-stop-daemon -c camera:system -S -a /usr/bin/qmmf-server
+qmfw:2345:respawn:start-stop-daemon -c qmmfwebsvr:system -S -a /usr/bin/qmmf-webserver
+
+#Set the storage daemons to respawn
+rmlk:2345:wait:chown -R -c nobody:system /sys/power/wake_lock /sys/power/wake_unlock
+rmts:2345:respawn:start-stop-daemon -c nobody:system -S -a /sbin/rmt_storage
+
+# /etc/init.d executes the S and K scripts upon change
+# of runlevel.
+#
+# Runlevel 0 is halt.
+# Runlevel 1 is single-user.
+# Runlevels 2-5 are multi-user.
+# Runlevel 6 is reboot.
+
+l0:0:wait:/etc/init.d/rc 0
+l1:1:wait:/etc/init.d/rc 1
+l2:2:wait:/etc/init.d/rc 2
+l3:3:wait:/etc/init.d/rc 3
+l4:4:wait:/etc/init.d/rc 4
+l5:5:wait:/etc/init.d/rc 5
+l6:6:wait:/etc/init.d/rc 6
+
+# Normally not reached, but fallthrough in case of emergency.
+z6:6:respawn:/sbin/sulogin
+
+#runs reboot daemon
+#rb:5:respawn:/sbin/reboot-daemon
+
+m1:5:respawn:start-stop-daemon -c diag -S -b -a /usr/bin/diagrebootapp
+
+ipcw:2345:respawn:start-stop-daemon -c qmmfwebsvr:system -S  -a /usr/bin/ipc-webserver

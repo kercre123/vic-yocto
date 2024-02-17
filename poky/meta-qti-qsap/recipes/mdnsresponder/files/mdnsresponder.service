@@ -1,0 +1,12 @@
+[Unit]
+Description=mDNSResponder service
+
+Wants=mdnsd.service
+After=mdnsd.service
+
+[Service]
+Restart=on-failure
+ExecStart=/usr/bin/mDNSResponder -f /etc/mDNSResponder.conf
+
+[Install]
+WantedBy=multi-user.target

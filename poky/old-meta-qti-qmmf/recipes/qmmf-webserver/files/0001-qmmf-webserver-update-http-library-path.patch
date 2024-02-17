@@ -1,0 +1,25 @@
+From 38ee290df93ed30d3589cd698bfe180639ace2b3 Mon Sep 17 00:00:00 2001
+From: Emilian Peev <epeevs@codeaurora.org>
+Date: Tue, 9 Aug 2016 16:02:11 +0300
+Subject: [PATCH] qmmf-webserver: update http library path
+
+---
+ qmmf-webserver.go | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/qmmf-webserver.go b/qmmf-webserver.go
+index 6b96f51..6f01521 100644
+--- a/qmmf-webserver.go
++++ b/qmmf-webserver.go
+@@ -41,7 +41,7 @@ package main
+ 
+ #include "qmmf_http_interface.h"
+ 
+-#define LIB_PATH "libhttp_interface.so"
++#define LIB_PATH "libhttp_interface.so.0"
+ #define MODULE_NAME "QMMF_MODULE"
+ 
+ typedef struct qmmf_handle_t {
+-- 
+1.9.1
+

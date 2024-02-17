@@ -1,0 +1,31 @@
+From be757feb9894552967bc52753f09eed43186150f Mon Sep 17 00:00:00 2001
+From: Emilian Peev <epeevs@codeaurora.org>
+Date: Wed, 6 Apr 2016 17:17:53 -0700
+Subject: [PATCH 4/4] live555: Add support for metadata streaming
+
+Change-Id: I9a1fb2487bb9cb8f2f0a5b66c69bc0be6527d561
+---
+ liveMedia/MediaSession.cpp | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/liveMedia/MediaSession.cpp b/liveMedia/MediaSession.cpp
+index 88829a7..4e38829 100644
+--- a/liveMedia/MediaSession.cpp
++++ b/liveMedia/MediaSession.cpp
+@@ -1385,10 +1385,12 @@ Boolean MediaSubsession::createSourceObjects(int useSpecialRTPoffset) {
+ 		   || strcmp(fCodecName, "T140") == 0 // T.140 text (RFC 4103)
+ 		   || strcmp(fCodecName, "DAT12") == 0 // 12-bit nonlinear audio (RFC 3190)
+ 		   || strcmp(fCodecName, "VND.ONVIF.METADATA") == 0 // 'ONVIF' 'metadata' (a XML document)
++		   || strcmp(fCodecName, "METADATA") == 0
+ 		   ) {
+ 	createSimpleRTPSource = True;
+ 	useSpecialRTPoffset = 0;
+-	if (strcmp(fCodecName, "VND.ONVIF.METADATA") == 0) {
++	if (strcmp(fCodecName, "VND.ONVIF.METADATA") == 0
++		|| strcmp(fCodecName, "METADATA") == 0) {
+ 	  // This RTP payload format uses the RTP "M" bit to indicate the end of the content (a XML document):
+ 	  doNormalMBitRule = True;
+ 	}
+-- 
+1.9.1
+

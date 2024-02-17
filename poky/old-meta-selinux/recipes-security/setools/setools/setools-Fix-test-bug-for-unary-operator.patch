@@ -1,0 +1,25 @@
+From 5f574dc0fb68fe07c5b611ca34c01b8484735aab Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Wed, 7 Mar 2012 14:47:44 +0800
+Subject: [PATCH] setools: Fix "test" bug for unary operator.
+
+configure: line 22969: test: =: unary operator expected
+---
+ configure.ac |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 899e5e9..6854c69 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -233,6 +233,7 @@ if test ${do_swigify} = "yes"; then
+    AC_PROG_SWIG(2.0.0)
+ fi
+ build_apol=yes
++do_swigify_tcl=no
+ AC_ARG_ENABLE(swig-tcl,
+               AC_HELP_STRING([--enable-swig-tcl],
+                              [build SWIG interfaces for Tcl (default)]),
+-- 
+1.7.5.4
+

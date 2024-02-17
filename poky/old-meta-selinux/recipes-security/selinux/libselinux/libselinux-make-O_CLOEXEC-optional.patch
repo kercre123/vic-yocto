@@ -1,0 +1,105 @@
+From 0a8c1c5f3d866d3a3c0f95653416f5f72587ce3a Mon Sep 17 00:00:00 2001
+From: Joe MacDonald <joe.macdonald@windriver.com>
+Date: Fri, 11 Oct 2013 09:56:25 -0400
+Subject: [PATCH 2/2] libselinux: make O_CLOEXEC optional
+
+Various commits in the selinux tree in the current release added O_CLOEXEC
+to open() calls in an attempt to address file descriptor leaks as
+described:
+
+   http://danwalsh.livejournal.com/53603.html
+
+However O_CLOEXEC isn't available on all platforms, so make it a
+compile-time option and generate a warning when it is not available.  The
+actual impact of leaking these file descriptors is minimal, though it does
+produce curious AVC Denied messages.
+
+Uptream-Status: Inappropriate [O_CLOEXEC has been in Linux since 2007 and POSIX since 2008]
+
+Signed-off-by: Joe MacDonald <joe.macdonald@windriver.com>
+---
+ src/label_file.c |    8 +++++++-
+ src/procattr.c   |    8 +++++++-
+ src/sestatus.c   |    8 +++++++-
+ src/stringrep.c  |    8 +++++++-
+ 4 files changed, 28 insertions(+), 4 deletions(-)
+
+diff --git a/src/label_file.c b/src/label_file.c
+index 5f697f3..49bb8df 100644
+--- a/src/label_file.c
++++ b/src/label_file.c
+@@ -255,7 +255,13 @@ static int load_mmap(struct selabel_handle *rec, const char *path, struct stat *
+ 	if (rc >= sizeof(mmap_path))
+ 		return -1;
+ 
+-	mmapfd = open(mmap_path, O_RDONLY | O_CLOEXEC);
++	mmapfd = open(mmap_path, O_RDONLY 
++#ifdef O_CLOEXEC
++                 | O_CLOEXEC
++#else
++#warning O_CLOEXEC undefined on this platform, this may leak file descriptors
++#endif
++                 );
+ 	if (mmapfd < 0)
+ 		return -1;
+ 
+diff --git a/src/procattr.c b/src/procattr.c
+index 6c5b45a..6cfe589 100644
+--- a/src/procattr.c
++++ b/src/procattr.c
+@@ -86,7 +86,13 @@ static int openattr(pid_t pid, const char *attr, int flags)
+ 	if (rc < 0)
+ 		return -1;
+ 
+-	fd = open(path, flags | O_CLOEXEC);
++	fd = open(path, flags
++#ifdef O_CLOEXEC
++             | O_CLOEXEC
++#else
++#warning O_CLOEXEC undefined on this platform, this may leak file descriptors
++#endif
++             );
+ 	free(path);
+ 	return fd;
+ }
+diff --git a/src/sestatus.c b/src/sestatus.c
+index ed29dc5..0cb15b6 100644
+--- a/src/sestatus.c
++++ b/src/sestatus.c
+@@ -268,7 +268,13 @@ int selinux_status_open(int fallback)
+ 		return -1;
+ 
+ 	snprintf(path, sizeof(path), "%s/status", selinux_mnt);
+-	fd = open(path, O_RDONLY | O_CLOEXEC);
++	fd = open(path, O_RDONLY
++#ifdef O_CLOEXEC
++             | O_CLOEXEC
++#else
++#warning O_CLOEXEC undefined on this platform, this may leak file descriptors
++#endif
++             );
+ 	if (fd < 0)
+ 		goto error;
+ 
+diff --git a/src/stringrep.c b/src/stringrep.c
+index ba75ccd..e6ccfd5 100644
+--- a/src/stringrep.c
++++ b/src/stringrep.c
+@@ -258,7 +258,13 @@ static struct discover_class_node * discover_class(const char *s)
+ 		struct stat m;
+ 
+ 		snprintf(path, sizeof path, "%s/class/%s/perms/%s", selinux_mnt,s,dentry->d_name);
+-		fd = open(path, O_RDONLY | O_CLOEXEC);
++		fd = open(path, O_RDONLY
++#ifdef O_CLOEXEC
++                | O_CLOEXEC
++#else
++#warning O_CLOEXEC undefined on this platform, this may leak file descriptors
++#endif
++                );
+ 		if (fd < 0)
+ 			goto err4;
+ 
+-- 
+1.7.10.4
+

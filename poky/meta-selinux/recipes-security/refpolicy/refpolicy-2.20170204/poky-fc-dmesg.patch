@@ -1,0 +1,18 @@
+Subject: [PATCH] refpolicy: fix real path for dmesg
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/admin/dmesg.fc | 1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/policy/modules/admin/dmesg.fc
++++ b/policy/modules/admin/dmesg.fc
+@@ -1,4 +1,5 @@
+ 
+ /bin/dmesg		--		gen_context(system_u:object_r:dmesg_exec_t,s0)
++/bin/dmesg\.util-linux	--		gen_context(system_u:object_r:dmesg_exec_t,s0)
+ 
+ /usr/bin/dmesg		--		gen_context(system_u:object_r:dmesg_exec_t,s0)

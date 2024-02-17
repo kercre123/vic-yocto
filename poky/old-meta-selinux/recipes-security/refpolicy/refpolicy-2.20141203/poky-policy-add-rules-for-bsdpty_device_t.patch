@@ -1,0 +1,121 @@
+From c0b65c327b9354ee5c403cbde428e762ce3f327e Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:37:23 +0800
+Subject: [PATCH 5/6] add rules for bsdpty_device_t to complete pty devices.
+
+Upstream-Status: Pending
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+---
+ policy/modules/kernel/terminal.if |   16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/policy/modules/kernel/terminal.if b/policy/modules/kernel/terminal.if
+index 771bce1..7519d0e 100644
+--- a/policy/modules/kernel/terminal.if
++++ b/policy/modules/kernel/terminal.if
+@@ -531,9 +531,11 @@ interface(`term_dontaudit_manage_pty_dirs',`
+ interface(`term_dontaudit_getattr_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dontaudit $1 devpts_t:chr_file getattr;
++	dontaudit $1 bsdpty_device_t:chr_file getattr;
+ ')
+ ########################################
+ ## <summary>
+@@ -549,11 +551,13 @@ interface(`term_dontaudit_getattr_generic_ptys',`
+ interface(`term_ioctl_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dev_list_all_dev_nodes($1)
+ 	allow $1 devpts_t:dir search;
+ 	allow $1 devpts_t:chr_file ioctl;
++	allow $1 bsdpty_device_t:chr_file ioctl;
+ ')
+ 
+ ########################################
+@@ -571,9 +575,11 @@ interface(`term_ioctl_generic_ptys',`
+ interface(`term_setattr_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	allow $1 devpts_t:chr_file setattr;
++	allow $1 bsdpty_device_t:chr_file setattr;
+ ')
+ 
+ ########################################
+@@ -591,9 +597,11 @@ interface(`term_setattr_generic_ptys',`
+ interface(`term_dontaudit_setattr_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dontaudit $1 devpts_t:chr_file setattr;
++	dontaudit $1 bsdpty_device_t:chr_file setattr;
+ ')
+ 
+ ########################################
+@@ -611,11 +619,13 @@ interface(`term_dontaudit_setattr_generic_ptys',`
+ interface(`term_use_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dev_list_all_dev_nodes($1)
+ 	allow $1 devpts_t:dir list_dir_perms;
+ 	allow $1 devpts_t:chr_file { rw_term_perms lock append };
++	allow $1 bsdpty_device_t:chr_file { rw_term_perms lock append };
+ ')
+ 
+ ########################################
+@@ -633,9 +643,11 @@ interface(`term_use_generic_ptys',`
+ interface(`term_dontaudit_use_generic_ptys',`
+ 	gen_require(`
+ 		type devpts_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dontaudit $1 devpts_t:chr_file { getattr read write ioctl };
++	dontaudit $1 bsdpty_device_t:chr_file { getattr read write ioctl };
+ ')
+ 
+ #######################################
+@@ -651,10 +663,12 @@ interface(`term_dontaudit_use_generic_ptys',`
+ interface(`term_setattr_controlling_term',`
+ 	gen_require(`
+ 		type devtty_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dev_list_all_dev_nodes($1)
+ 	allow $1 devtty_t:chr_file setattr;
++	allow $1 bsdpty_device_t:chr_file setattr;
+ ')
+ 
+ ########################################
+@@ -671,10 +685,12 @@ interface(`term_setattr_controlling_term',`
+ interface(`term_use_controlling_term',`
+ 	gen_require(`
+ 		type devtty_t;
++		type bsdpty_device_t;
+ 	')
+ 
+ 	dev_list_all_dev_nodes($1)
+ 	allow $1 devtty_t:chr_file { rw_term_perms lock append };
++	allow $1 bsdpty_device_t:chr_file { rw_term_perms lock append };
+ ')
+ 
+ #######################################
+-- 
+1.7.9.5
+

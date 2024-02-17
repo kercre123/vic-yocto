@@ -1,0 +1,3 @@
+ACTION=="add", KERNEL=="at_usb*", OWNER="radio", GROUP="radio", MODE="0660"
+ACTION=="add", KERNEL=="at_mdm*", OWNER="radio", GROUP="radio", MODE="0660"
+ACTION=="add", KERNEL=="android*", RUN+="/bin/sh -c 'chown root.system /sys/kernel/config/usb_gadget/g*/UDC && chmod 664 /sys/kernel/config/usb_gadget/g*/UDC'"

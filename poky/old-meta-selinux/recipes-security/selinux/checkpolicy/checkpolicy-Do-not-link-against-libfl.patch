@@ -1,0 +1,46 @@
+checkpolicy: Don't link against libfl
+
+In policy_scan.l file, we have already removed all references to yywrap by
+adding "%option noyywrap" statements to each flex source file that doesn't
+override yywrap. After this, we no longer need to link against libfl and so
+no longer get errors about undefined references to yylex.
+
+Upstream-status: Pending
+
+Signed-off-by: Chong Lu <Chong.Lu@windriver.com>
+Signed-off-by: Shrikant Bobade <Shrikant_Bobade@mentor.com>¶
+
+---
+ Makefile      |    2 +-
+ test/Makefile |    2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index e5fae3d..14ac70e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -19,7 +19,7 @@ CHECKOBJS = y.tab.o lex.yy.o queue.o module_compiler.o parse_util.o \
+ CHECKPOLOBJS = $(CHECKOBJS) checkpolicy.o
+ CHECKMODOBJS = $(CHECKOBJS) checkmodule.o
+ 
+-LDLIBS=$(LIBDIR)/libsepol.a -lfl
++LDLIBS=$(LIBDIR)/libsepol.a
+ 
+ GENERATED=lex.yy.c y.tab.c y.tab.h
+ 
+diff --git a/test/Makefile b/test/Makefile
+index 63b4d24..0f19a8a 100644
+--- a/test/Makefile
++++ b/test/Makefile
+@@ -9,7 +9,7 @@ INCLUDEDIR ?= $(PREFIX)/include
+ CFLAGS ?= -g -Wall -W -Werror -O2 -pipe
+ override CFLAGS += -I$(INCLUDEDIR)
+ 
+-LDLIBS=-lfl $(LIBDIR)/libsepol.a -L$(LIBDIR)
++LDLIBS=$(LIBDIR)/libsepol.a -L$(LIBDIR)
+ 
+ all: dispol dismod
+ 
+-- 
+1.7.9.5
+

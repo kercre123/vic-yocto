@@ -1,0 +1,46 @@
+From e1693b640f889818091c976a90041ea6a843fafd Mon Sep 17 00:00:00 2001
+From: Wenzong Fan <wenzong.fan@windriver.com>
+Date: Wed, 17 Feb 2016 08:35:51 -0500
+Subject: [PATCH] remove duplicate type_transition
+
+Remove duplicate type rules from init_t to init_script_file_type,
+they have been included by systemd policies. This also fixes the
+errors while installing modules for refpolicy-targeted if systemd
+support is enabled:
+
+| Conflicting type rules
+| Binary policy creation failed at line 327 of \
+  .../tmp/work/qemux86-poky-linux/refpolicy-targeted/git-r0/image\
+  /var/lib/selinux/targeted/tmp/modules/100/init/cil
+| Failed to generate binary
+| semodule:  Failed!
+
+Upstream-Status: Inappropriate
+
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/init.if | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/policy/modules/system/init.if
++++ b/policy/modules/system/init.if
+@@ -1268,16 +1268,16 @@ interface(`init_spec_domtrans_script',`
+ ##	</summary>
+ ## </param>
+ #
+ interface(`init_domtrans_script',`
+ 	gen_require(`
+-		type initrc_t;
++		type initrc_t, initrc_exec_t;
+ 		attribute init_script_file_type;
+ 	')
+ 
+ 	files_list_etc($1)
+-	domtrans_pattern($1, init_script_file_type, initrc_t)
++	domtrans_pattern($1, initrc_exec_t, initrc_t)
+ 
+ 	ifdef(`enable_mcs',`
+ 		range_transition $1 init_script_file_type:process s0;
+ 	')
+ 

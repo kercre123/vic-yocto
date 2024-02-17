@@ -1,0 +1,36 @@
+From cd3c0f1b876e9cd7f8f0f3cc1e838ab18884ef32 Mon Sep 17 00:00:00 2001
+From: Jean Xiao <jianxiao@codeaurora.org>
+Date: Sat, 18 Feb 2017 15:47:05 +0800
+Subject: [PATCH] Remove computing fDurationInMicroseconds
+
+---
+ liveMedia/MPEGVideoStreamFramer.cpp | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/liveMedia/MPEGVideoStreamFramer.cpp b/liveMedia/MPEGVideoStreamFramer.cpp
+index 46c15d3..38b4a6c 100644
+--- a/liveMedia/MPEGVideoStreamFramer.cpp
++++ b/liveMedia/MPEGVideoStreamFramer.cpp
+@@ -162,18 +162,11 @@ void MPEGVideoStreamFramer::continueReadProcessing() {
+     // It has already been copied to the reader's space.
+     fFrameSize = acquiredFrameSize;
+     fNumTruncatedBytes = fParser->numTruncatedBytes();
+-
+     // "fPresentationTime" should have already been computed.
+-
+-    // Compute "fDurationInMicroseconds" now:
+-    fDurationInMicroseconds
+-      = (fFrameRate == 0.0 || ((int)fPictureCount) < 0) ? 0
+-      : (unsigned)((fPictureCount*1000000)/fFrameRate);
+ #ifdef DEBUG
+-    fprintf(stderr, "%d bytes @%u.%06d, fDurationInMicroseconds: %d ((%d*1000000)/%f)\n", acquiredFrameSize, fPresentationTime.tv_sec, fPresentationTime.tv_usec, fDurationInMicroseconds, fPictureCount, fFrameRate);
++    fprintf(stderr, "%d bytes @%u.%06d\n", acquiredFrameSize, fPresentationTime.tv_sec, fPresentationTime.tv_usec);
+ #endif
+     fPictureCount = 0;
+-
+     // Call our own 'after getting' function.  Because we're not a 'leaf'
+     // source, we can call this directly, without risking infinite recursion.
+     afterGetting(this);
+--
+1.9.1
+

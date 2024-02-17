@@ -1,0 +1,33 @@
+Subject: [PATCH] policycoreutils: fix install path for new pymodule sepolicy
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+---
+ sepolicy/Makefile |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/sepolicy/Makefile b/sepolicy/Makefile
+index 2b8716c..70f4bdd 100644
+--- a/sepolicy/Makefile
++++ b/sepolicy/Makefile
+@@ -12,6 +12,8 @@ BASHCOMPLETIONDIR ?= $(DESTDIR)/usr/share/bash-completion/completions
+ SHAREDIR ?= $(PREFIX)/share/sandbox
+ override CFLAGS = -I$(PREFIX)/include -DPACKAGE="policycoreutils" -Wall -Werror -Wextra -W  -DSHARED -shared
+ 
++PYLIBVER ?= $(shell python -c 'import sys;print "python%d.%d" % sys.version_info[0:2]')
++
+ BASHCOMPLETIONS=sepolicy-bash-completion.sh
+ 
+ all: python-build
+@@ -30,7 +32,7 @@ test:
+ 	@python test_sepolicy.py -v
+ 
+ install:
+-	$(PYTHON) setup.py install `test -n "$(DESTDIR)" && echo --root $(DESTDIR)`
++	$(PYTHON) setup.py install --install-lib $(LIBDIR)/$(PYLIBVER)/site-packages
+ 	[ -d $(BINDIR) ] || mkdir -p $(BINDIR)
+ 	install -m 755 sepolicy.py $(BINDIR)/sepolicy
+ 	(cd $(BINDIR); ln -sf sepolicy sepolgen)
+-- 
+1.7.9.5
+

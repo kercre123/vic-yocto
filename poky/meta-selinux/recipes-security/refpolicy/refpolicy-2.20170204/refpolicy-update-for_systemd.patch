@@ -1,0 +1,27 @@
+From 07553727dca51631c93bca482442da8d0c50ac94 Mon Sep 17 00:00:00 2001
+From: Shrikant Bobade <shrikant_bobade@mentor.com>
+Date: Fri, 12 Jun 2015 19:37:52 +0530
+Subject: [PATCH] refpolicy: update for systemd related allow rules
+
+It provide, the systemd support related allow rules
+
+Signed-off-by: Shrikant Bobade <shrikant_bobade@mentor.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/init.te |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+--- a/policy/modules/system/init.te
++++ b/policy/modules/system/init.te
+@@ -1105,5 +1105,10 @@ optional_policy(`
+ ')
+ 
+ optional_policy(`
+ 	zebra_read_config(initrc_t)
+ ')
++
++# systemd related allow rules
++allow kernel_t init_t:process dyntransition;
++allow devpts_t device_t:filesystem associate;
++allow init_t self:capability2 block_suspend;
+\ No newline at end of file

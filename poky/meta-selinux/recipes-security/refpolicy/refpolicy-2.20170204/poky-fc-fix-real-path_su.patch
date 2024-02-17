@@ -1,0 +1,22 @@
+From 4affa5e9797f5d51597c9b8e0f2503883c766699 Mon Sep 17 00:00:00 2001
+From: Wenzong Fan <wenzong.fan@windriver.com>
+Date: Thu, 13 Feb 2014 00:33:07 -0500
+Subject: [PATCH] fix real path for su.shadow command
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/admin/su.fc |    2 ++
+ 1 file changed, 2 insertions(+)
+
+--- a/policy/modules/admin/su.fc
++++ b/policy/modules/admin/su.fc
+@@ -2,5 +2,6 @@
+ /bin/su			--	gen_context(system_u:object_r:su_exec_t,s0)
+ 
+ /usr/(local/)?bin/ksu	--	gen_context(system_u:object_r:su_exec_t,s0)
+ /usr/bin/kdesu		--	gen_context(system_u:object_r:su_exec_t,s0)
+ /usr/bin/su		--	gen_context(system_u:object_r:su_exec_t,s0)
++/bin/su.shadow		--	gen_context(system_u:object_r:su_exec_t,s0)

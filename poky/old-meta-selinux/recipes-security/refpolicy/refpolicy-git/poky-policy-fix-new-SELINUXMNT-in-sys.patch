@@ -1,0 +1,179 @@
+From 0bd1187768c79ccf7d0563fa8e2bc01494fef167 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:37:23 +0800
+Subject: [PATCH] fix for new SELINUXMNT in /sys
+
+SELINUXMNT is now from /selinux to /sys/fs/selinux, so we should
+add rules to access sysfs.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/kernel/selinux.if |   34 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 32 insertions(+), 2 deletions(-)
+
+Index: refpolicy/policy/modules/kernel/selinux.if
+===================================================================
+--- refpolicy.orig/policy/modules/kernel/selinux.if
++++ refpolicy/policy/modules/kernel/selinux.if
+@@ -58,6 +58,10 @@ interface(`selinux_get_fs_mount',`
+ 		type security_t;
+ 	')
+ 
++	# SELINUXMNT is now /sys/fs/selinux, so we should add rules to
++	# access sysfs
++	dev_getattr_sysfs_dirs($1)
++	dev_search_sysfs($1)
+ 	# starting in libselinux 2.0.5, init_selinuxmnt() will
+ 	# attempt to short circuit by checking if SELINUXMNT
+ 	# (/selinux) is already a selinuxfs
+@@ -88,6 +92,7 @@ interface(`selinux_dontaudit_get_fs_moun
+ 		type security_t;
+ 	')
+ 
++	dev_dontaudit_search_sysfs($1)
+ 	# starting in libselinux 2.0.5, init_selinuxmnt() will
+ 	# attempt to short circuit by checking if SELINUXMNT
+ 	# (/selinux) is already a selinuxfs
+@@ -117,6 +122,8 @@ interface(`selinux_mount_fs',`
+ 		type security_t;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
++	dev_search_sysfs($1)
+ 	allow $1 security_t:filesystem mount;
+ ')
+ 
+@@ -136,6 +143,8 @@ interface(`selinux_remount_fs',`
+ 		type security_t;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
++	dev_search_sysfs($1)
+ 	allow $1 security_t:filesystem remount;
+ ')
+ 
+@@ -154,6 +163,8 @@ interface(`selinux_unmount_fs',`
+ 		type security_t;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
++	dev_search_sysfs($1)
+ 	allow $1 security_t:filesystem unmount;
+ ')
+ 
+@@ -172,6 +183,8 @@ interface(`selinux_getattr_fs',`
+ 		type security_t;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
++	dev_search_sysfs($1)
+ 	allow $1 security_t:filesystem getattr;
+ 
+ 	dev_getattr_sysfs($1)
+@@ -194,6 +207,7 @@ interface(`selinux_dontaudit_getattr_fs'
+ 		type security_t;
+ 	')
+ 
++	dev_dontaudit_search_sysfs($1)
+ 	dontaudit $1 security_t:filesystem getattr;
+ 
+ 	dev_dontaudit_getattr_sysfs($1)
+@@ -216,6 +230,7 @@ interface(`selinux_dontaudit_getattr_dir
+ 		type security_t;
+ 	')
+ 
++	dev_dontaudit_search_sysfs($1)
+ 	dontaudit $1 security_t:dir getattr;
+ ')
+ 
+@@ -234,6 +249,7 @@ interface(`selinux_search_fs',`
+ 		type security_t;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
+ 	dev_search_sysfs($1)
+ 	allow $1 security_t:dir search_dir_perms;
+ ')
+@@ -253,6 +269,7 @@ interface(`selinux_dontaudit_search_fs',
+ 		type security_t;
+ 	')
+ 
++	dev_dontaudit_search_sysfs($1)
+ 	dontaudit $1 security_t:dir search_dir_perms;
+ ')
+ 
+@@ -272,6 +289,7 @@ interface(`selinux_dontaudit_read_fs',`
+ 		type security_t;
+ 	')
+ 
++	dev_dontaudit_search_sysfs($1)
+ 	dontaudit $1 security_t:dir search_dir_perms;
+ 	dontaudit $1 security_t:file read_file_perms;
+ ')
+@@ -293,6 +311,7 @@ interface(`selinux_get_enforce_mode',`
+ 		type security_t;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
+ 	dev_search_sysfs($1)
+ 	allow $1 security_t:dir list_dir_perms;
+ 	allow $1 security_t:file read_file_perms;
+@@ -361,6 +380,7 @@ interface(`selinux_read_policy',`
+ 		type security_t;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
+ 	dev_search_sysfs($1)
+ 	allow $1 security_t:dir list_dir_perms;
+ 	allow $1 security_t:file read_file_perms;
+@@ -426,6 +446,7 @@ interface(`selinux_set_generic_booleans'
+ 		type security_t;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
+ 	dev_search_sysfs($1)
+ 
+ 	allow $1 security_t:dir list_dir_perms;
+@@ -463,6 +484,7 @@ interface(`selinux_set_all_booleans',`
+ 		bool secure_mode_policyload;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
+ 	dev_search_sysfs($1)
+ 
+ 	allow $1 security_t:dir list_dir_perms;
+@@ -522,6 +544,7 @@ interface(`selinux_validate_context',`
+ 		type security_t;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
+ 	dev_search_sysfs($1)
+ 	allow $1 security_t:dir list_dir_perms;
+ 	allow $1 security_t:file rw_file_perms;
+@@ -544,6 +567,7 @@ interface(`selinux_dontaudit_validate_co
+ 		type security_t;
+ 	')
+ 
++	dev_dontaudit_search_sysfs($1)
+ 	dontaudit $1 security_t:dir list_dir_perms;
+ 	dontaudit $1 security_t:file rw_file_perms;
+ 	dontaudit $1 security_t:security check_context;
+@@ -565,6 +589,7 @@ interface(`selinux_compute_access_vector
+ 		type security_t;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
+ 	dev_search_sysfs($1)
+ 	allow $1 security_t:dir list_dir_perms;
+ 	allow $1 security_t:file rw_file_perms;
+@@ -660,6 +685,7 @@ interface(`selinux_compute_user_contexts
+ 		type security_t;
+ 	')
+ 
++	dev_getattr_sysfs_dirs($1)
+ 	dev_search_sysfs($1)
+ 	allow $1 security_t:dir list_dir_perms;
+ 	allow $1 security_t:file rw_file_perms;

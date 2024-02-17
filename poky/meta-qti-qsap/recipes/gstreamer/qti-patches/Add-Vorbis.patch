@@ -1,0 +1,54 @@
+From cbd2507451fe8eb88645a9f2e95633e1246c6342 Mon Sep 17 00:00:00 2001
+From: Vincent Penquerc'h <vincent.penquerch@collabora.co.uk>
+Date: Thu, 17 Nov 2016 13:04:18 +0000
+Subject: [PATCH] audioringbuffer: add Vorbis to GstAudioRingBufferFormatType
+
+https://bugzilla.gnome.org/show_bug.cgi?id=777655
+---
+ gst-libs/gst/audio/gstaudioringbuffer.c | 8 ++++++++
+ gst-libs/gst/audio/gstaudioringbuffer.h | 4 +++-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/gst-libs/gst/audio/gstaudioringbuffer.c b/gst-libs/gst/audio/gstaudioringbuffer.c
+index 610b161..968c740 100644
+--- a/gst-libs/gst/audio/gstaudioringbuffer.c
++++ b/gst-libs/gst/audio/gstaudioringbuffer.c
+@@ -310,6 +310,14 @@ gst_audio_ring_buffer_parse_caps (GstAudioRingBufferSpec * spec, GstCaps * caps)
+     gst_structure_get_int (structure, "channels", &info.channels);
+     spec->type = GST_AUDIO_RING_BUFFER_FORMAT_TYPE_FLAC;
+     info.bpf = 1;
++  } else if (g_str_equal (mimetype, "audio/x-vorbis")) {
++    /* extract the needed information from the cap */
++    if (!(gst_structure_get_int (structure, "rate", &info.rate)))
++      goto parse_error;
++
++    gst_structure_get_int (structure, "channels", &info.channels);
++    spec->type = GST_AUDIO_RING_BUFFER_FORMAT_TYPE_VORBIS;
++    info.bpf = 1;
+   } else {
+     goto parse_error;
+   }
+diff --git a/gst-libs/gst/audio/gstaudioringbuffer.h b/gst-libs/gst/audio/gstaudioringbuffer.h
+index 8706317..fdd4dc9 100644
+--- a/gst-libs/gst/audio/gstaudioringbuffer.h
++++ b/gst-libs/gst/audio/gstaudioringbuffer.h
+@@ -88,6 +88,7 @@ typedef enum {
+  * @GST_AUDIO_RING_BUFFER_FORMAT_TYPE_MPEG2_AAC_RAW: samples in MPEG-2 AAC raw format
+  * @GST_AUDIO_RING_BUFFER_FORMAT_TYPE_MPEG4_AAC_RAW: samples in MPEG-4 AAC raw format
+  * @GST_AUDIO_RING_BUFFER_FORMAT_TYPE_FLAC: samples in FLAC format
++ * @GST_AUDIO_RING_BUFFER_FORMAT_TYPE_VORBIS: samples in Vorbis format
+  *
+  * The format of the samples in the ringbuffer.
+  */
+@@ -107,7 +108,8 @@ typedef enum
+   GST_AUDIO_RING_BUFFER_FORMAT_TYPE_MPEG4_AAC,
+   GST_AUDIO_RING_BUFFER_FORMAT_TYPE_MPEG2_AAC_RAW,
+   GST_AUDIO_RING_BUFFER_FORMAT_TYPE_MPEG4_AAC_RAW,
+-  GST_AUDIO_RING_BUFFER_FORMAT_TYPE_FLAC
++  GST_AUDIO_RING_BUFFER_FORMAT_TYPE_FLAC,
++  GST_AUDIO_RING_BUFFER_FORMAT_TYPE_VORBIS
+ } GstAudioRingBufferFormatType;
+ 
+ /**
+-- 
+2.9.3

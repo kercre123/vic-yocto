@@ -1,0 +1,54 @@
+From 22cd030a8118faae37c0835eb7875e482efe5dc1 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:37:23 +0800
+Subject: [PATCH 1/4] fix update-alternatives for sysvinit
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/contrib/shutdown.fc    |    1 +
+ policy/modules/kernel/corecommands.fc |    1 +
+ policy/modules/system/init.fc         |    1 +
+ 3 files changed, 3 insertions(+)
+
+--- a/policy/modules/contrib/shutdown.fc
++++ b/policy/modules/contrib/shutdown.fc
+@@ -3,7 +3,8 @@
+ /usr/bin/shutdown	--	gen_context(system_u:object_r:shutdown_exec_t,s0)
+ 
+ /usr/lib/upstart/shutdown	--	gen_context(system_u:object_r:shutdown_exec_t,s0)
+ 
+ /usr/sbin/shutdown	--	gen_context(system_u:object_r:shutdown_exec_t,s0)
++/usr/sbin/shutdown\.sysvinit	--	gen_context(system_u:object_r:shutdown_exec_t,s0)
+ 
+ /run/shutdown\.pid	--	gen_context(system_u:object_r:shutdown_var_run_t,s0)
+--- a/policy/modules/kernel/corecommands.fc
++++ b/policy/modules/kernel/corecommands.fc
+@@ -144,10 +144,11 @@ ifdef(`distro_gentoo',`
+ /usr/bin/insmod_ksymoops_clean	--	gen_context(system_u:object_r:bin_t,s0)
+ /usr/bin/ksh.*			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /usr/bin/mkfs\.cramfs		--	gen_context(system_u:object_r:bin_t,s0)
+ /usr/bin/mksh			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /usr/bin/mountpoint		--	gen_context(system_u:object_r:bin_t,s0)
++/usr/bin/mountpoint\.sysvinit	--	gen_context(system_u:object_r:bin_t,s0)
+ /usr/bin/nologin		--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /usr/bin/sash			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /usr/bin/sesh			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /usr/bin/scponly		--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /usr/bin/scponlyc		--	gen_context(system_u:object_r:shell_exec_t,s0)
+--- a/policy/modules/system/init.fc
++++ b/policy/modules/system/init.fc
+@@ -40,10 +40,11 @@ ifdef(`distro_gentoo', `
+ 
+ /usr/libexec/dcc/start-.* --	gen_context(system_u:object_r:initrc_exec_t,s0)
+ /usr/libexec/dcc/stop-.* --	gen_context(system_u:object_r:initrc_exec_t,s0)
+ 
+ /usr/sbin/init(ng)?	--	gen_context(system_u:object_r:init_exec_t,s0)
++/usr/sbin/init\.sysvinit	--	gen_context(system_u:object_r:init_exec_t,s0)
+ /usr/sbin/open_init_pty	--	gen_context(system_u:object_r:initrc_exec_t,s0)
+ /usr/sbin/upstart	--	gen_context(system_u:object_r:init_exec_t,s0)
+ 
+ ifdef(`distro_gentoo', `
+ /usr/sbin/rc		--	gen_context(system_u:object_r:rc_exec_t,s0)

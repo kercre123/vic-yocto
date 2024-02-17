@@ -1,0 +1,90 @@
+#! /bin/sh
+
+/bin/mount -a
+/bin/busybox --install
+/bin/mount -t sysfs none /sys
+/bin/mount -t debugfs debugfs /sys/kernel/debug
+/bin/mount -t tracefs tracefs /sys/kernel/debug/tracing > /dev/null 2>&1
+/sbin/mdev -s
+/bin/echo /sbin/mdev > /proc/sys/kernel/hotplug
+
+# This is necessary to emulate the android environment expected by adbd
+echo "Configuring the Kdev environment to support 'adb shell' ..."
+mkdir /dev/pts
+mount -t devpts devpts /dev/pts
+chmod 0666 /dev/ptmx
+mkdir -p /system/bin
+ln -s /bin/sh /system/bin/sh
+chmod 4755 /bin/su
+
+# get soc platform
+if [ -f /sys/devices/soc0/hw_platform ]; then
+	socplatform=`cat /sys/devices/soc0/machine` 2> /dev/null
+else
+	socplatform=`cat /sys/devices/system/soc/soc0/machine` 2> /dev/null
+fi
+echo "soc:" $socplatform
+
+# find serialno from cmdline
+cmdline=`cat /proc/cmdline` 2> /dev/null
+strsearch="androidboot.serialno="
+if echo "$cmdline" | grep -q "$strsearch"; then
+	startsearch=${cmdline#*$strsearch}
+	pos=$(( ${#cmdline} - ${#startsearch}))
+	serialno=${cmdline:$pos:8}
+else
+	echo "serialno not found with cmdline, use default"
+	serialno="12345678"
+fi
+
+echo "serialno:" $serialno
+mount -t configfs none /sys/kernel/config
+if [ -d /sys/kernel/config/usb_gadget ]; then
+	echo "Configuring the USB gadget using ConfigFS..."
+	cd /sys/kernel/config/usb_gadget
+	mkdir g1
+	cd g1
+	mkdir strings/0x409
+	mkdir configs/c.1
+	mkdir configs/c.1/strings/0x409
+	mkdir functions/ffs.adb
+
+	echo "$serialno" > strings/0x409/serialnumber
+	echo "QCOM" > strings/0x409/manufacturer
+	echo "$socplatform" > strings/0x409/product
+	echo 0x18d1 > /sys/kernel/config/usb_gadget/g1/idVendor
+	echo 0x4E11 > /sys/kernel/config/usb_gadget/g1/idProduct
+	echo "ADB" > configs/c.1/strings/0x409/configuration
+else
+	echo "Configuring the USB gadget using legcy method..."
+	cd /sys/class/android_usb/android0/
+	echo 0 > enable
+	echo 05C6 > idVendor
+	echo 901D > idProduct
+	echo "$serialno" > iSerial
+	echo "QCOM" > iManufacturer
+	echo "$socplatform" > iProduct
+	echo diag > f_diag/clients
+	echo diag,ffs > functions
+	echo 1 > enable
+fi
+
+echo "Configuring FunctionFS endpoints for adbd..."
+if [ ! -d /dev/usb-ffs/adb ]; then
+    mkdir -p /dev/usb-ffs/adb
+fi
+if [ ! -e /dev/usb-ffs/adb/ep0 ]; then
+    mount -o uid=2000,gid=2000 -t functionfs adb /dev/usb-ffs/adb
+fi
+
+echo "Launching adbd..."
+/sbin/adbd &
+
+if [ -d /sys/kernel/config/usb_gadget ]; then
+	ln -s functions/ffs.adb configs/c.1/f1
+	sleep 1
+	udcname=`ls -1 /sys/class/udc | head -n 1`
+	echo "binding UDC with Gadget..." $udcname
+	echo $udcname > UDC
+fi
+

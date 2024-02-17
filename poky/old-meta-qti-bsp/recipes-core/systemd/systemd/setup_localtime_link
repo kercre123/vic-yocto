@@ -1,0 +1,11 @@
+#!/bin/sh
+
+setup_default_timezone() {
+    # Establish link for default timezone
+    mkdir -p /data/etc
+    if [ -h /etc/localtime.default -a ! -h /data/etc/localtime ]; then
+	/bin/ln -sf `/bin/readlink /etc/localtime.default` /data/etc/localtime
+    fi
+}
+
+setup_default_timezone

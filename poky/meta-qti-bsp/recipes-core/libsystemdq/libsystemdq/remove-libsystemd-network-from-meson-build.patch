@@ -1,0 +1,21 @@
+diff --git a/meson.build b/meson.build
+index 1ff632b..75b85fd 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1259,7 +1259,6 @@ includes = include_directories('src/basic',
+                                'src/libsystemd/sd-id128',
+                                'src/libsystemd/sd-netlink',
+                                'src/libsystemd/sd-network',
+-                               'src/libsystemd-network',
+                                '.')
+ 
+ add_project_arguments('-include', 'config.h', language : 'c')
+@@ -1269,8 +1268,6 @@ subdir('catalog')
+ subdir('src/systemd')
+ subdir('src/basic')
+ subdir('src/libsystemd')
+-subdir('src/libsystemd-network')
+-
+ 
+ 
+ libsystemdq_sym_path = '@0@/@1@'.format(meson.current_source_dir(), libsystemdq_sym)

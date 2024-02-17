@@ -1,0 +1,188 @@
+From 4dd15ad92a6ade15c734a343533e7f7f824ada61 Mon Sep 17 00:00:00 2001
+From: Stuart Eichert <seichert@anki.com>
+Date: Thu, 18 Oct 2018 16:19:04 -0700
+Subject: [PATCH] Emit a DAS event when time is synchronized
+
+---
+ configure   |  3 ++-
+ das_event.c | 82 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ das_event.h | 23 +++++++++++++++++
+ sys_timex.c | 15 +++++++++++
+ 4 files changed, 122 insertions(+), 1 deletion(-)
+ create mode 100644 das_event.c
+ create mode 100644 das_event.h
+
+diff --git a/configure b/configure
+index cb1d139..9ab0926 100755
+--- a/configure
++++ b/configure
+@@ -362,7 +362,8 @@ SYSTEM=${OPERATINGSYSTEM}-${MACHINE}
+ 
+ case $OPERATINGSYSTEM in
+     Linux)
+-        EXTRA_OBJECTS="sys_generic.o sys_linux.o sys_timex.o"
++        EXTRA_OBJECTS="sys_generic.o sys_linux.o sys_timex.o das_event.o"
++        EXTRA_LIBS="-llog"
+         [ $try_libcap != "0" ] && try_libcap=1
+         try_rtc=1
+         [ $try_seccomp != "0" ] && try_seccomp=1
+diff --git a/das_event.c b/das_event.c
+new file mode 100644
+index 0000000..7a9de58
+--- /dev/null
++++ b/das_event.c
+@@ -0,0 +1,82 @@
++/*
++ * Author: Stuart Eichert (seichert@anki.com)
++ * Copyright 2018, Anki Inc.
++ *
++ * file: das_event.c
++ *
++ */
++
++#include "das_event.h"
++#include <android/log.h>
++#include <stdint.h>
++#include <time.h>
++
++
++//
++// If boot clock is available, use it, else fall back to monotonic clock
++//
++#if defined(CLOCK_BOOTTIME)
++#define CLOCK CLOCK_BOOTTIME
++#else
++#define CLOCK CLOCK_MONOTONIC
++#endif
++
++static uint64_t UptimeMS()
++{
++  struct timespec ts = {0};
++  clock_gettime(CLOCK, &ts);
++  return (ts.tv_sec * 1000) + (ts.tv_nsec/1000000);
++}
++
++
++void das_event(const char* tag,
++               const char* name,
++               const char* s1,
++               const char* s2,
++               const char* s3,
++               const char* s4,
++               const char* i1,
++               const char* i2,
++               const char* i3,
++               const char* i4)
++{
++  const char* str1 = "";
++  const char* str2 = "";
++  const char* str3 = "";
++  const char* str4 = "";
++  const char* int1 = "";
++  const char* int2 = "";
++  const char* int3 = "";
++  const char* int4 = "";
++
++  if (s1) {
++    str1 = s1;
++  }
++  if (s2) {
++    str2 = s2;
++  }
++  if (s3) {
++    str3 = s3;
++  }
++  if (s4) {
++    str4 = s4;
++  }
++  if (i1) {
++    int1 = i1;
++  }
++  if (i2) {
++    int2 = i2;
++  }
++  if (i3) {
++    int3 = i3;
++  }
++  if (i4) {
++    int4 = i4;
++  }
++
++  __android_log_print(ANDROID_LOG_INFO,
++                      tag,
++                      "@%s\x1F%s\x1F%s\x1F%s\x1F%s\x1F%s\x1F%s\x1F%s\x1F%s\x1F%llu",
++                      name, str1, str2, str3, str4, int1, int2, int3, int4, UptimeMS());
++  return;
++}
+diff --git a/das_event.h b/das_event.h
+new file mode 100644
+index 0000000..0208c60
+--- /dev/null
++++ b/das_event.h
+@@ -0,0 +1,23 @@
++/*
++ * Author: Stuart Eichert (seichert@anki.com)
++ * Copyright 2018, Anki Inc.
++ *
++ * file: das_event.h
++ *
++ */
++
++#ifndef DAS_EVENT_H
++#define DAS_EVENT_H
++
++void das_event(const char* tag,
++               const char* name,
++               const char* s1,
++               const char* s2,
++               const char* s3,
++               const char* s4,
++               const char* i1,
++               const char* i2,
++               const char* i3,
++               const char* i4);
++
++#endif /* DAS_EVENT_H */
+diff --git a/sys_timex.c b/sys_timex.c
+index 7abb629..7d65470 100644
+--- a/sys_timex.c
++++ b/sys_timex.c
+@@ -40,6 +40,7 @@
+ #define NTP_ADJTIME_NAME "ntp_adjtime"
+ #else
+ #ifdef LINUX
++#include "das_event.h"
+ #define NTP_ADJTIME adjtimex
+ #define NTP_ADJTIME_NAME "adjtimex"
+ #else
+@@ -130,6 +131,9 @@ static void
+ set_sync_status(int synchronised, double est_error, double max_error)
+ {
+   struct timex txc;
++#ifdef LINUX
++  int previously_synchronised = (status & STA_UNSYNC) ? 0 : 1;
++#endif
+ 
+   if (synchronised) {
+     if (est_error > MAX_SYNC_ERROR)
+@@ -159,6 +163,17 @@ set_sync_status(int synchronised, double est_error, double max_error)
+   txc.maxerror = max_error * 1.0e6;
+ 
+   SYS_Timex_Adjust(&txc, 1);
++#ifdef LINUX
++  if (!previously_synchronised && synchronised) {
++    das_event("chronyd", "ntp.timesync",
++              NULL, NULL, NULL, NULL,
++              NULL, NULL, NULL, NULL);
++  } else if (previously_synchronised && !synchronised) {
++    das_event("chronyd", "ntp.timeunsync",
++              NULL, NULL, NULL, NULL,
++              NULL, NULL, NULL, NULL);
++  }
++#endif
+ }
+ 
+ /* ================================================== */
+-- 
+2.1.2
+

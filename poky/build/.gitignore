@@ -1,0 +1,6 @@
+bitbake.lock
+cache/
+downloads/
+sstate-cache/
+tmp-glibc/
+os-version-rev

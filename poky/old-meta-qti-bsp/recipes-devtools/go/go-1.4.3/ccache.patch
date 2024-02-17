@@ -1,0 +1,156 @@
+In order for ccache to work with golang 1.4, Amy's changes to
+1.3 have been ported over. The commit message from the original modification
+follows:
+
+  golang doesn't work with ccache. In the current state, a lot of parsing
+  happens where it'll grab the first string in CC or LD and uses that for
+  its builds. When ccache is enabled, it results in trying to do builds
+  with just ccache.
+
+  The brokeness is seen when building with apps that uses cgo, like docker.
+  To enable ccache to work, some string comparisons and changes to parsing
+  had to be made.
+
+  Signed-off-by: Amy Fong <amy.fong@windriver.com>
+
+Signed-off-by: Christopher Braga <chris.braga@windriver.com>
+
+diff --git a/src/cmd/cgo/gcc.go b/src/cmd/cgo/gcc.go
+index abdd369..5145c08 100644
+--- a/src/cmd/cgo/gcc.go
++++ b/src/cmd/cgo/gcc.go
+@@ -728,6 +728,12 @@ func (p *Package) rewriteRef(f *File) {
+ func (p *Package) gccBaseCmd() []string {
+ 	// Use $CC if set, since that's what the build uses.
+ 	if ret := strings.Fields(os.Getenv("CC")); len(ret) > 0 {
++		if strings.Contains(ret[0], "ccache") {
++			base_cc := ret[0] + " " + ret[1]
++			os.Setenv("CCACHE_CC", ret[1])
++			ret[1] = base_cc
++			return ret[1:]
++        	}
+ 		return ret
+ 	}
+ 	// Try $GCC if set, since that's what we used to use.
+diff --git a/src/cmd/go/build.go b/src/cmd/go/build.go
+index 1dd4314..faf43b8 100644
+--- a/src/cmd/go/build.go
++++ b/src/cmd/go/build.go
+@@ -2081,8 +2081,15 @@ func (b *builder) ccompilerCmd(envvar, defcmd, objdir string) []string {
+ 	// strings returned are "gcc", "-I", objdir (and cuts them off).
+ 
+ 	compiler := envList(envvar, defcmd)
+-	a := []string{compiler[0], "-I", objdir}
+-	a = append(a, compiler[1:]...)
++
++	a := []string{compiler[0]}
++	if strings.Contains(compiler[0], "ccache") {
++		a = append(a, compiler[1], "-I", objdir)
++		a = append(a, compiler[2:]...)
++	} else {
++		a = append(a, "-I", objdir)
++		a = append(a, compiler[1:]...)
++	}
+ 
+ 	// Definitely want -fPIC but on Windows gcc complains
+ 	// "-fPIC ignored for target (all code is position independent)"
+diff --git a/src/cmd/ld/lib.c b/src/cmd/ld/lib.c
+index f889aba..f80e953 100644
+--- a/src/cmd/ld/lib.c
++++ b/src/cmd/ld/lib.c
+@@ -564,7 +564,7 @@ hostlinksetup(void)
+ void
+ hostlink(void)
+ {
+-	char *p, **argv;
++	char *p, *q, **argv;
+ 	int c, i, w, n, argc, len;
+ 	Hostobj *h;
+ 	Biobuf *f;
+@@ -589,6 +589,19 @@ hostlink(void)
+ 	if(extld == nil)
+ 		extld = "gcc";
+ 	argv[argc++] = extld;
++
++	p = extldflags;
++	if (strstr(argv[0], "ccache") != NULL) {
++		while(p != nil) {
++			while(*p == ' ')
++				*p++ = '\0';
++			if(*p == '\0')
++				break;
++			argv[argc++] = p;
++			p = strchr(p + 1, ' ');
++			break;
++		}
++	}
+ 	switch(thechar){
+ 	case '8':
+ 		argv[argc++] = "-m32";
+@@ -641,12 +654,12 @@ hostlink(void)
+ 			errorexit();
+ 		}
+ 		Bseek(f, h->off, 0);
+-		p = smprint("%s/%06d.o", tmpdir, i);
+-		argv[argc++] = p;
+-		w = create(p, 1, 0775);
++		q = smprint("%s/%06d.o", tmpdir, i);
++		argv[argc++] = q;
++		w = create(q, 1, 0775);
+ 		if(w < 0) {
+ 			ctxt->cursym = S;
+-			diag("cannot create %s: %r", p);
++			diag("cannot create %s: %r", q);
+ 			errorexit();
+ 		}
+ 		len = h->len;
+@@ -658,7 +671,7 @@ hostlink(void)
+ 		}
+ 		if(close(w) < 0) {
+ 			ctxt->cursym = S;
+-			diag("cannot write %s: %r", p);
++			diag("cannot write %s: %r", q);
+ 			errorexit();
+ 		}
+ 		Bterm(f);
+@@ -668,7 +681,6 @@ hostlink(void)
+ 	for(i=0; i<nldflag; i++)
+ 		argv[argc++] = ldflag[i];
+ 
+-	p = extldflags;
+ 	while(p != nil) {
+ 		while(*p == ' ')
+ 			*p++ = '\0';
+diff --git a/src/os/exec/lp_unix.go b/src/os/exec/lp_unix.go
+index 3f895d5..08ae202 100644
+--- a/src/os/exec/lp_unix.go
++++ b/src/os/exec/lp_unix.go
+@@ -35,8 +35,14 @@ func LookPath(file string) (string, error) {
+ 	// (only bypass the path if file begins with / or ./ or ../)
+ 	// but that would not match all the Unix shells.
+ 
+-	if strings.Contains(file, "/") {
+-		err := findExecutable(file)
++	tmp := file
++	if strings.Contains(file, " ") {
++		exec_part := strings.Split(file, " ")[0]
++		tmp = exec_part
++	}
++
++	if strings.Contains(tmp, "/") {
++		err := findExecutable(tmp)
+ 		if err == nil {
+ 			return file, nil
+ 		}
+@@ -51,7 +57,7 @@ func LookPath(file string) (string, error) {
+ 			// Unix shell semantics: path element "" means "."
+ 			dir = "."
+ 		}
+-		path := dir + "/" + file
++		path := dir + "/" + tmp
+ 		if err := findExecutable(path); err == nil {
+ 			return path, nil
+ 		}
+-- 
+2.1.0
+

@@ -1,0 +1,54 @@
+
+### Shell environment ready to run bitake commands. ###
+
+Ensure MACHINE, DISTRO & VARIANT are appropriately set before proceeding.
+Supported combinations are listed below.
+
+      +---------------+----------------+------------------+
+      | MACHINE       | DISTRO         |  VARIANT         |
+      +---------------+----------------+------------------+
+      |apq8009        | qsap robot-som | debug perf user  |
+      +---------------+----------------+------------------+
+      |apq8017        | qsap           | debug perf user  |
+      +---------------+----------------+------------------+
+      |apq8053-32     | concam batcam  | debug perf user  |
+      +---------------+----------------+------------------+
+      |apq8098        |                | debug            |
+      +---------------+----------------+------------------+
+      |mdm9607        | mdm            | debug perf       |
+      |               | mdm-kernel-4.9 |                  |
+      +---------------+----------------+------------------+
+      |mdm9650        | mdm            | debug perf       |
+      +---------------+----------------+------------------+
+      |qcs403-som2    | qsap           | debug perf       |
+      |qcs405-som1    |                |                  |
+      |nf-64          |                |                  |
+      |nf-32          |                |                  |
+      +---------------+----------------+------------------+
+      |sa2150p        | msm            | debug perf       |
+      |sa2150p-nand   | auto-eap-nand  | debug perf       |
+      +---------------+----------------+------------------+
+      |qcs605-32      | concam         | debug perf user  |
+      |qcs605-64      |                |                  |
+      +---------------+----------------+------------------+
+      |sdxpoorwills   | mdm auto       | debug perf       |
+      +---------------+----------------+------------------+
+      |sdxprairie     |                | debug perf       |
+      +---------------+----------------+------------------+
+      |sa8155         | automotive     | debug perf       |
+      |sa8155qdrive   |                |                  |
+      +---------------+----------------+------------------+
+      |qtiquingvm     | automotive     | debug perf       |
+      +---------------+----------------+------------------+
+      |sdmsteppe      | concam         | debug perf user  |
+      +---------------+----------------+------------------+
+      |sdm845         | robot          | debug perf       |
+      +---------------+----------------+------------------+
+
+Once ready run 'bitbake <pkg-name>' to build required package or
+run 'bitbake machine-image' to build complete image.
+
+Alternatively you may also use convenience commands to build images.
+Run 'list-build-commands' to list these.
+
+

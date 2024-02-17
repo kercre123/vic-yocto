@@ -1,0 +1,39 @@
+# canned_fs_config file for make_ext4fs
+#
+# This file defines ownership, permissions and capabilities of
+# of directories and files. It is passed to make_ext4fs via the -C param
+# as the final phase of creating the system image.
+#
+# For definitions of anki-specific users/groups see:
+# poky/meta-anki/recipes/anki-robot/victor.bb
+#
+# Daemons ownership and permissions
+#
+# ================================
+# vicos specific utilities
+# ================================
+
+# assign root:disk ownership, with sgid disk for block partition access
+bin/emr-cat                 0   6   2755
+
+# ================================
+# Bluetooth stuff
+# ================================
+#
+
+usr/bin/ankibluetoothd      2904 2904 0750
+usr/bin/viccubetool         2904 2904 0750
+misc/bluetooth              2904 2904 0750
+misc/bluetooth/bt_did.conf  2904 2904 0640
+misc/bluetooth/bt_stack.conf  2904 2904 0640
+misc/bluetooth/init.msm.bt.sh  2904 2904 0750
+misc/bluetooth/iot_devlist.conf 2904 2904 0640
+
+
+# Camera Stuff
+# ===========
+usr/bin/mm-anki-camera      2907 2907 0750
+
+# Systemd notify
+bin/systemd-notify          2901 2901 0750
+

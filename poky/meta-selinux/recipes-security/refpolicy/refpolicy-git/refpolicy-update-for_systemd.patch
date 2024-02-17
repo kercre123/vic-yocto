@@ -1,0 +1,28 @@
+From 07553727dca51631c93bca482442da8d0c50ac94 Mon Sep 17 00:00:00 2001
+From: Shrikant Bobade <shrikant_bobade@mentor.com>
+Date: Fri, 12 Jun 2015 19:37:52 +0530
+Subject: [PATCH] refpolicy: update for systemd related allow rules
+
+It provide, the systemd support related allow rules
+
+Upstream-Status: Pending
+
+Signed-off-by: Shrikant Bobade <shrikant_bobade@mentor.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/init.te |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+--- a/policy/modules/system/init.te
++++ b/policy/modules/system/init.te
+@@ -1387,5 +1387,10 @@ dontaudit systemprocess init_t:unix_stre
+ optional_policy(`
+ 	userdom_dontaudit_search_user_home_dirs(systemprocess)
+ 	userdom_dontaudit_rw_all_users_stream_sockets(systemprocess)
+ 	userdom_dontaudit_write_user_tmp_files(systemprocess)
+ ')
++
++# systemd related allow rules
++allow kernel_t init_t:process dyntransition;
++allow devpts_t device_t:filesystem associate;
++allow init_t self:capability2 block_suspend;

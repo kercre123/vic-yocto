@@ -1,0 +1,23 @@
+From 3ecbd842d51a8e70b3403e857a24203285d4983b Mon Sep 17 00:00:00 2001
+From: Wenzong Fan <wenzong.fan@windriver.com>
+Date: Mon, 27 Jan 2014 01:13:06 -0500
+Subject: [PATCH] refpolicy: fix real path for cpio
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/contrib/rpm.fc |    1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/policy/modules/contrib/rpm.fc
++++ b/policy/modules/contrib/rpm.fc
+@@ -61,6 +61,7 @@ ifdef(`distro_redhat',`
+ /run/yum.*	--	gen_context(system_u:object_r:rpm_var_run_t,s0)
+ /run/PackageKit(/.*)?	gen_context(system_u:object_r:rpm_var_run_t,s0)
+ 
+ ifdef(`enable_mls',`
+ /usr/sbin/cpio	--	gen_context(system_u:object_r:rpm_exec_t,s0)
++/bin/cpio.cpio	--	gen_context(system_u:object_r:rpm_exec_t,s0)
+ ')

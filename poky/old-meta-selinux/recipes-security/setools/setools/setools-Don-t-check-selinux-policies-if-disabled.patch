@@ -1,0 +1,25 @@
+From 7515aa80e7ead8d3016ea161e5d0eb9c59399278 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Wed, 7 Mar 2012 14:36:19 +0800
+Subject: [PATCH] setools: Don't check selinux policies if disabled.
+
+---
+ configure.ac |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index e1db271..899e5e9 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -390,7 +390,7 @@ if test "x${enable_selinux_check}" = "xyes"; then
+       use_selinux=yes
+   fi
+ else
+-      use_selinux=yes
++      use_selinux=no
+ fi
+ 
+ AC_CACHE_SAVE
+-- 
+1.7.5.4
+

@@ -1,0 +1,39 @@
+From c1aae6cc131371729f098e4b0aa02142a85b5890 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Mon, 23 Sep 2013 21:17:59 +0800
+Subject: [PATCH] policycoreutils: fix install path for new pymodule sepolicy
+
+Uptream-Status: Pending
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+Signed-off-by: Yi Zhao <yi.zhao@windriver.com>
+---
+ sepolicy/Makefile | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/sepolicy/Makefile b/sepolicy/Makefile
+index fb8a132..a6ee749 100644
+--- a/sepolicy/Makefile
++++ b/sepolicy/Makefile
+@@ -8,6 +8,8 @@ BASHCOMPLETIONDIR ?= $(PREFIX)/share/bash-completion/completions
+ CFLAGS ?= -Wall -Werror -Wextra -W
+ override CFLAGS += -DPACKAGE="policycoreutils" -DSHARED -shared
+ 
++PYLIBVER ?= $(shell python -c 'import sys;print "python%d.%d" % sys.version_info[0:2]')
++
+ BASHCOMPLETIONS=sepolicy-bash-completion.sh
+ 
+ all: python-build
+@@ -26,7 +28,7 @@ test:
+ 	@$(PYTHON) test_sepolicy.py -v
+ 
+ install:
+-	$(PYTHON) setup.py install --prefix=$(PREFIX) `test -n "$(DESTDIR)" && echo --root $(DESTDIR)`
++	$(PYTHON) setup.py install --prefix=$(PREFIX) --install-lib $(DESTDIR)$(LIBDIR)/$(PYLIBVER)/site-packages
+ 	[ -d $(DESTDIR)$(BINDIR) ] || mkdir -p $(DESTDIR)$(BINDIR)
+ 	install -m 755 sepolicy.py $(DESTDIR)$(BINDIR)/sepolicy
+ 	(cd $(DESTDIR)$(BINDIR); ln -sf sepolicy sepolgen)
+-- 
+2.7.4
+

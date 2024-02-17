@@ -1,0 +1,33 @@
+From 32edfc2e2080c6ee777b199e100e83f7215010d6 Mon Sep 17 00:00:00 2001
+From: Tyler Wear <twear@codeaurora.org>
+Date: Fri, 2 Jan 2015 14:10:38 -0800
+Subject: [PATCH] Making sure cross-compilation works fine
+
+---
+ configure | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/configure b/configure
+index da01c19..e13581a 100755
+--- a/configure
++++ b/configure
+@@ -2,6 +2,7 @@
+ # This is not an autoconf generated configure
+ #
+ INCLUDE=${1:-"$PWD/include"}
++SYSROOT=$1
+
+ # Make a temp directory in build tree.
+ TMPDIR=$(mktemp -d config.XXXXXX)
+@@ -166,7 +167,7 @@ check_ipt_lib_dir()
+		return
+	fi
+
+-	for dir in /lib /usr/lib /usr/local/lib
++	for dir in $SYSROOT/lib $SYSROOT/usr/lib $SYSROOT/usr/local/lib
+	do
+		for file in $dir/{xtables,iptables}/lib*t_*so ; do
+			if [ -f $file ]; then
+--
+1.8.2.1
+

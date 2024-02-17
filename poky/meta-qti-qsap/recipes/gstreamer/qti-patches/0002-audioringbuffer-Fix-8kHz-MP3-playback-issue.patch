@@ -1,0 +1,25 @@
+From 5be21685c8b2b6a638289a3d26d9cc381dd5f15a Mon Sep 17 00:00:00 2001
+From: Hareesh Gautham <hgautham@codeaurora.org>
+Date: Wed, 3 May 2017 14:05:12 +0530
+Subject: [PATCH] audioringbuffer: Fix 8kHz MP3 playback issue
+
+---
+ gst-libs/gst/audio/gstaudioringbuffer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/gst-libs/gst/audio/gstaudioringbuffer.c b/gst-libs/gst/audio/gstaudioringbuffer.c
+index 2628697..98c5185 100644
+--- a/gst-libs/gst/audio/gstaudioringbuffer.c
++++ b/gst-libs/gst/audio/gstaudioringbuffer.c
+@@ -272,7 +272,7 @@ gst_audio_ring_buffer_parse_caps (GstAudioRingBufferSpec * spec, GstCaps * caps)
+     info.bpf = 4;
+   } else if (g_str_equal (mimetype, "audio/mpeg") &&
+       gst_structure_get_int (structure, "mpegaudioversion", &i) &&
+-      (i == 1 || i == 2)) {
++      (i == 1 || i == 2 || i == 3)) {
+     /* Now we know this is MPEG-1 or MPEG-2 (non AAC) */
+     /* extract the needed information from the cap */
+     if (!(gst_structure_get_int (structure, "rate", &info.rate)))
+-- 
+1.9.1
+

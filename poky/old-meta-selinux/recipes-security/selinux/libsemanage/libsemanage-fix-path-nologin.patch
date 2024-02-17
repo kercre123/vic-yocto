@@ -1,0 +1,38 @@
+Subject: [PATCH] libsemange: fix incorrect path for nologin
+
+shadow package of oe-core and Debian has installed nologin into
+/usr/sbin, so fix this path.
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+---
+ src/genhomedircon.c |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/genhomedircon.c b/src/genhomedircon.c
+index f3b9b5c..4f4865a 100644
+--- a/src/genhomedircon.c
++++ b/src/genhomedircon.c
+@@ -58,7 +58,7 @@
+ 
+ /* other paths */
+ #define PATH_SHELLS_FILE "/etc/shells"
+-#define PATH_NOLOGIN_SHELL "/sbin/nologin"
++#define PATH_NOLOGIN_SHELL "/usr/sbin/nologin"
+ 
+ /* comments written to context file */
+ #define COMMENT_FILE_CONTEXT_HEADER "#\n#\n# " \
+@@ -393,7 +393,7 @@ static semanage_list_t *get_home_dirs(genhomedircon_settings_t * s)
+ 
+ 			/* NOTE: old genhomedircon printed a warning on match */
+ 			if (hand.matched) {
+-				WARN(s->h_semanage, "%s homedir %s or its parent directory conflicts with a file context already specified in the policy.  This usually indicates an incorrectly defined system account.  If it is a system account please make sure its uid is less than %u or greater than %u or its login shell is /sbin/nologin.", pwbuf->pw_name, pwbuf->pw_dir, minuid, maxuid);
++				WARN(s->h_semanage, "%s homedir %s or its parent directory conflicts with a file context already specified in the policy.  This usually indicates an incorrectly defined system account.  If it is a system account please make sure its uid is less than %u or greater than %u or its login shell is /usr/sbin/nologin.", pwbuf->pw_name, pwbuf->pw_dir, minuid, maxuid);
+ 			} else {
+ 				if (semanage_list_push(&homedir_list, path))
+ 					goto fail;
+-- 
+1.7.9.5
+

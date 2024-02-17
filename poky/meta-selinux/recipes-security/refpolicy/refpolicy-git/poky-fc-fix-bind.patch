@@ -1,0 +1,28 @@
+From e438a9466a615db3f63421157d5ee3bd6d055403 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 19:09:11 +0800
+Subject: [PATCH] refpolicy: fix real path for bind.
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/contrib/bind.fc |    2 ++
+ 1 file changed, 2 insertions(+)
+
+--- a/policy/modules/contrib/bind.fc
++++ b/policy/modules/contrib/bind.fc
+@@ -1,10 +1,12 @@
+ /etc/rc\.d/init\.d/named	--	gen_context(system_u:object_r:named_initrc_exec_t,s0)
++/etc/rc\.d/init\.d/bind	--	gen_context(system_u:object_r:named_initrc_exec_t,s0)
+ /etc/rc\.d/init\.d/unbound	--	gen_context(system_u:object_r:named_initrc_exec_t,s0)
+ 
+ /etc/bind(/.*)?	gen_context(system_u:object_r:named_zone_t,s0)
+ /etc/bind/named\.conf.*	--	gen_context(system_u:object_r:named_conf_t,s0)
++/etc/bind/rndc\.conf    --      gen_context(system_u:object_r:named_conf_t,s0)
+ /etc/bind/rndc\.key	--	gen_context(system_u:object_r:dnssec_t,s0)
+ /etc/dnssec-trigger/dnssec_trigger_server\.key	--	gen_context(system_u:object_r:dnssec_t,s0)
+ /etc/named\.rfc1912\.zones	--	gen_context(system_u:object_r:named_conf_t,s0)
+ /etc/named\.root\.hints	--	gen_context(system_u:object_r:named_conf_t,s0)
+ /etc/named\.conf	--	gen_context(system_u:object_r:named_conf_t,s0)

@@ -1,0 +1,14 @@
+[Unit]
+Description=mdnsd service
+
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Restart=on-failure
+Type=forking
+PIDFile=/var/run/mdnsd.pid
+ExecStart=/usr/sbin/mdnsd
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,29 @@
+From 6b3165da36a44244658b3622398cf2f06259b00b Mon Sep 17 00:00:00 2001
+From: Stuart Eichert <seichert@anki.com>
+Date: Mon, 15 Oct 2018 11:19:02 -0700
+Subject: [PATCH] Disable NTP by default
+
+By default, we do NOT want connman to perform NTP operations. We have
+a separate NTP client to do that.
+---
+ src/clock.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/clock.c b/src/clock.c
+index 0fde2c3..aab8ecc 100644
+--- a/src/clock.c
++++ b/src/clock.c
+@@ -35,8 +35,8 @@ enum timezone_updates {
+ 	TIMEZONE_UPDATES_AUTO    = 2,
+ };
+ 
+-static enum time_updates time_updates_config = TIME_UPDATES_AUTO;
+-static enum timezone_updates timezone_updates_config = TIMEZONE_UPDATES_AUTO;
++static enum time_updates time_updates_config = TIME_UPDATES_MANUAL;
++static enum timezone_updates timezone_updates_config = TIMEZONE_UPDATES_MANUAL;
+ 
+ static char *timezone_config = NULL;
+ 
+-- 
+2.1.2
+

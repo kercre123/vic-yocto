@@ -1,0 +1,37 @@
+Subject: [PATCH] fix real path for login commands.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/authlogin.fc |    7 ++++---
+ 1 files changed, 4 insertions(+), 3 deletions(-)
+
+--- a/policy/modules/system/authlogin.fc
++++ b/policy/modules/system/authlogin.fc
+@@ -1,19 +1,21 @@
+ 
+ /bin/login		--	gen_context(system_u:object_r:login_exec_t,s0)
++/bin/login\.shadow	--	gen_context(system_u:object_r:login_exec_t,s0)
++/bin/login\.tinylogin	--	gen_context(system_u:object_r:login_exec_t,s0)
+ 
+ /etc/\.pwd\.lock	--	gen_context(system_u:object_r:shadow_t,s0)
+ /etc/group\.lock	--	gen_context(system_u:object_r:shadow_t,s0)
+ /etc/gshadow.*		--	gen_context(system_u:object_r:shadow_t,s0)
+ /etc/passwd\.lock	--	gen_context(system_u:object_r:shadow_t,s0)
+ /etc/shadow.*		--	gen_context(system_u:object_r:shadow_t,s0)
+ 
+ /sbin/pam_console_apply	 --	gen_context(system_u:object_r:pam_console_exec_t,s0)
+ /sbin/pam_timestamp_check --	gen_context(system_u:object_r:pam_exec_t,s0)
+-/sbin/unix_chkpwd	--	gen_context(system_u:object_r:chkpwd_exec_t,s0)
+-/sbin/unix_update	--	gen_context(system_u:object_r:updpwd_exec_t,s0)
+-/sbin/unix_verify	--	gen_context(system_u:object_r:chkpwd_exec_t,s0)
++/sbin/unix_chkpwd		--	gen_context(system_u:object_r:chkpwd_exec_t,s0)
++/sbin/unix_update		--	gen_context(system_u:object_r:updpwd_exec_t,s0)
++/sbin/unix_verify		--	gen_context(system_u:object_r:chkpwd_exec_t,s0)
+ ifdef(`distro_suse', `
+ /sbin/unix2_chkpwd	--	gen_context(system_u:object_r:chkpwd_exec_t,s0)
+ ')
+ 
+ /usr/bin/login		--	gen_context(system_u:object_r:login_exec_t,s0)

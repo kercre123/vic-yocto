@@ -1,0 +1,12 @@
+# Data open source Packages
+IMAGE_INSTALL += "dhcpcd"
+IMAGE_INSTALL += "dnsmasq"
+IMAGE_INSTALL += "ebtables"
+IMAGE_INSTALL += "ethtool"
+IMAGE_INSTALL += "iproute2"
+IMAGE_INSTALL += "iptables"
+IMAGE_INSTALL += "tcpdump"
+IMAGE_INSTALL += "emac-dwc-eqos"
+IMAGE_INSTALL += "iputils"
+IMAGE_INSTALL += "conntrack-tools"
+IMAGE_INSTALL += "sfe"

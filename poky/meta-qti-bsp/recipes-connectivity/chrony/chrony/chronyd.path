@@ -1,0 +1,8 @@
+[Unit]
+Description=Monitor wifi connectivity to start chronyd
+
+[Path]
+PathExists=/tmp/notify-wifi-connected
+
+[Install]
+WantedBy=multi-user.target

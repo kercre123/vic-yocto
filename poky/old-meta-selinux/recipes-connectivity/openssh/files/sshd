@@ -1,0 +1,24 @@
+#%PAM-1.0
+
+auth       include      common-auth
+account    required     pam_nologin.so
+
+# SELinux needs to be the first session rule. This ensures that any
+# lingering context has been cleared. Without out this it is possible
+# that a module could execute code in the wrong domain.
+# When the module is present, "required" would be sufficient (When SELinux
+# is disabled, this returns success.)
+session    [success=ok ignore=ignore module_unknown=ignore default=bad] pam_selinux.so close
+
+account    include      common-account
+password   include      common-password
+session    optional     pam_keyinit.so force revoke
+session    include      common-session
+session    required     pam_loginuid.so
+
+# SELinux needs to intervene at login time to ensure that the process
+# starts in the proper default security context. Only sessions which are
+# intended to run in the user's context should be run after this.
+# When the module is present, "required" would be sufficient (When SELinux
+# is disabled, this returns success.)
+session [success=ok ignore=ignore module_unknown=ignore default=bad] pam_selinux.so open

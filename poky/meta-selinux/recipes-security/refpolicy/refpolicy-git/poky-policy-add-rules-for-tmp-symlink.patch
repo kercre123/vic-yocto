@@ -1,0 +1,129 @@
+From 22cd030a8118faae37c0835eb7875e482efe5dc1 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:37:23 +0800
+Subject: [PATCH] add rules for the symlink of /tmp
+
+/tmp is a symlink in poky, so we need allow rules for files to read
+lnk_file while doing search/list/delete/rw.. in /tmp/ directory.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/kernel/files.fc |    1 +
+ policy/modules/kernel/files.if |    8 ++++++++
+ 2 files changed, 9 insertions(+)
+
+--- a/policy/modules/kernel/files.fc
++++ b/policy/modules/kernel/files.fc
+@@ -172,10 +172,11 @@ HOME_ROOT/lost\+found/.*	<<none>>
+ 
+ #
+ # /tmp
+ #
+ /tmp			-d	gen_context(system_u:object_r:tmp_t,s0-mls_systemhigh)
++/tmp			-l	gen_context(system_u:object_r:tmp_t,s0-mls_systemhigh)
+ /tmp/.*				<<none>>
+ /tmp/\.journal			<<none>>
+ 
+ /tmp/lost\+found	-d	gen_context(system_u:object_r:lost_found_t,mls_systemhigh)
+ /tmp/lost\+found/.*		<<none>>
+--- a/policy/modules/kernel/files.if
++++ b/policy/modules/kernel/files.if
+@@ -4579,10 +4579,11 @@ interface(`files_search_tmp',`
+ 	gen_require(`
+ 		type tmp_t;
+ 	')
+ 
+ 	allow $1 tmp_t:dir search_dir_perms;
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Do not audit attempts to search the tmp directory (/tmp).
+@@ -4615,10 +4616,11 @@ interface(`files_list_tmp',`
+ 	gen_require(`
+ 		type tmp_t;
+ 	')
+ 
+ 	allow $1 tmp_t:dir list_dir_perms;
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Do not audit listing of the tmp directory (/tmp).
+@@ -4651,10 +4653,11 @@ interface(`files_delete_tmp_dir_entry',`
+ 	gen_require(`
+ 		type tmp_t;
+ 	')
+ 
+ 	allow $1 tmp_t:dir del_entry_dir_perms;
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Read files in the tmp directory (/tmp).
+@@ -4669,10 +4672,11 @@ interface(`files_read_generic_tmp_files'
+ 	gen_require(`
+ 		type tmp_t;
+ 	')
+ 
+ 	read_files_pattern($1, tmp_t, tmp_t)
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Manage temporary directories in /tmp.
+@@ -4687,10 +4691,11 @@ interface(`files_manage_generic_tmp_dirs
+ 	gen_require(`
+ 		type tmp_t;
+ 	')
+ 
+ 	manage_dirs_pattern($1, tmp_t, tmp_t)
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Manage temporary files and directories in /tmp.
+@@ -4705,10 +4710,11 @@ interface(`files_manage_generic_tmp_file
+ 	gen_require(`
+ 		type tmp_t;
+ 	')
+ 
+ 	manage_files_pattern($1, tmp_t, tmp_t)
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Read symbolic links in the tmp directory (/tmp).
+@@ -4741,10 +4747,11 @@ interface(`files_rw_generic_tmp_sockets'
+ 	gen_require(`
+ 		type tmp_t;
+ 	')
+ 
+ 	rw_sock_files_pattern($1, tmp_t, tmp_t)
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Mount filesystems in the tmp directory (/tmp)
+@@ -4948,10 +4955,11 @@ interface(`files_tmp_filetrans',`
+ 	gen_require(`
+ 		type tmp_t;
+ 	')
+ 
+ 	filetrans_pattern($1, tmp_t, $2, $3, $4)
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Delete the contents of /tmp.

@@ -1,0 +1,18 @@
+# Anki fstab
+
+
+rootfs               /               auto      defaults,noatime,rw                            0  0
+proc                 /proc           proc      defaults,nodev,nosuid,noexec                   0  0
+devpts               /dev/pts        devpts    mode=0620,gid=5                                0  0
+usbdevfs             /proc/bus/usb   usbdevfs  noauto                                         0  0
+tmpfs                /media/ram      tmpfs     defaults,noauto                                0  0
+tmpfs                /run            tmpfs     mode=0755,nodev,nosuid,noexec,strictatime      0  0
+tmpfs                /var/volatile   tmpfs     defaults,nodev,nosuid,noexec                   0  0
+tmpfs                /dev/shm        tmpfs     defaults,nodev,nosuid,noexec                   0  0
+pstore               /sys/fs/pstore  pstore    defaults,nodev,nosuid,noexec                   0  0
+
+PARTLABEL=modem      /firmware       vfat      defaults,noexec,nosuid,nodev,noatime,ro        0  0
+PARTLABEL=persist    /persist        ext4      defaults,noexec,nosuid,nodev,noatime,noauto    0  0
+PARTLABEL=oem        /factory        ext4      defaults,noexec,nosuid,nodev,noatime,ro,nofail 0  0
+
+# /data is mounted exclusively by mount-data.service on boot up

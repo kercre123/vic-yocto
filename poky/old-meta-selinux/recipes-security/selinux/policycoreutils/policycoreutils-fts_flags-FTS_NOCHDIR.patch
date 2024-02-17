@@ -1,0 +1,25 @@
+This works around a bug in the default libc used by OE. FTS functions are
+supposed to change the current working directory as they walk the file
+hierarchy. The fts_accpath member of the FTSENT structure relies on this
+behavior and without it the path is not relative to cwd as expected.
+Supplying the FTS_NOCHDIR flag disables this optimization and causes
+fts_accpath to be relative to the directory where the traversal started.
+Use of this flag doesn't effect compatibility with glibc.
+
+An alternative fix could replace the use of fts_accpath with fts_path
+which is absolute.
+
+Signed-off-by: Philip Tricca <flihp@twobit.us>
+Index: policycoreutils/setfiles/setfiles.c
+===================================================================
+--- policycoreutils.orig/setfiles/setfiles.c
++++ policycoreutils/setfiles/setfiles.c
+@@ -194,7 +194,7 @@ int main(int argc, char **argv)
+ 		r_opts.expand_realpath = 0;
+ 		r_opts.abort_on_error = 1;
+ 		r_opts.add_assoc = 1;
+-		r_opts.fts_flags = FTS_PHYSICAL | FTS_XDEV;
++		r_opts.fts_flags = FTS_PHYSICAL | FTS_XDEV | FTS_NOCHDIR;
+ 		ctx_validate = 1;
+ 	} else {
+ 		/*

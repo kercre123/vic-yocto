@@ -1,0 +1,2 @@
+# BT OPEN SOURCE PACKAGES
+include ${BASEMACHINE}/${BASEMACHINE}-robot-bt-image.inc

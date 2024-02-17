@@ -1,0 +1,12 @@
+---
+ mcstrans/src/mcstrans.init |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/mcstrans/src/mcstrans.init
++++ b/mcstrans/src/mcstrans.init
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ #
+ # mcstransd        This starts and stops mcstransd
+ #

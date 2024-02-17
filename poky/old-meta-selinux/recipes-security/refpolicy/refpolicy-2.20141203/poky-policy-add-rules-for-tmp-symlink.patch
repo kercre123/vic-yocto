@@ -1,0 +1,99 @@
+From 22cd030a8118faae37c0835eb7875e482efe5dc1 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:37:23 +0800
+Subject: [PATCH] add rules for the symlink of /tmp
+
+/tmp is a symlink in poky, so we need allow rules for files to read
+lnk_file while doing search/list/delete/rw.. in /tmp/ directory.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+---
+ policy/modules/kernel/files.fc |    1 +
+ policy/modules/kernel/files.if |    8 ++++++++
+ 2 files changed, 9 insertions(+), 0 deletions(-)
+
+diff --git a/policy/modules/kernel/files.fc b/policy/modules/kernel/files.fc
+index 8796ca3..a0db748 100644
+--- a/policy/modules/kernel/files.fc
++++ b/policy/modules/kernel/files.fc
+@@ -185,6 +185,7 @@ ifdef(`distro_debian',`
+ # /tmp
+ #
+ /tmp			-d	gen_context(system_u:object_r:tmp_t,s0-mls_systemhigh)
++/tmp			-l	gen_context(system_u:object_r:tmp_t,s0-mls_systemhigh)
+ /tmp/.*				<<none>>
+ /tmp/\.journal			<<none>>
+ 
+diff --git a/policy/modules/kernel/files.if b/policy/modules/kernel/files.if
+index e1e814d..a7384b0 100644
+--- a/policy/modules/kernel/files.if
++++ b/policy/modules/kernel/files.if
+@@ -4199,6 +4199,7 @@ interface(`files_search_tmp',`
+ 	')
+ 
+ 	allow $1 tmp_t:dir search_dir_perms;
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+@@ -4235,6 +4236,7 @@ interface(`files_list_tmp',`
+ 	')
+ 
+ 	allow $1 tmp_t:dir list_dir_perms;
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+@@ -4271,6 +4273,7 @@ interface(`files_delete_tmp_dir_entry',`
+ 	')
+ 
+ 	allow $1 tmp_t:dir del_entry_dir_perms;
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+@@ -4289,6 +4292,7 @@ interface(`files_read_generic_tmp_files',`
+ 	')
+ 
+ 	read_files_pattern($1, tmp_t, tmp_t)
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+@@ -4307,6 +4311,7 @@ interface(`files_manage_generic_tmp_dirs',`
+ 	')
+ 
+ 	manage_dirs_pattern($1, tmp_t, tmp_t)
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+@@ -4325,6 +4330,7 @@ interface(`files_manage_generic_tmp_files',`
+ 	')
+ 
+ 	manage_files_pattern($1, tmp_t, tmp_t)
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+@@ -4361,6 +4367,7 @@ interface(`files_rw_generic_tmp_sockets',`
+ 	')
+ 
+ 	rw_sock_files_pattern($1, tmp_t, tmp_t)
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+@@ -4550,6 +4557,7 @@ interface(`files_tmp_filetrans',`
+ 	')
+ 
+ 	filetrans_pattern($1, tmp_t, $2, $3, $4)
++	allow $1 tmp_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+-- 
+1.7.5.4
+

@@ -1,0 +1,22 @@
+--- ./examples/chronyd.service	2016-06-07 14:50:59.000000000 +0530
++++ ./examples/chronyd_new.service	2019-10-18 19:47:57.932046731 +0530
+@@ -1,13 +1,12 @@
+ [Unit]
+-Description=NTP client/server
++Description=Chrony daemon
+ After=ntpdate.service sntp.service ntpd.service
+ Conflicts=ntpd.service systemd-timesyncd.service
++Before=shutdown.target
+ 
+ [Service]
+-Type=forking
++Type=simple
+ PIDFile=/var/run/chronyd.pid
+-EnvironmentFile=-/etc/sysconfig/chronyd
+-ExecStart=/usr/sbin/chronyd $OPTIONS
+-
+-[Install]
+-WantedBy=multi-user.target
++EnvironmentFile=-/etc/default/chronyd
++ExecStart=/usr/sbin/chronyd -s -d
++ExecStartPost=/bin/sh -c '/bin/touch /tmp/notify-networktime-sync'

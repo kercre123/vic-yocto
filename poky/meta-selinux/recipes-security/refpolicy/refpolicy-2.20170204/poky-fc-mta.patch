@@ -1,0 +1,27 @@
+From c0bb2996db4f55f3987967bacfb99805fc45d027 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 19:21:55 +0800
+Subject: [PATCH] refpolicy: fix real path for mta
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/contrib/mta.fc |    1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/policy/modules/contrib/mta.fc
++++ b/policy/modules/contrib/mta.fc
+@@ -20,10 +20,11 @@ HOME_DIR/\.maildir(/.*)?	gen_context(sys
+ /usr/lib/courier/bin/sendmail	--	gen_context(system_u:object_r:sendmail_exec_t,s0)
+ 
+ /usr/sbin/rmail	--	gen_context(system_u:object_r:sendmail_exec_t,s0)
+ /usr/sbin/sendmail\.postfix	--	gen_context(system_u:object_r:sendmail_exec_t,s0)
+ /usr/sbin/sendmail(\.sendmail)?	--	gen_context(system_u:object_r:sendmail_exec_t,s0)
++/usr/sbin/msmtp	--	gen_context(system_u:object_r:sendmail_exec_t,s0)
+ /usr/sbin/ssmtp	--	gen_context(system_u:object_r:sendmail_exec_t,s0)
+ 
+ /var/mail(/.*)?	gen_context(system_u:object_r:mail_spool_t,s0)
+ 
+ /var/qmail/bin/sendmail	--	gen_context(system_u:object_r:sendmail_exec_t,s0)

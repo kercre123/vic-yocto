@@ -1,0 +1,92 @@
+From 25ca94680f2fe20f49b80e8b5b180a0dbb903f17 Mon Sep 17 00:00:00 2001
+From: Joe MacDonald <joe_macdonald@mentor.com>
+Date: Fri, 20 Feb 2015 17:00:19 -0500
+Subject: [PATCH] fixfiles: de-bashify
+
+Most of the bashisms in fixfiles are pretty easy to work around, the only
+complex one is the use of PIPESTATUS.  The common solution to this is to
+use fifos but considering the action this script is performing, that's not
+necessarily the best option here.  Introducing a second invocation of rpm
+is minimal overhead on an operation that should happen very infrequently,
+so we'll try that instead.
+
+Upstream-Status: Pending
+
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ scripts/fixfiles | 26 +++++++++++++++-----------
+ 1 file changed, 15 insertions(+), 11 deletions(-)
+
+diff --git a/scripts/fixfiles b/scripts/fixfiles
+index 5c29eb9..10a5078 100755
+--- a/scripts/fixfiles
++++ b/scripts/fixfiles
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ # fixfiles
+ #
+ # Script to restore labels on a SELinux box
+@@ -25,7 +25,7 @@
+ # number if the current kernel version is greater than 2.6.30, a negative
+ # number if the current is less than 2.6.30 and 0 if they are the same.
+ #
+-function useseclabel {
++useseclabel() {
+ 	VER=`uname -r`
+ 	SUP=2.6.30
+ 	expr '(' "$VER" : '\([^.]*\)' ')' '-' '(' "$SUP" : '\([^.]*\)' ')' '|' \
+@@ -91,9 +91,9 @@ exclude_dirs_from_relabelling() {
+ 	  # skip not absolute path
+ 	  # skip not directory
+ 	  [ -z "${i}" ] && continue
+-	  [[ "${i}" =~ "^[[:blank:]]*#" ]] && continue
+-	  [[ ! "${i}" =~ ^/.* ]] && continue
+-	  [[ ! -d "${i}" ]] && continue
++	  echo "${i}" | egrep -q '^[[:space:]]*#' && continue
++	  echo "${i}" | egrep -v '^/.*' && continue
++	  [ ! -d "${i}" ] && continue
+ 	  exclude_from_relabelling="$exclude_from_relabelling -e $i"
+ 	  logit "skipping the directory $i"
+ 	done < /etc/selinux/fixfiles_exclude_dirs
+@@ -205,8 +205,12 @@ fi
+ }
+ 
+ rpmlist() {
+-rpm -q --qf '[%{FILESTATES} %{FILENAMES}\n]' "$1" | grep '^0 ' | cut -f2- -d ' '
+-[ ${PIPESTATUS[0]} != 0 ] && echo "$1 not found" >/dev/stderr
++    if rpm -q --qf '[%{FILESTATES} %{FILENAMES}\n]' "$1" >/dev/null
++    then
++        rpm -q --qf '[%{FILESTATES} %{FILENAMES}\n]' "$1" | grep '^0 ' | cut -f2- -d ' '
++    else
++        echo "$1 not found" >/dev/stderr
++    fi
+ }
+ 
+ #
+@@ -233,10 +237,10 @@ if [ -n "${exclude_dirs}" ]
+ then
+ 	TEMPFCFILE=`mktemp ${FC}.XXXXXXXXXX`
+ 	test -z "$TEMPFCFILE" && exit
+-	/bin/cp -p ${FC} ${TEMPFCFILE} &>/dev/null || exit
+-	tmpdirs=${tempdirs//-e/}
+-	for p in ${tmpdirs}
++	/bin/cp -p ${FC} ${TEMPFCFILE} >/dev/null 2>&1 || exit
++	for p in ${tempdirs}
+ 	do
++		[ ${p} = "-e" ] && continue
+ 		p="${p%/}"
+ 		p1="${p}(/.*)? -- <<none>>"
+ 		echo "${p1}" >> $TEMPFCFILE
+@@ -288,7 +292,7 @@ relabel() {
+ 	restore Relabel
+     fi
+ 
+-    if [ $fullFlag == 1  ]; then
++    if [ $fullFlag = 1 ]; then
+ 	fullrelabel
+     fi
+ 
+-- 
+1.9.1
+

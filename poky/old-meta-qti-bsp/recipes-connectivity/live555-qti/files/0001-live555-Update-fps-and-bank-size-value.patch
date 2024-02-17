@@ -1,0 +1,40 @@
+From 13cfe2c6a273c3ddbade00b538da56214a721f42 Mon Sep 17 00:00:00 2001
+From: Emilian Peev <epeevs@codeaurora.org>
+Date: Mon, 15 Feb 2016 09:46:33 +0200
+Subject: [PATCH 1/4] live555: Update fps and bank size value
+
+Change-Id: Ic0d973531f0d01f3b5b7e3ff97e0a6a929e40cca
+---
+ liveMedia/H264or5VideoStreamFramer.cpp | 2 +-
+ liveMedia/StreamParser.cpp             | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/liveMedia/H264or5VideoStreamFramer.cpp b/liveMedia/H264or5VideoStreamFramer.cpp
+index b027275..b50feec 100644
+--- a/liveMedia/H264or5VideoStreamFramer.cpp
++++ b/liveMedia/H264or5VideoStreamFramer.cpp
+@@ -84,7 +84,7 @@ H264or5VideoStreamFramer
+     ? new H264or5VideoStreamParser(hNumber, this, inputSource, includeStartCodeInOutput)
+     : NULL;
+   fNextPresentationTime = fPresentationTimeBase;
+-  fFrameRate = 25.0; // We assume a frame rate of 25 fps, unless we learn otherwise (from parsing a VPS or SPS NAL unit)
++  fFrameRate = 30.0; // We assume a frame rate of 30 fps, unless we learn otherwise (from parsing a VPS or SPS NAL unit)
+ }
+ 
+ H264or5VideoStreamFramer::~H264or5VideoStreamFramer() {
+diff --git a/liveMedia/StreamParser.cpp b/liveMedia/StreamParser.cpp
+index 1f38176..0ca8dc5 100644
+--- a/liveMedia/StreamParser.cpp
++++ b/liveMedia/StreamParser.cpp
+@@ -23,7 +23,7 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
+ #include <string.h>
+ #include <stdlib.h>
+ 
+-#define BANK_SIZE 150000
++#define BANK_SIZE 1024*1024
+ 
+ void StreamParser::flushInput() {
+   fCurParserIndex = fSavedParserIndex = 0;
+-- 
+1.9.1
+

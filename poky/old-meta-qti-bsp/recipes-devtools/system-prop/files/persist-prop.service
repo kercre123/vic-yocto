@@ -1,0 +1,11 @@
+[Unit]
+SourcePath=/etc/initscripts/persist-prop
+Description=persist-prop service
+After=leprop.service
+Requires=leprop.service
+
+[Service]
+ExecStart=/etc/initscripts/persist-prop
+
+[Install]
+WantedBy=multi-user.target

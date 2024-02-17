@@ -1,0 +1,22 @@
+From ad06baee0a789b630b67fd4c2a92608ba799f7a9 Mon Sep 17 00:00:00 2001
+From: John Lima <jlima@codeaurora.org>
+Date: Tue, 3 Jul 2012 15:58:43 -0700
+Subject: [PATCH 1/1] add reboot daemon group
+
+---
+ group.master |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/group.master b/group.master
+index 74c30bd..e8e3710 100644
+--- a/group.master
++++ b/group.master
+@@ -38,4 +38,5 @@ games:*:60:
+ users:*:100:
+ sdcard:*:1015:diag
+ diag:*:53:
++rebooters:*:1301:diag
+ nogroup:*:65534:
+-- 
+1.7.8.3
+

@@ -1,0 +1,31 @@
+From ed2b0a00e2fb78056041b03c7e198e8f5adaf939 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 19:36:44 +0800
+Subject: [PATCH 3/6] add rules for the symlink of /var/log - apache2
+
+We have added rules for the symlink of /var/log in logging.if,
+while apache.te uses /var/log but does not use the interfaces in
+logging.if. So still need add a individual rule for apache.te.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/contrib/apache.te |    1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/policy/modules/contrib/apache.te
++++ b/policy/modules/contrib/apache.te
+@@ -409,10 +409,11 @@ allow httpd_t httpd_log_t:dir setattr_di
+ create_dirs_pattern(httpd_t, httpd_log_t, httpd_log_t)
+ create_files_pattern(httpd_t, httpd_log_t, httpd_log_t)
+ append_files_pattern(httpd_t, httpd_log_t, httpd_log_t)
+ read_files_pattern(httpd_t, httpd_log_t, httpd_log_t)
+ read_lnk_files_pattern(httpd_t, httpd_log_t, httpd_log_t)
++read_lnk_files_pattern(httpd_t, var_log_t, var_log_t)
+ logging_log_filetrans(httpd_t, httpd_log_t, file)
+ 
+ allow httpd_t httpd_modules_t:dir list_dir_perms;
+ mmap_files_pattern(httpd_t, httpd_modules_t, httpd_modules_t)
+ read_files_pattern(httpd_t, httpd_modules_t, httpd_modules_t)

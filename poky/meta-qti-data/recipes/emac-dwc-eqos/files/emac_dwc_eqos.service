@@ -1,0 +1,12 @@
+[Unit]
+Description= emac service
+SourcePath=/etc/init.d/emac_dwc_eqos_start_stop_le
+
+[Service]
+Restart=on-failure
+RemainAfterExit=yes
+ExecStart=/etc/init.d/emac_dwc_eqos_start_stop_le start
+ExecStop=/etc/init.d/emac_dwc_eqos_start_stop_le stop
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,24 @@
+From 2ecad2f9467837e72aaa800305a2a2f8a7bac3cf Mon Sep 17 00:00:00 2001
+From: Deng Zhao <dengz@codeaurora.org>
+Date: Thu, 17 Nov 2016 21:05:11 +0800
+Subject: [PATCH] live555: Add support for server port reuse
+
+---
+ liveMedia/GenericMediaServer.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/liveMedia/GenericMediaServer.cpp b/liveMedia/GenericMediaServer.cpp
+index c063472..f7b2d1f 100644
+--- a/liveMedia/GenericMediaServer.cpp
++++ b/liveMedia/GenericMediaServer.cpp
+@@ -137,6 +137,7 @@ void GenericMediaServer::cleanup() {
+ }
+ 
+ #define LISTEN_BACKLOG_SIZE 20
++#define ALLOW_SERVER_PORT_REUSE
+ 
+ int GenericMediaServer::setUpOurSocket(UsageEnvironment& env, Port& ourPort) {
+   int ourSocket = -1;
+-- 
+1.9.1
+

@@ -1,0 +1,37 @@
+golang-cross: do_compile fails cc1: all warnings being treated as errors
+
+glibc 2.20 deprecates _BSD_SOURCE and _SVID_SOURCE and emits an error
+message.  From patch 16632:
+	libc [PATCH] BZ #16632: Disable _SVID_SOURCE/_BSD_SOURCE warning
+	if _DEFAULT_SOURCE is defined
+
+Since we also need to support glibc before 2.20, from the release notes
+for glibc 2.20, the recommended fix is to define _DEFAULT_SOURCE
+
+(fixed upstream)
+https://groups.google.com/forum/#!topic/golang-codereviews/S4TARFCxu2k
+
+Signed-off-by: Amy Fong <amy.fong@windriver.com>
+---
+ include/u.h |   10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+--- a/include/u.h
++++ b/include/u.h
+@@ -38,6 +38,16 @@
+ #		define __MAKECONTEXT_V2_SOURCE 1
+ #	endif
+ #endif
++/**
++ * in glibc >= 2.20, _BSD_SOURCE and _SVID_SOURCE causes warning
++ * messages if _DEFAULT_SOURCE is not defined.
++ *
++ * From glibc 2.20 release notes, since this application needs _BSD_SOURCE
++ * and/or _SVID_SOURCE and we must support glibc < 2.19 and
++ * glibc >= 2.20, then define all 3 (_DEFAULT_SOURCE, _BSD_SOURCE,
++ * and _SVID_SOURCE) unconditionally
++ */
++#define _DEFAULT_SOURCE 1
+ #define _BSD_SOURCE 1
+ #define _NETBSD_SOURCE 1	/* NetBSD */
+ #define _SVID_SOURCE 1

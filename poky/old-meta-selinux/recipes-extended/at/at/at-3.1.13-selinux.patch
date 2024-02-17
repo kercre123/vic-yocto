@@ -1,0 +1,184 @@
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Wed, 13 Jun 2012 14:47:54 +0800
+Subject: [PATCH] at: atd add SELinux support.
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+---
+ Makefile.in  |    1 +
+ atd.c        |   83 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ config.h.in  |    3 ++
+ configure.ac |    8 +++++
+ 4 files changed, 95 insertions(+), 0 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index 10e7ed2..35792cd 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -39,6 +39,7 @@ LIBS		= @LIBS@
+ LIBOBJS		= @LIBOBJS@
+ INSTALL		= @INSTALL@
+ PAMLIB          = @PAMLIB@
++SELINUXLIB      = @SELINUXLIB@
+ 
+ CLONES		= atq atrm
+ ATOBJECTS	= at.o panic.o perm.o posixtm.o y.tab.o lex.yy.o
+@@ -72,7 +72,7 @@ at: $(ATOBJECTS)
+	$(LN_S) -f at atrm
+ 
+ atd: $(RUNOBJECTS)
+-	$(CC) $(LDFLAGS) -o atd $(RUNOBJECTS) $(LIBS) $(PAMLIB)
++	$(CC) $(LDFLAGS) -o atd $(RUNOBJECTS) $(LIBS) $(PAMLIB) $(SELINUXLIB)
+ 
+ y.tab.c y.tab.h: parsetime.y
+	$(YACC) -d parsetime.y
+diff --git a/atd.c b/atd.c
+index af3e577..463124f 100644
+--- a/atd.c
++++ b/atd.c
+@@ -83,6 +83,14 @@
+ #include "getloadavg.h"
+ #endif
+ 
++#ifdef WITH_SELINUX
++#include <selinux/selinux.h>
++#include <selinux/get_context_list.h>
++int selinux_enabled = 0;
++#include <selinux/flask.h>
++#include <selinux/av_permissions.h>
++#endif
++
+ /* Macros */
+ 
+ #define BATCH_INTERVAL_DEFAULT 60
+@@ -195,6 +203,70 @@ myfork()
+ #define fork myfork
+ #endif
+ 
++#ifdef WITH_SELINUX
++static int
++set_selinux_context(const char *name, const char *filename)
++{
++    security_context_t user_context=NULL;
++    security_context_t  file_context=NULL;
++    struct av_decision avd;
++    int retval=-1;
++    char *seuser=NULL;
++    char *level=NULL;
++
++    if (getseuserbyname(name, &seuser, &level) == 0) {
++	retval=get_default_context_with_level(seuser, level, NULL, &user_context);
++	free(seuser);
++	free(level);
++	if (retval) {
++	    if (security_getenforce()==1) {
++		perr("execle: couldn't get security context for user %s\n", name);
++	    } else {
++		syslog(LOG_ERR, "execle: couldn't get security context for user %s\n", name);
++		return -1;
++	    }
++	}
++    }
++
++    /*
++    * Since crontab files are not directly executed,
++    * crond must ensure that the crontab file has
++    * a context that is appropriate for the context of
++    * the user cron job.  It performs an entrypoint
++    * permission check for this purpose.
++    */
++    if (fgetfilecon(STDIN_FILENO, &file_context) < 0)
++	perr("fgetfilecon FAILED %s", filename);
++
++    retval = security_compute_av(user_context,
++			file_context,
++			SECCLASS_FILE,
++			FILE__ENTRYPOINT,
++			&avd);
++    freecon(file_context);
++    if (retval || ((FILE__ENTRYPOINT & avd.allowed) != FILE__ENTRYPOINT)) {
++	if (security_getenforce()==1) {
++	    perr("Not allowed to set exec context to %s for user  %s\n", user_context,name);
++	} else {
++	    syslog(LOG_ERR, "Not allowed to set exec context to %s for user  %s\n", user_context,name);
++	    retval = -1;
++	    goto err;
++	}
++    }
++    if (setexeccon(user_context) < 0) {
++	if (security_getenforce()==1) {
++	    perr("Could not set exec context to %s for user  %s\n", user_context,name);
++	    retval = -1;
++	} else {
++	    syslog(LOG_ERR, "Could not set exec context to %s for user  %s\n", user_context,name);
++	}
++    }
++err:
++    freecon(user_context);
++    return 0;
++}
++#endif
++
+ static void
+ run_file(const char *filename, uid_t uid, gid_t gid)
+ {
+@@ -435,6 +507,13 @@ run_file(const char *filename, uid_t uid, gid_t gid)
+ 
+ 	    chdir("/");
+ 
++#ifdef WITH_SELINUX
++	    if (selinux_enabled > 0) {
++		if (set_selinux_context(pentry->pw_name, filename) < 0)
++		    perr("SELinux Failed to set context\n");
++	    }
++#endif
++
+ 	    if (execle("/bin/sh", "sh", (char *) NULL, nenvp) != 0)
+ 		perr("Exec failed for /bin/sh");
+ 
+@@ -707,6 +786,10 @@ main(int argc, char *argv[])
+     struct passwd *pwe;
+     struct group *ge;
+ 
++#ifdef WITH_SELINUX
++    selinux_enabled = is_selinux_enabled();
++#endif
++
+ /* We don't need root privileges all the time; running under uid and gid
+  * daemon is fine.
+  */
+diff --git a/configure.ac b/configure.ac
+index 2db7b65..5ecc35a 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -94,6 +94,18 @@ AC_CHECK_HEADERS(security/pam_appl.h, [
+    fi])
+ fi
+ 
++AC_ARG_WITH([selinux],
++  [AS_HELP_STRING([--without-selinux], [without SELinux support])])
++
++if test "x$with_selinux" != xno; then
++AC_CHECK_HEADERS(selinux/selinux.h, [
++  SELINUXLIB="-lselinux"
++  AC_DEFINE(WITH_SELINUX, 1, [Define to 1 for SELinux support])],
++   [if test "x$with_selinux" = xyes; then
++   AC_MSG_ERROR([SELinux selected but selinux/selinux.h not found])
++   fi])
++fi
++
+ dnl Checking for programs
+ 
+ AC_PATH_PROG(SENDMAIL, sendmail, , $PATH:/usr/lib:/usr/sbin )
+@@ -104,6 +116,7 @@ fi
+ 
+ AC_SUBST(MAIL_CMD)
+ AC_SUBST(PAMLIB)
++AC_SUBST(SELINUXLIB)
+ 
+ AC_MSG_CHECKING(etcdir)
+ AC_ARG_WITH(etcdir,
+-- 
+1.7.5.4
+

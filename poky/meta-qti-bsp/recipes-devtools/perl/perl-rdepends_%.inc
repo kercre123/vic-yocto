@@ -1,0 +1,1 @@
+RDEPENDS_${PN}-module-overload += "${PN}-module-overloading"

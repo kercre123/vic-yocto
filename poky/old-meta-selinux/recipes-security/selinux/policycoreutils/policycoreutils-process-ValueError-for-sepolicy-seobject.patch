@@ -1,0 +1,48 @@
+From b8e07bd0643b581ac33c96a1f94ae17c8df80ffd Mon Sep 17 00:00:00 2001
+From: Wenzong Fan <wenzong.fan@windriver.com>
+Date: Sun, 30 Mar 2014 22:25:59 -0400
+Subject: [PATCH] semanage: process ValueError for sepolicy, seobject
+
+The sepolicy, seobject modules raise many unprocessed ValueError, just
+process them in semanage to make the script proivdes error message but
+not error trace.
+
+Uptream-Status: pending
+
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+---
+ semanage/semanage |    9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/semanage/semanage b/semanage/semanage
+index 36b41cd..a36a3f9 100644
+--- a/semanage/semanage
++++ b/semanage/semanage
+@@ -24,9 +24,15 @@
+ #
+ 
+ import argparse
+-import seobject
+ import sys
+ import gettext
++try:
++        import seobject
++        import sepolicy
++except ValueError, e:
++        print "Error: %s\n" % e
++        sys.exit(1)
++
+ PROGNAME="policycoreutils"
+ try:
+        gettext.install(PROGNAME,
+@@ -59,7 +65,6 @@ usage_interface_dict = {' --add':('-t TYPE','-r RANGE','interface'),' --modify':
+ usage_boolean = "semanage boolean [-h] [-n] [-N] [-s STORE] ["
+ usage_boolean_dict = {' --modify':('(','--on','|','--off',')','boolean'), ' --list':('-C',), '  --extract':('',), ' --deleteall':('',)}
+ 
+-import sepolicy
+ class CheckRole(argparse.Action):
+     def __call__(self, parser, namespace, value, option_string=None):
+         newval = getattr(namespace, self.dest)
+-- 
+1.7.9.5
+

@@ -1,0 +1,284 @@
+From 2f36d57215945708e25aa2477bd844e083f0718e Mon Sep 17 00:00:00 2001
+From: Raghavendra Prasad N <quic_raghnaga@quicinc.com>
+Date: Mon, 11 Jul 2022 20:13:34 +0530
+Subject: [PATCH] cryptsetup: Key is processed in a buf
+
+---
+ lib/libcryptsetup.h   | 44 +++++++++++++++++++++++++++++++++++++++
+ lib/libcryptsetup.sym |  2 ++
+ lib/setup.c           | 40 ++++++++++++++++++++++++++++++++++--
+ lib/utils.c           | 48 +++++++++++++++++++++++++++++++++++++++++++
+ src/cryptsetup.c      | 15 ++++++++++++--
+ 5 files changed, 145 insertions(+), 4 deletions(-)
+
+diff --git a/lib/libcryptsetup.h b/lib/libcryptsetup.h
+index 3942df0..4a1f21a 100644
+--- a/lib/libcryptsetup.h
++++ b/lib/libcryptsetup.h
+@@ -1224,6 +1224,27 @@ int crypt_activate_by_passphrase(struct crypt_device *cd,
+ 	size_t passphrase_size,
+ 	uint32_t flags);
+ 
++/**
++ * Activate device or check using key buf.
++ *
++ * @param cd crypt device handle
++ * @param name name of device to create, if @e NULL only check keyfile
++ * @param keyslot requested keyslot to check or CRYPT_ANY_SLOT
++ * @param keybuf key used to unlock volume key
++ * @param keybuf_size number of bytes to read from keybuf, 0 is unlimited
++ * @param keyfile_offset number of bytes to skip at start of keyfile
++ * @param flags activation flags
++ *
++ * @return unlocked key slot number or negative errno otherwise.
++ */
++int crypt_activate_by_keybuf_device_offset(struct crypt_device *cd,
++	const char *name,
++	int keyslot,
++	const char *keybuf,
++	size_t keybuf_size,
++	uint64_t keybuf_offset,
++	uint32_t flags);
++
+ /**
+  * Activate device or check using key file.
+  *
+@@ -1836,6 +1857,29 @@ void crypt_set_debug_level(int level);
+  * @{
+  */
+ 
++/**
++ * Read keybuf
++ *
++ * @param cd crypt device handle
++ * @param keybuf key to read
++ * @param key buffer for key
++ * @param key_size_read size of read key
++ * @param keyfile_offset key offset in keyfile
++ * @param key_size exact key length to read from file or 0
++ * @param flags keyfile read flags
++ *
++ * @return @e 0 on success or negative errno value otherwise.
++ *
++ * @note If key_size is set to zero we read internal max length
++ * 	 and actual size read is returned via key_size_read parameter.
++ */
++int crypt_keybuf_device_read(struct crypt_device *cd,
++	const char *keybuf,
++	char **key, size_t *key_size_read,
++	uint64_t keybuf_offset,
++	size_t key_size,
++	uint32_t flags);
++
+ /**
+  * Read keyfile
+  *
+diff --git a/lib/libcryptsetup.sym b/lib/libcryptsetup.sym
+index 59a998c..eaf7a07 100644
+--- a/lib/libcryptsetup.sym
++++ b/lib/libcryptsetup.sym
+@@ -57,6 +57,7 @@ CRYPTSETUP_2.0 {
+ 		crypt_activate_by_passphrase;
+ 		crypt_activate_by_keyfile;
+ 		crypt_activate_by_keyfile_offset;
++		crypt_activate_by_keybuf_device_offset;
+ 		crypt_activate_by_keyfile_device_offset;
+ 		crypt_activate_by_volume_key;
+ 		crypt_activate_by_signed_key;
+@@ -115,6 +116,7 @@ CRYPTSETUP_2.0 {
+ 		crypt_header_restore;
+ 
+ 		crypt_keyfile_read;
++		crypt_keybuf_device_read;
+ 		crypt_keyfile_device_read;
+ 
+ 		crypt_wipe;
+diff --git a/lib/setup.c b/lib/setup.c
+index b144731..297548c 100644
+--- a/lib/setup.c
++++ b/lib/setup.c
+@@ -2255,11 +2255,11 @@ int crypt_format(struct crypt_device *cd,
+ 		return -EINVAL;
+ 
+ 	if (cd->type) {
+-		log_dbg(cd, "Context already formatted as %s.", cd->type);
++		log_err(cd, "Context already formatted as %s.", cd->type);
+ 		return -EINVAL;
+ 	}
+ 
+-	log_dbg(cd, "Formatting device %s as type %s.", mdata_device_path(cd) ?: "(none)", type);
++	log_err(cd, "Formatting device %s as type %s.", mdata_device_path(cd) ?: "(none)", type);
+ 
+ 	crypt_reset_null_type(cd);
+ 
+@@ -4202,6 +4202,42 @@ int crypt_activate_by_passphrase(struct crypt_device *cd,
+ 	return _activate_by_passphrase(cd, name, keyslot, passphrase, passphrase_size, flags);
+ }
+ 
++int crypt_activate_by_keybuf_device_offset(struct crypt_device *cd,
++	const char *name,
++	int keyslot,
++	const char *keybuf,
++	size_t keybuf_size,
++	uint64_t keybuf_offset,
++	uint32_t flags)
++{
++	char *passphrase_read = NULL;
++	size_t passphrase_size_read;
++	int r;
++
++	if (!cd || !keybuf ||
++	    ((flags & CRYPT_ACTIVATE_KEYRING_KEY) && !crypt_use_keyring_for_vk(cd)))
++		return -EINVAL;
++
++	r = _activate_check_status(cd, name, flags & CRYPT_ACTIVATE_REFRESH);
++	if (r < 0)
++		return r;
++
++	r = crypt_keybuf_device_read(cd, keybuf,
++				&passphrase_read, &passphrase_size_read,
++				keybuf_offset, keybuf_size, 0);
++	if (r < 0)
++		goto out;
++
++	if (isLOOPAES(cd->type))
++		r = _activate_loopaes(cd, name, passphrase_read, passphrase_size_read, flags);
++	else
++		r = _activate_by_passphrase(cd, name, keyslot, passphrase_read, passphrase_size_read, flags);
++
++out:
++	crypt_safe_free(passphrase_read);
++	return r;
++}
++
+ int crypt_activate_by_keyfile_device_offset(struct crypt_device *cd,
+ 	const char *name,
+ 	int keyslot,
+diff --git a/lib/utils.c b/lib/utils.c
+index 0cf4378..d675248 100644
+--- a/lib/utils.c
++++ b/lib/utils.c
+@@ -27,9 +27,14 @@
+ #include <sys/resource.h>
+ #include <sys/stat.h>
+ #include <sys/utsname.h>
++#include <sys/socket.h>
++#include <sys/un.h>
+ 
+ #include "internal.h"
+ 
++#define SERVER_PATH "/tmp/kserver"
++#define CS_MIN(a, b) (((a) < (b)) ? (a) : (b))
++
+ size_t crypt_getpagesize(void)
+ {
+ 	long r = sysconf(_SC_PAGESIZE);
+@@ -145,6 +150,49 @@ static int keyfile_seek(int fd, uint64_t bytes)
+ 	return bytes == 0 ? 0 : -1;
+ }
+ 
++int crypt_keybuf_device_read(struct crypt_device *cd,  const char *keybuf,
++			     char **key, size_t *key_size_read,
++			     uint64_t keybuf_offset, size_t key_size,
++			     uint32_t flags)
++{
++    int csd = -1, rc, ret = 0;
++    struct sockaddr_un serv_addr;
++    char *buffer;
++    size_t buf_len;
++    int i;
++
++    if (key_size == 0)
++    {
++        buf_len = 4096 - sizeof(size_t);
++    }
++    else
++    {
++        buf_len = key_size;
++    }
++    buffer = crypt_safe_alloc (buf_len);
++    if (!buffer)
++    {
++        log_err(cd, _("Out of memory."));
++        return -EINVAL;
++    }
++
++    for (i = 0; i < buf_len; i++)
++    {
++        buffer[i] = fgetc (stdin);
++    }
++    *key = buffer;
++    *key_size_read = rc;
++    ret = 0;
++
++    if (csd != -1)
++        close (csd);
++
++    if (ret)
++        crypt_safe_free (buffer);
++
++    return ret;
++}
++
+ int crypt_keyfile_device_read(struct crypt_device *cd,  const char *keyfile,
+ 			      char **key, size_t *key_size_read,
+ 			      uint64_t keyfile_offset, size_t key_size,
+diff --git a/src/cryptsetup.c b/src/cryptsetup.c
+index 601a967..987c4e2 100644
+--- a/src/cryptsetup.c
++++ b/src/cryptsetup.c
+@@ -21,6 +21,7 @@
+  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  */
+ 
++#include <stdio.h>
+ #include "cryptsetup.h"
+ #include <uuid/uuid.h>
+ 
+@@ -31,6 +32,7 @@ static int opt_verify_passphrase = 0;
+ 
+ static const char *opt_json_file = NULL;
+ static const char *opt_key_file = NULL;
++static const char *opt_key_buf = "n";
+ static const char *opt_keyfile_stdin = NULL;
+ static int opt_keyfiles_count = 0;
+ static const char *opt_keyfiles[MAX_KEYFILES];
+@@ -250,9 +252,10 @@ static int action_open_plain(void)
+ 	/* FIXME: temporary hack, no hashing for keyfiles in plain mode */
+ 	if (opt_key_file && !tools_is_stdin(opt_key_file)) {
+ 		params.hash = NULL;
+-		if (!opt_batch_mode && opt_hash)
++		if (!opt_batch_mode && opt_hash) {
+ 			log_std(_("WARNING: The --hash parameter is being ignored "
+ 				 "in plain mode with keyfile specified.\n"));
++                }
+ 	}
+ 
+ 	if (params.hash && !strcmp(params.hash, "plain"))
+@@ -329,7 +332,14 @@ static int action_open_plain(void)
+ 
+ 	_set_activation_flags(&activate_flags);
+ 
+-	if (!tools_is_stdin(opt_key_file)) {
++        if (strcmp(opt_key_buf, "y") == 0)
++        {
++            key_size_max = key_size;
++            r = crypt_activate_by_keybuf_device_offset (cd, action_argv[1],
++			CRYPT_ANY_SLOT, opt_key_buf, key_size_max,
++			opt_keyfile_offset, activate_flags);
++        }
++	else if (!tools_is_stdin(opt_key_file)) {
+ 		/* If no hash, key is read directly, read size is always key_size
+ 		 * (possible opt_keyfile_size is ignored.
+ 		 * If hash is specified, opt_keyfile_size is applied.
+@@ -3430,6 +3440,7 @@ int main(int argc, const char **argv)
+ 		{ "hash",              'h',  POPT_ARG_STRING, &opt_hash,                0, N_("The hash used to create the encryption key from the passphrase"), NULL },
+ 		{ "verify-passphrase", 'y',  POPT_ARG_NONE, &opt_verify_passphrase,     0, N_("Verifies the passphrase by asking for it twice"), NULL },
+ 		{ "key-file",          'd',  POPT_ARG_STRING, &opt_key_file,            6, N_("Read the key from a file"), NULL },
++		{ "key-buf",           'B',  POPT_ARG_STRING, &opt_key_buf,             0, N_("Read the key from a buf"), NULL },
+ 		{ "master-key-file",  '\0',  POPT_ARG_STRING, &opt_master_key_file,     0, N_("Read the volume (master) key from file."), NULL },
+ 		{ "dump-master-key",  '\0',  POPT_ARG_NONE, &opt_dump_master_key,       0, N_("Dump volume (master) key instead of keyslots info"), NULL },
+ 		{ "key-size",          's',  POPT_ARG_INT, &opt_key_size,               0, N_("The size of the encryption key"), N_("BITS") },
+-- 
+2.17.1
+

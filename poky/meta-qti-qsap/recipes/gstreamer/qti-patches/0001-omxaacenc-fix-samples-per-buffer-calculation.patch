@@ -1,0 +1,56 @@
+From fc21fc6273897754c7100f731ac1172211e76ef9 Mon Sep 17 00:00:00 2001
+From: Vincent Penquerc'h <vincent.penquerch@collabora.co.uk>
+Date: Wed, 11 Jan 2017 11:33:25 +0000
+Subject: [PATCH 2/3] omxaacenc: fix samples per buffer calculation
+
+https://bugzilla.gnome.org/show_bug.cgi?id=777211
+---
+ omx/gstomxaacenc.c | 7 +++++--
+ omx/gstomxaacenc.h | 1 +
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/omx/gstomxaacenc.c b/omx/gstomxaacenc.c
+index 1ef8ff9..d16a1d9 100644
+--- a/omx/gstomxaacenc.c
++++ b/omx/gstomxaacenc.c
+@@ -393,6 +393,8 @@ gst_omx_aac_enc_get_caps (GstOMXAudioEnc * enc, GstOMXPort * port,
+   gint mpegversion = 4;
+   const gchar *stream_format = NULL, *profile = NULL;
+
++  ((GstOMXAACEnc *)enc)->samples_per_frame = 1024;
++
+   GST_OMX_INIT_STRUCT (&aac_profile);
+   aac_profile.nPortIndex = enc->enc_out_port->index;
+
+@@ -493,6 +495,8 @@ gst_omx_aac_enc_get_caps (GstOMXAudioEnc * enc, GstOMXPort * port,
+     GST_DEBUG_OBJECT (enc, "setting new codec_data");
+     gst_caps_set_simple (caps, "codec_data", GST_TYPE_BUFFER, codec_data, NULL);
+
++    ((GstOMXAACEnc *)enc)->samples_per_frame = map.data[1] & 4 ? 960 : 1024;
++
+     gst_buffer_unref (codec_data);
+   }
+   return caps;
+@@ -503,6 +507,5 @@ static guint
+ gst_omx_aac_enc_get_num_samples (GstOMXAudioEnc * enc, GstOMXPort * port,
+     GstAudioInfo * info, GstOMXBuffer * buf)
+ {
+-  /* FIXME: Depends on the profile at least */
+-  return 1024;
++  return ((GstOMXAACEnc *)enc)->samples_per_frame;
+ }
+diff --git a/omx/gstomxaacenc.h b/omx/gstomxaacenc.h
+index b6c3daa..d7b54a0 100644
+--- a/omx/gstomxaacenc.h
++++ b/omx/gstomxaacenc.h
+@@ -50,6 +50,7 @@ struct _GstOMXAACEnc
+   guint bitrate;
+   guint aac_tools;
+   guint aac_er_tools;
++  guint samples_per_frame;
+ };
+
+ struct _GstOMXAACEncClass
+--
+2.5.5
+

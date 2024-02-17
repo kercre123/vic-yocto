@@ -1,0 +1,31 @@
+From 4360fae5a6fbee9c8866573fe5a8af2fdae4944d Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Fri, 9 Mar 2012 10:18:35 +0800
+Subject: [PATCH] setools: neverallow rules all always fail.
+
+Since we do not ship neverallow rules all always fail.
+ERROR: Cannot get avrules: Neverallow rules requested but not available
+ERROR: Operation not supported
+---
+ libqpol/src/avrule_query.c |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/libqpol/src/avrule_query.c b/libqpol/src/avrule_query.c
+index 749565b..e7d42fc 100644
+--- a/libqpol/src/avrule_query.c
++++ b/libqpol/src/avrule_query.c
+@@ -57,8 +57,11 @@ int qpol_policy_get_avrule_iter(const qpol_policy_t * policy, uint32_t rule_type
+ 
+ 	if ((rule_type_mask & QPOL_RULE_NEVERALLOW) && !qpol_policy_has_capability(policy, QPOL_CAP_NEVERALLOW)) {
+ 		ERR(policy, "%s", "Cannot get avrules: Neverallow rules requested but not available");
++		/*
+ 		errno = ENOTSUP;
+ 		return STATUS_ERR;
++		*/
++		return STATUS_SUCCESS;
+ 	}
+ 
+ 	db = &policy->p->p;
+-- 
+1.7.5.4
+

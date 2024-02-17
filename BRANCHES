@@ -1,0 +1,25 @@
+/system/core: caf_migration/LE.UM.2.3.2.r1.6
+/qcom-opensource/wlan/prima: prima/caf_migration/wlan-driver.lnx.1.0.r28-rel
+/filesystems/mtd-utils: core-technologies.lnx.2.0.r76-rel
+/kernel/msm-4.9: kernel.lnx.4.9.r34-rel (github mirror)
+meta-qti-audio       = "LE.UM.4.2.1.r1.3:7589da3625f10eaf1a0cddb6412085bb28c2ab76"
+meta-qti-core        = "LE.UM.4.2.1.r1.3:46dcfd845fd6e1bd4cabd52dc45a0d42a60aa567"
+meta-qti-ss-mgr      
+meta-qti-display     = "thud:6c5a847a4514b8c1729511aae96374eb8679a152"
+meta-qti-camera      = "camera.lnx.iot.meta.2.0.r5-rel:2739752a0fb319c2ce91f06bd750f54d09d9cc73"
+meta-qti-wlan        = "LE.UM.4.2.1.r1.3:77b0e85c3923f58ece1342b2ec28689aa99663d9"
+meta-qti-data        = "data.lnx.1.0.r37-rel:fa14c89b4539f836db18563044772747e02b99b0"
+meta-qti-bt          
+meta-qti-drones      
+meta-qti-auto        = "thud:6c5a847a4514b8c1729511aae96374eb8679a152"
+meta-qti-bsp         = "yocto.lnx.3.0.c37:18d2ad60be1caaf377dc80387cba0b96aaead363"
+meta-vicos-mods      
+meta-python          = "thud:6c5a847a4514b8c1729511aae96374eb8679a152"
+meta-python2         = "thud:afde7b84ec4f478355d4611b31072525b2ba3ec4"
+meta-oe              
+meta-vicos           
+meta                 
+meta-poky            = "thud:6c5a847a4514b8c1729511aae96374eb8679a152"
+meta-selinux         = "caf_migration/yocto/thud:fb6192aa2c5df8e80c5e6d4fa5448d574332f68f"
+meta-user-managemement 
+meta-qti-qsap        = "thud:6c5a847a4514b8c1729511aae96374eb8679a152"

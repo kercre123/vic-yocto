@@ -1,0 +1,78 @@
+From 53459455f5b260726cf35183cc9d0061d8337cab Mon Sep 17 00:00:00 2001
+From: Raghava Chowdam <rchowdam@codeaurora.org>
+Date: Tue, 29 Oct 2019 10:39:45 +0530
+Subject: [PATCH] meta-qti-bsp: Resolving Systemd Error Messages
+
+StateDirectory=, CacheDirectory= and LogsDirectory=
+refers to "/var/lib/private", "/var/cache/private"
+and "/var/log/private" respectively, when only
+DynamicUser= is used/declared.
+
+As we are not using DynamicUser= these directories are
+commented, to provide error free software.
+
+Change-Id: Ie01a1ab0d56be5bea44f6cd37574b2ee7268207a
+
+diff --git a/tmpfiles.d/etc.conf.m4 b/tmpfiles.d/etc.conf.m4
+index df8d421..a0876ad 100644
+--- a/tmpfiles.d/etc.conf.m4
++++ b/tmpfiles.d/etc.conf.m4
+@@ -9,7 +9,7 @@
+
+ L /etc/os-release - - - - ../usr/lib/os-release
+ L /etc/localtime - - - - ../usr/share/zoneinfo/UTC
+-L+ /etc/mtab - - - - ../proc/self/mounts
++#L+ /etc/mtab - - - - ../proc/self/mounts
+ m4_ifdef(`HAVE_SMACK_RUN_LABEL',
+ t /etc/mtab - - - - security.SMACK64=_
+ )m4_dnl
+
+
+diff --git a/tmpfiles.d/systemd.conf.m4 b/tmpfiles.d/systemd.conf.m4
+index 0992f74..9dd2162 100644
+--- a/tmpfiles.d/systemd.conf.m4
++++ b/tmpfiles.d/systemd.conf.m4
+@@ -70,8 +70,8 @@ a+ /var/log/journal/%m/system.journal - - - - group:wheel:r--
+ '')')')m4_dnl
+
+ d /var/lib/systemd 0755 root root -
+-d /var/lib/systemd/coredump 0755 root root 3d
++#d /var/lib/systemd/coredump 0755 root root 3d
+
+-d /var/lib/private 0700 root root -
+-d /var/log/private 0700 root root -
+-d /var/cache/private 0700 root root -
++#d /var/lib/private 0700 root root -
++#d /var/log/private 0700 root root -
++#d /var/cache/private 0700 root root -
+
+
+diff --git a/tmpfiles.d/var.conf.m4 b/tmpfiles.d/var.conf.m4
+index 0e2c509..d9b8ce3 100644
+--- a/tmpfiles.d/var.conf.m4
++++ b/tmpfiles.d/var.conf.m4
+@@ -11,7 +11,7 @@ q /var 0755 - - -
+
+ L /var/run - - - - ../run
+
+-d /var/log 0755 - - -
++#d /var/log 0755 - - -
+ m4_ifdef(`ENABLE_UTMP',
+ f /var/log/wtmp 0664 root utmp -
+ f /var/log/btmp 0660 root utmp -
+
+
+diff --git a/tmpfiles.d/tmp.conf b/tmpfiles.d/tmp.conf
+index 22555a0..f75961b 100644
+--- a/tmpfiles.d/tmp.conf
++++ b/tmpfiles.d/tmp.conf
+@@ -9,7 +9,7 @@
+
+ # Clear tmp directories separately, to make them easier to override
+ q /tmp 1777 root root 10d
+-q /var/tmp 1777 root root 30d
++#q /var/tmp 1777 root root 30d
+
+ # Exclude namespace mountpoints created with PrivateTmp=yes
+ x /tmp/systemd-private-%b-*
+

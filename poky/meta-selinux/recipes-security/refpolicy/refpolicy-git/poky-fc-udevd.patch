@@ -1,0 +1,27 @@
+From 025bd3c77d3eeb0e316413bf7e6353f1ccd7f6b2 Mon Sep 17 00:00:00 2001
+From: Wenzong Fan <wenzong.fan@windriver.com>
+Date: Sat, 25 Jan 2014 23:40:05 -0500
+Subject: [PATCH] refpolicy: fix real path for udevd/udevadm
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/udev.fc |    2 ++
+ 1 file changed, 2 insertions(+)
+
+--- a/policy/modules/system/udev.fc
++++ b/policy/modules/system/udev.fc
+@@ -32,10 +32,11 @@ ifdef(`distro_redhat',`
+ /usr/sbin/start_udev --	gen_context(system_u:object_r:udev_exec_t,s0)
+ ')
+ 
+ /usr/lib/systemd/systemd-udevd -- gen_context(system_u:object_r:udev_exec_t,s0)
+ /usr/lib/udev/udev-acl --	gen_context(system_u:object_r:udev_exec_t,s0)
++/usr/lib/udev/udevd    --	gen_context(system_u:object_r:udev_exec_t,s0)
+ 
+ /usr/share/virtualbox/VBoxCreateUSBNode\.sh	--	gen_context(system_u:object_r:udev_helper_exec_t,s0)
+ 
+ /run/udev(/.*)?	gen_context(system_u:object_r:udev_var_run_t,s0)
+ 

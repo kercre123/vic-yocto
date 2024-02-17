@@ -1,0 +1,11 @@
+[Unit]
+Description=SELinux init for /dev service loading
+DefaultDependencies=no
+Before=sysinit.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/selinux-labeldev.sh
+
+[Install]
+WantedBy=multi-user.target

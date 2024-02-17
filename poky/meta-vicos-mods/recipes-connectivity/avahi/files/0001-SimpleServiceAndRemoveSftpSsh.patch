@@ -1,0 +1,52 @@
+From 1848a8aeaefa7e7fbf059bdc7ffcfb5cf01236b3 Mon Sep 17 00:00:00 2001
+From: paluri <paluri@anki.com>
+Date: Fri, 12 Oct 2018 13:52:42 -0700
+Subject: [PATCH] SimpleServiceAndRemoveSftpSsh
+
+---
+ avahi-daemon/Makefile.am             | 4 +---
+ avahi-daemon/avahi-daemon.service.in | 6 +++---
+ avahi-daemon/dummy.service           | 0
+ 3 files changed, 4 insertions(+), 6 deletions(-)
+ create mode 100644 avahi-daemon/dummy.service
+
+diff --git a/avahi-daemon/Makefile.am b/avahi-daemon/Makefile.am
+index b5d2bf4..a22217f 100644
+--- a/avahi-daemon/Makefile.am
++++ b/avahi-daemon/Makefile.am
+@@ -69,9 +69,7 @@ pkgsysconf_DATA = \
+ 	avahi-daemon.conf \
+ 	hosts
+ 
+-dist_service_DATA = \
+-	ssh.service \
+-	sftp-ssh.service
++dist_service_DATA = dummy.service
+ 
+ dist_pkgdata_DATA = \
+ 	avahi-service.dtd
+diff --git a/avahi-daemon/avahi-daemon.service.in b/avahi-daemon/avahi-daemon.service.in
+index 548c834..502d0f7 100644
+--- a/avahi-daemon/avahi-daemon.service.in
++++ b/avahi-daemon/avahi-daemon.service.in
+@@ -17,11 +17,11 @@
+ 
+ [Unit]
+ Description=Avahi mDNS/DNS-SD Stack
+-Requires=avahi-daemon.socket
++Requires=avahi-daemon.socket ankiinit.service
++After=ankiinit.service
+ 
+ [Service]
+-Type=dbus
+-BusName=org.freedesktop.Avahi
++Type=simple
+ ExecStart=@sbindir@/avahi-daemon -s
+ ExecReload=@sbindir@/avahi-daemon -r
+ NotifyAccess=main
+diff --git a/avahi-daemon/dummy.service b/avahi-daemon/dummy.service
+new file mode 100644
+index 0000000..e69de29
+-- 
+2.1.2
+

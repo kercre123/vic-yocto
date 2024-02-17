@@ -1,0 +1,45 @@
+From be8e015aec19553d3753af132861d24da9ed0265 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:37:23 +0800
+Subject: [PATCH 2/2] refpolicy: fix selinux utils to manage config files
+
+Upstream-Status: Pending
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/selinuxutil.if |    1 +
+ policy/modules/system/userdomain.if  |    4 ++++
+ 2 files changed, 5 insertions(+)
+
+--- a/policy/modules/system/selinuxutil.if
++++ b/policy/modules/system/selinuxutil.if
+@@ -753,10 +753,11 @@ interface(`seutil_manage_config',`
+ 	gen_require(`
+ 		type selinux_config_t;
+ 	')
+ 
+ 	files_search_etc($1)
++	manage_dirs_pattern($1, selinux_config_t, selinux_config_t)
+ 	manage_files_pattern($1, selinux_config_t, selinux_config_t)
+ 	read_lnk_files_pattern($1, selinux_config_t, selinux_config_t)
+ ')
+ 
+ #######################################
+--- a/policy/modules/system/userdomain.if
++++ b/policy/modules/system/userdomain.if
+@@ -1327,10 +1327,14 @@ template(`userdom_security_admin_templat
+ 	logging_read_audit_log($1)
+ 	logging_read_generic_logs($1)
+ 	logging_read_audit_config($1)
+ 
+ 	seutil_manage_bin_policy($1)
++	seutil_manage_default_contexts($1)
++	seutil_manage_file_contexts($1)
++	seutil_manage_module_store($1)
++	seutil_manage_config($1)
+ 	seutil_run_checkpolicy($1, $2)
+ 	seutil_run_loadpolicy($1, $2)
+ 	seutil_run_semanage($1, $2)
+ 	seutil_run_setfiles($1, $2)
+ 

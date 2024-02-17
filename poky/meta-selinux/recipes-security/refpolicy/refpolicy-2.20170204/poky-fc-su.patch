@@ -1,0 +1,20 @@
+Subject: [PATCH] refpolicy: fix real path for su
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/admin/su.fc | 1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/policy/modules/admin/su.fc
++++ b/policy/modules/admin/su.fc
+@@ -1,6 +1,7 @@
+ 
+ /bin/su			--	gen_context(system_u:object_r:su_exec_t,s0)
++/usr/bin/su		--	gen_context(system_u:object_r:su_exec_t,s0)
+ 
+ /usr/(local/)?bin/ksu	--	gen_context(system_u:object_r:su_exec_t,s0)
+ /usr/bin/kdesu		--	gen_context(system_u:object_r:su_exec_t,s0)
+ /usr/bin/su		--	gen_context(system_u:object_r:su_exec_t,s0)

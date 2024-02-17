@@ -1,0 +1,46 @@
+From 56ec3e527f2a03d217d5f07ebb708e6e26fa26ff Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Tue, 9 Jun 2015 21:22:52 +0530
+Subject: [PATCH] refpolicy: fix real path for sysnetwork
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Shrikant Bobade <Shrikant_Bobade@mentor.com>
+---
+ policy/modules/system/sysnetwork.fc |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/policy/modules/system/sysnetwork.fc b/policy/modules/system/sysnetwork.fc
+index fbb935c..a194622 100644
+--- a/policy/modules/system/sysnetwork.fc
++++ b/policy/modules/system/sysnetwork.fc
+@@ -4,6 +4,7 @@
+ #
+ /bin/ifconfig		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /bin/ip			--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
++/sbin/ip\.iproute2 --  gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ 
+ #
+ # /dev
+@@ -43,7 +44,9 @@ ifdef(`distro_redhat',`
+ /sbin/dhcdbd		--	gen_context(system_u:object_r:dhcpc_exec_t,s0)
+ /sbin/dhcpcd		--	gen_context(system_u:object_r:dhcpc_exec_t,s0)
+ /sbin/ethtool		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
++/usr/sbin/ethtool  --  gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/ifconfig		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
++/sbin/ifconfig\.net-tools  --  gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/ip		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/ipx_configure	--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/ipx_interface	--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+@@ -51,6 +54,7 @@ ifdef(`distro_redhat',`
+ /sbin/iw		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/iwconfig		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/mii-tool		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
++/sbin/mii-tool\.net-tools  --  gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/pump		--	gen_context(system_u:object_r:dhcpc_exec_t,s0)
+ /sbin/tc		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ 
+-- 
+1.7.9.5
+

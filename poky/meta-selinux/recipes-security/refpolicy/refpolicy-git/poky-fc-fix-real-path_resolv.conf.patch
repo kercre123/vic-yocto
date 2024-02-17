@@ -1,0 +1,24 @@
+Subject: [PATCH] fix real path for resolv.conf
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/sysnetwork.fc |    1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/policy/modules/system/sysnetwork.fc
++++ b/policy/modules/system/sysnetwork.fc
+@@ -17,10 +17,11 @@ ifdef(`distro_debian',`
+ /etc/ethers		--	gen_context(system_u:object_r:net_conf_t,s0)
+ /etc/hosts		--	gen_context(system_u:object_r:net_conf_t,s0)
+ /etc/hosts\.deny.*	--	gen_context(system_u:object_r:net_conf_t,s0)
+ /etc/denyhosts.*	--	gen_context(system_u:object_r:net_conf_t,s0)
+ /etc/resolv\.conf.*	--	gen_context(system_u:object_r:net_conf_t,s0)
++/var/run/resolv\.conf.*	--	gen_context(system_u:object_r:net_conf_t,s0)
+ /etc/yp\.conf.*		--	gen_context(system_u:object_r:net_conf_t,s0)
+ 
+ /etc/dhcp3(/.*)?		gen_context(system_u:object_r:dhcp_etc_t,s0)
+ /etc/dhcp3?/dhclient.*		gen_context(system_u:object_r:dhcp_etc_t,s0)
+ 

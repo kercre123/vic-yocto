@@ -1,0 +1,20 @@
+PTS test results for DID
+
+PTS version: 5.1
+Tested: 07-April-2014
+Android version: 4.4.2
+
+Results:
+PASS	test passed
+FAIL	test failed
+INC	test is inconclusive
+N/A	test is disabled due to PICS setup
+
+-------------------------------------------------------------------------------
+Test Name	Result	Notes
+-------------------------------------------------------------------------------
+TC_SDI_BV_1_I	PASS	IUT must be discoverable
+TC_SDI_BV_2_I	PASS	IUT must be discoverable
+TC_SDI_BV_3_I	PASS	IUT must be discoverable
+TC_SDI_BV_4_I	PASS	IUT must be discoverable
+-------------------------------------------------------------------------------

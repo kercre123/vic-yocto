@@ -1,0 +1,25 @@
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Mon, 25 Jun 2012 15:08:03 +0800
+Subject: [PATCH] rpm: fix build bug.
+
+Upstream-Status: Pending
+---
+ rpmio/macro.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/rpmio/macro.c b/rpmio/macro.c
+index 9f4cb01..cf9ede5 100644
+--- a/rpmio/macro.c
++++ b/rpmio/macro.c
+@@ -99,7 +99,7 @@ const char * rpmMacrofiles = MACROFILES;
+ #include "debug.h"
+ 
+ /*@unchecked@*/
+-#if defined(WITH_AUGEAS) || defined(WITH_FICL) || defined(WITH_GPSEE) || defined(WITH_NIX) || defined(WITH_PERLEMBED) || defined(WITH_PYTHONEMBED) || defined(WITH_RUBYEMBED) || defined(WITH_SQLITE) || defined(WITH_SQUIRREL) || defined(WITH_TCL)
++#if defined(WITH_AUGEAS) || defined(WITH_FICL) || defined(WITH_GPSEE) || defined(WITH_NIX) || defined(WITH_PERLEMBED) || defined(WITH_PYTHONEMBED) || defined(WITH_RUBYEMBED) || defined(WITH_SQLITE) || defined(WITH_SQUIRREL) || defined(WITH_TCL) || defined(WITH_SELINUX)
+ static int _globalI = 0x80000000;
+ #endif
+ 
+-- 
+1.7.5.4
+

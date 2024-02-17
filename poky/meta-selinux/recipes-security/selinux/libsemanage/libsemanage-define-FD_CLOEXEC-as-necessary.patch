@@ -1,0 +1,33 @@
+From 0e97e4d19627f78bf04445cd51902ccf4f7cf239 Mon Sep 17 00:00:00 2001
+From: Joe MacDonald <joe.macdonald@windriver.com>
+Date: Tue, 15 Oct 2013 10:17:38 -0400
+Subject: [PATCH] libsemanage: define FD_CLOEXEC as necessary
+
+In truly old systems, even FD_CLOEXEC may not be defined.  Produce a
+warning and duplicate the #define for FD_CLOEXEC found in
+asm-generic/fcntl.h on more modern platforms.
+
+Uptream-Status: Inappropriate
+
+Signed-off-by: Joe MacDonald <joe.macdonald@windriver.com>
+
+---
+ libsemanage/src/semanage_store.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/libsemanage/src/semanage_store.c b/libsemanage/src/semanage_store.c
+index 1923f0f..f7a8760 100644
+--- a/libsemanage/src/semanage_store.c
++++ b/libsemanage/src/semanage_store.c
+@@ -66,6 +66,11 @@ typedef struct dbase_policydb dbase_t;
+ 
+ #define TRUE 1
+ 
++#ifndef FD_CLOEXEC
++#warning FD_CLOEXEC undefined on this platform, this may leak file descriptors
++#define FD_CLOEXEC 1
++#endif
++
+ enum semanage_file_defs {
+ 	SEMANAGE_ROOT,
+ 	SEMANAGE_TRANS_LOCK,

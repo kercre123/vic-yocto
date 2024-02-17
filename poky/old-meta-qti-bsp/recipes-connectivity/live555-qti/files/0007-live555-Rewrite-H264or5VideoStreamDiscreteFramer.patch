@@ -1,0 +1,183 @@
+From adfc0c74932251e84549134bc0590a080df8e6c3 Mon Sep 17 00:00:00 2001
+From: Jean Xiao <jianxiao@codeaurora.org>
+Date: Fri, 5 May 2017 18:01:34 +0800
+Subject: [PATCH] Rewrite H264or5VideoStreamDiscreteFramer
+
+---
+ liveMedia/H264or5VideoStreamDiscreteFramer.cpp     | 132 +++++++++++++++++----
+ .../include/H264or5VideoStreamDiscreteFramer.hh    |   3 +
+ 2 files changed, 111 insertions(+), 24 deletions(-)
+
+diff --git a/liveMedia/H264or5VideoStreamDiscreteFramer.cpp b/liveMedia/H264or5VideoStreamDiscreteFramer.cpp
+index 25451a2..c27eef9 100644
+--- a/liveMedia/H264or5VideoStreamDiscreteFramer.cpp
++++ b/liveMedia/H264or5VideoStreamDiscreteFramer.cpp
+@@ -20,6 +20,21 @@ along with this library; if not, write to the Free Software Foundation, Inc.,
+ // This avoids the parsing and data copying overhead of the full
+ // "H264or5VideoStreamFramer".
+ // Implementation
++/*
++ * Copyright (C) 2010 The Android Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
+
+ #include "H264or5VideoStreamDiscreteFramer.hh"
+
+@@ -55,32 +70,30 @@ void H264or5VideoStreamDiscreteFramer
+                      unsigned durationInMicroseconds) {
+   // Get the "nal_unit_type", to see if this NAL unit is one that we want to save a copy of:
+   u_int8_t nal_unit_type;
+-  if (fHNumber == 264 && frameSize >= 1) {
+-    nal_unit_type = fTo[0]&0x1F;
+-  } else if (fHNumber == 265 && frameSize >= 2) {
+-    nal_unit_type = (fTo[0]&0x7E)>>1;
+-  } else {
+-    // This is too short to be a valid NAL unit, so just assume a bogus nal_unit_type
+-    nal_unit_type = 0xFF;
+-  }
++  u_int8_t* nalStart;
++  unsigned nalSize;
++  unsigned char* _data = fTo;
++  unsigned _frameSize = frameSize;
++  while (!getNextNALUnit(&_data, &_frameSize, &nalStart, &nalSize)) {
++      if (fHNumber == 264 && nalSize >= 1) {
++          nal_unit_type = nalStart[0]&0x1F;
++      } else if (fHNumber == 265 && nalSize >= 2) {
++          nal_unit_type = (nalStart[0]&0x7E)>>1;
++      } else {
++        // This is too short to be a valid NAL unit, so just assume a bogus nal_unit_type
++        nal_unit_type = 0xFF;
++      }
+
+-  // Begin by checking for a (likely) common error: NAL units that (erroneously) begin with a
+-  // 0x00000001 or 0x000001 'start code'.  (Those start codes should only be in byte-stream data;
+-  // *not* data that consists of discrete NAL units.)
+-  // Once again, to be clear: The NAL units that you feed to a "H264or5VideoStreamDiscreteFramer"
+-  // MUST NOT include start codes.
+-  if (frameSize >= 4 && fTo[0] == 0 && fTo[1] == 0 && ((fTo[2] == 0 && fTo[3] == 1) || fTo[2] == 1)) {
+-    envir() << "H264or5VideoStreamDiscreteFramer error: MPEG 'start code' seen in the input\n";
+-  } else if (isVPS(nal_unit_type)) { // Video parameter set (VPS)
+-    saveCopyOfVPS(fTo, frameSize);
+-  } else if (isSPS(nal_unit_type)) { // Sequence parameter set (SPS)
+-    saveCopyOfSPS(fTo, frameSize);
+-  } else if (isPPS(nal_unit_type)) { // Picture parameter set (PPS)
+-    saveCopyOfPPS(fTo, frameSize);
++      if (isVPS(nal_unit_type)) { // Video parameter set (VPS)
++          saveCopyOfVPS(nalStart, nalSize);
++      } else if (isSPS(nal_unit_type)) { // Sequence parameter set (SPS)
++          saveCopyOfSPS(nalStart, nalSize);
++      } else if (isPPS(nal_unit_type)) { // Picture parameter set (PPS)
++          saveCopyOfPPS(nalStart, nalSize);
++      } else if (nalUnitEndsAccessUnit(nal_unit_type)) {
++          fPictureEndMarker = True;
++      }
+   }
+-
+-  fPictureEndMarker = nalUnitEndsAccessUnit(nal_unit_type);
+-
+   // Finally, complete delivery to the client:
+   fFrameSize = frameSize;
+   fNumTruncatedBytes = numTruncatedBytes;
+@@ -100,3 +113,74 @@ Boolean H264or5VideoStreamDiscreteFramer::nalUnitEndsAccessUnit(u_int8_t nal_uni
+
+   return isVCL(nal_unit_type);
+ }
++
++int H264or5VideoStreamDiscreteFramer
++::getNextNALUnit(u_int8_t **_data, unsigned *_frameSize,
++                 u_int8_t **nalStart, unsigned *nalSize) {
++    u_int8_t *data = *_data;
++    unsigned size = *_frameSize;
++
++    *nalStart = NULL;
++    *nalSize = 0;
++
++    if (size < 3) {
++        return -EAGAIN;
++    }
++
++    unsigned offset = 0;
++
++    if (data[offset] == 0x00) {
++        for (; offset + 2 < size; ++offset) {
++            if (data[offset + 2] == 0x01 && data[offset] == 0x00
++                    && data[offset + 1] == 0x00) {
++                break;
++            }
++        }
++        if (offset + 2 >= size) {
++            *_data = &data[offset];
++            *_frameSize = 2;
++            return -EAGAIN;
++        }
++        offset += 3;
++    }
++
++    size_t startOffset = offset;
++
++    for (;;) {
++        while (offset < size && data[offset] != 0x01) {
++            ++offset;
++        }
++
++        if (offset == size) {
++            *nalStart = &data[startOffset];
++            *nalSize = offset - startOffset;
++            *_data = NULL;
++            *_frameSize = 0;
++            return 0;
++        }
++
++        if (data[offset - 1] == 0x00 && data[offset - 2] == 0x00) {
++            break;
++        }
++
++        ++offset;
++    }
++
++    unsigned endOffset = offset -2;
++    while (endOffset > startOffset + 1 && data[endOffset - 1] == 0x00) {
++        --endOffset;
++    }
++
++    *nalStart = &data[startOffset];
++    *nalSize = endOffset - startOffset;
++
++    if (offset + 2 < size) {
++        *_data = &data[offset - 2];
++        *_frameSize = size - offset + 2;
++    } else {
++        *_data = NULL;
++        *_frameSize = 0;
++    }
++
++    return 0;
++}
+diff --git a/liveMedia/include/H264or5VideoStreamDiscreteFramer.hh b/liveMedia/include/H264or5VideoStreamDiscreteFramer.hh
+index 7c52a48..931d388 100644
+--- a/liveMedia/include/H264or5VideoStreamDiscreteFramer.hh
++++ b/liveMedia/include/H264or5VideoStreamDiscreteFramer.hh
+@@ -49,6 +49,9 @@ protected:
+                           unsigned durationInMicroseconds);
+
+   virtual Boolean nalUnitEndsAccessUnit(u_int8_t nal_unit_type);
++
++  int getNextNALUnit(u_int8_t **_data, unsigned *_frameSize,
++                     u_int8_t **nalStart, unsigned *nalSize);
+ };
+
+ #endif
+--
+1.9.1
+

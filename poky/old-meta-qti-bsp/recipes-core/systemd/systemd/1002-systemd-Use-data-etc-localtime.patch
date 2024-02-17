@@ -1,0 +1,149 @@
+From b2e45ef2b491cca7c96365385a45a9748044528b Mon Sep 17 00:00:00 2001
+From: Stuart Eichert <seichert@anki.com>
+Date: Tue, 29 May 2018 10:22:51 -0700
+Subject: [PATCH] Use /data/etc/localtime instead of /etc/localtime
+
+---
+ src/firstboot/firstboot.c |  6 +++---
+ src/nspawn/nspawn.c       | 16 ++++++++--------
+ src/timedate/timedated.c  | 16 ++++++++--------
+ 3 files changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/src/firstboot/firstboot.c b/src/firstboot/firstboot.c
+index e2a1c00..bc79812 100644
+--- a/src/firstboot/firstboot.c
++++ b/src/firstboot/firstboot.c
+@@ -324,14 +324,14 @@ static int process_timezone(void) {
+         const char *etc_localtime, *e;
+         int r;
+ 
+-        etc_localtime = prefix_roota(arg_root, "/etc/localtime");
++        etc_localtime = prefix_roota(arg_root, "/data/etc/localtime");
+         if (faccessat(AT_FDCWD, etc_localtime, F_OK, AT_SYMLINK_NOFOLLOW) >= 0)
+                 return 0;
+ 
+         if (arg_copy_timezone && arg_root) {
+                 _cleanup_free_ char *p = NULL;
+ 
+-                r = readlink_malloc("/etc/localtime", &p);
++                r = readlink_malloc("/data/etc/localtime", &p);
+                 if (r != -ENOENT) {
+                         if (r < 0)
+                                 return log_error_errno(r, "Failed to read host timezone: %m");
+@@ -352,7 +352,7 @@ static int process_timezone(void) {
+         if (isempty(arg_timezone))
+                 return 0;
+ 
+-        e = strjoina("../usr/share/zoneinfo/", arg_timezone);
++        e = strjoina("../../usr/share/zoneinfo/", arg_timezone);
+ 
+         mkdir_parents(etc_localtime, 0755);
+         if (symlink(e, etc_localtime) < 0)
+diff --git a/src/nspawn/nspawn.c b/src/nspawn/nspawn.c
+index 837947e..878100d 100644
+--- a/src/nspawn/nspawn.c
++++ b/src/nspawn/nspawn.c
+@@ -1513,24 +1513,24 @@ static int setup_timezone(const char *dest) {
+         assert(dest);
+ 
+         /* Fix the timezone, if possible */
+-        r = readlink_malloc("/etc/localtime", &p);
++        r = readlink_malloc("/data/etc/localtime", &p);
+         if (r < 0) {
+-                log_warning("/etc/localtime is not a symlink, not updating container timezone.");
++                log_warning("/data/etc/localtime is not a symlink, not updating container timezone.");
+                 return 0;
+         }
+ 
+-        z = path_startswith(p, "../usr/share/zoneinfo/");
++        z = path_startswith(p, "../../usr/share/zoneinfo/");
+         if (!z)
+                 z = path_startswith(p, "/usr/share/zoneinfo/");
+         if (!z) {
+-                log_warning("/etc/localtime does not point into /usr/share/zoneinfo/, not updating container timezone.");
++                log_warning("/data/etc/localtime does not point into /usr/share/zoneinfo/, not updating container timezone.");
+                 return 0;
+         }
+ 
+-        where = prefix_roota(dest, "/etc/localtime");
++        where = prefix_roota(dest, "/data/etc/localtime");
+         r = readlink_malloc(where, &q);
+         if (r >= 0) {
+-                y = path_startswith(q, "../usr/share/zoneinfo/");
++                y = path_startswith(q, "../../usr/share/zoneinfo/");
+                 if (!y)
+                         y = path_startswith(q, "/usr/share/zoneinfo/");
+ 
+@@ -1552,7 +1552,7 @@ static int setup_timezone(const char *dest) {
+                 return 0;
+         }
+ 
+-        what = strjoina("../usr/share/zoneinfo/", z);
++        what = strjoina("../../usr/share/zoneinfo/", z);
+         if (symlink(what, where) < 0) {
+                 log_error_errno(errno, "Failed to correct timezone of container: %m");
+                 return 0;
+@@ -1560,7 +1560,7 @@ static int setup_timezone(const char *dest) {
+ 
+         r = userns_lchown(where, 0, 0);
+         if (r < 0)
+-                return log_warning_errno(r, "Failed to chown /etc/localtime: %m");
++                return log_warning_errno(r, "Failed to chown /data/etc/localtime: %m");
+ 
+         return 0;
+ }
+diff --git a/src/timedate/timedated.c b/src/timedate/timedated.c
+index 21d6ee4..318dba5 100644
+--- a/src/timedate/timedated.c
++++ b/src/timedate/timedated.c
+@@ -68,21 +68,21 @@ static int context_read_data(Context *c) {
+ 
+         assert(c);
+ 
+-        r = readlink_malloc("/etc/localtime", &t);
++        r = readlink_malloc("/data/etc/localtime", &t);
+         if (r < 0) {
+                 if (r == -EINVAL)
+-                        log_warning("/etc/localtime should be a symbolic link to a time zone data file in /usr/share/zoneinfo/.");
++                        log_warning("/data/etc/localtime should be a symbolic link to a time zone data file in /usr/share/zoneinfo/.");
+                 else
+-                        log_warning_errno(r, "Failed to get target of /etc/localtime: %m");
++                        log_warning_errno(r, "Failed to get target of /data/etc/localtime: %m");
+         } else {
+                 const char *e;
+ 
+                 e = path_startswith(t, "/usr/share/zoneinfo/");
+                 if (!e)
+-                        e = path_startswith(t, "../usr/share/zoneinfo/");
++                        e = path_startswith(t, "../../usr/share/zoneinfo/");
+ 
+                 if (!e)
+-                        log_warning("/etc/localtime should be a symbolic link to a time zone data file in /usr/share/zoneinfo/.");
++                        log_warning("/data/etc/localtime should be a symbolic link to a time zone data file in /usr/share/zoneinfo/.");
+                 else {
+                         c->zone = strdup(e);
+                         if (!c->zone)
+@@ -107,17 +107,17 @@ static int context_write_data_timezone(Context *c) {
+         assert(c);
+ 
+         if (isempty(c->zone)) {
+-                if (unlink("/etc/localtime") < 0 && errno != ENOENT)
++                if (unlink("/data/etc/localtime") < 0 && errno != ENOENT)
+                         r = -errno;
+ 
+                 return r;
+         }
+ 
+-        p = strappend("../usr/share/zoneinfo/", c->zone);
++        p = strappend("../../usr/share/zoneinfo/", c->zone);
+         if (!p)
+                 return log_oom();
+ 
+-        r = symlink_atomic(p, "/etc/localtime");
++        r = symlink_atomic(p, "/data/etc/localtime");
+         if (r < 0)
+                 return r;
+ 
+-- 
+2.1.2
+

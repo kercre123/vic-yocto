@@ -1,0 +1,30 @@
+From 2a66648bc27c623b880ff3295ff4372ceb57cc3a Mon Sep 17 00:00:00 2001
+From: Stuart Eichert <seichert@anki.com>
+Date: Mon, 5 Nov 2018 17:03:35 -0800
+Subject: [PATCH] Allow the net user to access connman over DBus
+
+---
+ src/connman-dbus.conf | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/connman-dbus.conf b/src/connman-dbus.conf
+index 98a773e..c625035 100644
+--- a/src/connman-dbus.conf
++++ b/src/connman-dbus.conf
+@@ -8,6 +8,13 @@
+         <allow send_interface="net.connman.Counter"/>
+         <allow send_interface="net.connman.Notification"/>
+     </policy>
++    <policy user="net">
++        <allow own="net.connman"/>
++        <allow send_destination="net.connman"/>
++        <allow send_interface="net.connman.Agent"/>
++        <allow send_interface="net.connman.Counter"/>
++        <allow send_interface="net.connman.Notification"/>
++    </policy>
+     <policy at_console="true">
+         <allow send_destination="net.connman"/>
+     </policy>
+-- 
+2.1.2
+

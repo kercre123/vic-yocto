@@ -1,0 +1,43 @@
+Subject: [PATCH] policycoreutils: make O_CLOEXEC optional
+
+Various commits in the selinux tree in the current release added O_CLOEXEC
+to open() calls in an attempt to address file descriptor leaks as
+described:
+
+   http://danwalsh.livejournal.com/53603.html
+
+However O_CLOEXEC isn't available on all platforms, so make it a
+compile-time option and generate a warning when it is not available.  The
+actual impact of leaking these file descriptors is minimal, though it does
+produce curious AVC Denied messages.
+
+Uptream-Status: Inappropriate [O_CLOEXEC has been in Linux since 2007 and POSIX since 2008]
+
+Signed-off-by: Joe MacDonald <joe.macdonald@windriver.com>
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+---
+ restorecond/user.c |    8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/restorecond/user.c b/restorecond/user.c
+index 2c28676..6235772 100644
+--- a/restorecond/user.c
++++ b/restorecond/user.c
+@@ -202,7 +202,13 @@ static int local_server() {
+ 			perror("asprintf");
+ 		return -1;
+ 	}
+-	local_lock_fd = open(ptr, O_CREAT | O_WRONLY | O_NOFOLLOW | O_CLOEXEC, S_IRUSR | S_IWUSR);
++	local_lock_fd = open(ptr, O_CREAT | O_WRONLY | O_NOFOLLOW
++	#ifdef O_CLOEXEC
++		| O_CLOEXEC
++	#else
++		#warning O_CLOEXEC undefined on this platform, this may leak file descriptors
++	#endif
++		, S_IRUSR | S_IWUSR);
+ 	if (debug_mode)
+ 		g_warning ("Lock file: %s", ptr);
+ 
+-- 
+1.7.9.5
+

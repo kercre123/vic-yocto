@@ -1,0 +1,34 @@
+From bad816bc752369a6c1bf40231c505d21d95cab08 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Fri, 23 Aug 2013 11:20:00 +0800
+Subject: [PATCH 4/6] add rules for the subdir symlinks in /var/
+
+Except /var/log,/var/run,/var/lock, there still other subdir symlinks in
+/var for poky, so we need allow rules for all domains to read these
+symlinks. Domains still need their practical allow rules to read the
+contents, so this is still a secure relax.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/kernel/domain.te |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/policy/modules/kernel/domain.te
++++ b/policy/modules/kernel/domain.te
+@@ -108,10 +108,13 @@ dev_rw_zero(domain)
+ term_use_controlling_term(domain)
+ 
+ # list the root directory
+ files_list_root(domain)
+ 
++# Yocto/oe-core use some var volatile links
++files_read_var_symlinks(domain)
++
+ ifdef(`hide_broken_symptoms',`
+ 	# This check is in the general socket
+ 	# listen code, before protocol-specific
+ 	# listen function is called, so bad calls
+ 	# to listen on UDP sockets should be silenced

@@ -1,0 +1,35 @@
+This file contains a list of maintainers for the meta-selinux layer.
+
+Please submit any patches against meta-selinux to the Yocto Project mailing
+list (yocto@yoctoproject.org).
+
+You may also contact the maintainers directly.
+
+Descriptions of section entries:
+
+	M: Mail patches to: FullName <address@domain>
+	F: Files and directories with wildcard patterns.
+	   A trailing slash includes all files and subdirectory files.
+	   F:	recipes-devtools/	all files in and below meta-crownbay
+	   F:	recipes-selinux/*	all files in meta-crownbay, but not below
+	   One pattern per line.  Multiple F: lines acceptable.
+
+Please keep this list in alphabetical order.
+
+Maintainers List (try to look for most precise areas first)
+
+COMMON
+M:	Joe MacDonald <joe_macdonald@mentor.com>
+F:	conf
+F:	classes
+F:	recipes-*
+
+M:	Philip Tricca <flihp@twobit.us>
+F:	conf
+F:	classes
+F:	recipes-*
+
+COMMON
+M:	Mark Hatle <mark.hatle@windriver.com>
+F:	conf
+F:	recipes-*

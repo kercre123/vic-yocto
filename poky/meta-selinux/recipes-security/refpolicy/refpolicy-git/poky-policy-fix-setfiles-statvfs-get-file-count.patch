@@ -1,0 +1,31 @@
+From f4e034d6996c5b1f88a9262828dac2ad6ee09b7b Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Fri, 23 Aug 2013 14:38:53 +0800
+Subject: [PATCH] fix setfiles statvfs to get file count
+
+New setfiles will read /proc/mounts and use statvfs in
+file_system_count() to get file count of filesystems.
+
+Upstream-Status: pending
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Shrikant Bobade <Shrikant_Bobade@mentor.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/selinuxutil.te |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/policy/modules/system/selinuxutil.te
++++ b/policy/modules/system/selinuxutil.te
+@@ -594,10 +594,11 @@ files_read_usr_symlinks(setfiles_t)
+ files_dontaudit_read_all_symlinks(setfiles_t)
+ 
+ # needs to be able to read symlinks to make restorecon on symlink working
+ files_read_all_symlinks(setfiles_t)
+ 
++fs_getattr_all_fs(setfiles_t)
+ fs_getattr_all_xattr_fs(setfiles_t)
+ fs_getattr_nfs(setfiles_t)
+ fs_getattr_pstore_dirs(setfiles_t)
+ fs_getattr_pstorefs(setfiles_t)
+ fs_getattr_tracefs(setfiles_t)

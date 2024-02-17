@@ -1,0 +1,39 @@
+From d3e778e0062ca441c80e2a3ef2b508f5566e1f70 Mon Sep 17 00:00:00 2001
+From: Joe MacDonald <joe_macdonald@mentor.com>
+Date: Fri, 20 Feb 2015 21:07:47 -0500
+Subject: [PATCH] sandbox: de-bashify
+
+There's no bashisms apparent in either the sandbox initscript nor the
+sandboxX script, so point them at /bin/sh instead.
+
+Upstream-Status: Pending
+
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ sandbox/sandbox.init | 2 +-
+ sandbox/sandboxX.sh  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sandbox/sandbox.init b/sandbox/sandbox.init
+index b3979bf..1893dc8 100644
+--- a/sandbox/sandbox.init
++++ b/sandbox/sandbox.init
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ ## BEGIN INIT INFO
+ # Provides: sandbox
+ # Default-Start: 3 4 5
+diff --git a/sandbox/sandboxX.sh b/sandbox/sandboxX.sh
+index eaa500d..8755d75 100644
+--- a/sandbox/sandboxX.sh
++++ b/sandbox/sandboxX.sh
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ trap "" TERM
+ context=`id -Z | secon -t -l -P`
+ export TITLE="Sandbox $context -- `grep ^#TITLE: ~/.sandboxrc | /usr/bin/cut -b8-80`"
+-- 
+1.9.1
+

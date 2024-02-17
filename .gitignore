@@ -1,0 +1,5 @@
+/poky/build/tmp-glibs
+/poky/build/cache
+/poky/build/downloads
+/poky/build/sstatecache
+/poky/build/conf/bblayers.conf

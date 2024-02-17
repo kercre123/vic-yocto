@@ -1,0 +1,2 @@
+# BT OPEN SOURCE PACKAGES
+include ${BASEMACHINE}/${BASEMACHINE}-drone-bt-image.inc

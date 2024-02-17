@@ -1,0 +1,131 @@
+From 40c3b4af7717dfa5725f92cc817a064e29e5261e Mon Sep 17 00:00:00 2001
+From: Praveen Yaramada <pyaramada@codeaurora.org>
+Date: Thu, 31 Aug 2017 16:17:33 -0700
+Subject: [PATCH] bitbake using cmake
+
+---
+ CMakeLists.txt            | 27 ++++++++++++++++-----
+ extra/nanopb-config.cmake | 60 ++++++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 80 insertions(+), 7 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b8a2946..046ebc5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -46,19 +46,34 @@ if(nanopb_BUILD_GENERATOR)
+         string(REGEX REPLACE "([^;]+)" "\\1_pb2.py" generator_proto_py_file "${generator_proto}")
+         add_custom_command(
+             OUTPUT ${generator_proto_py_file}
+-            COMMAND protoc --python_out=${CMAKE_CURRENT_BINARY_DIR} -Igenerator/proto ${generator_proto_file}
+-            DEPENDS ${generator_proto_file}
++            COMMAND protoc --python_out=${CMAKE_CURRENT_BINARY_DIR} -I${CMAKE_SOURCE_DIR}/generator/proto ${CMAKE_SOURCE_DIR}/${generator_proto_file}
++            DEPENDS ${CMAKE_SOURCE_DIR}/${generator_proto_file}
+         )
+         add_custom_target("generate_${generator_proto_py_file}" ALL DEPENDS ${generator_proto_py_file})
+         install(
+-            FILES ${generator_proto_py_file}
+-			DESTINATION ${PYTHON_INSTDIR}
++            FILES ${CMAKE_CURRENT_BINARY_DIR}/${generator_proto_py_file}
++			DESTINATION ${CMAKE_INSTALL_CMAKEDIR}/proto
+         )
+     endforeach()
++    # install the genrator and supporting files in to usr/lib/cmake/nanopb
++    install(
++        FILES ${CMAKE_CURRENT_SOURCE_DIR}/generator/proto/__init__.py
++        DESTINATION ${CMAKE_INSTALL_CMAKEDIR}/proto
++        PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
++                    GROUP_EXECUTE GROUP_READ
++                    WORLD_EXECUTE WORLD_READ
++    )
++    install(
++        FILES ${CMAKE_CURRENT_SOURCE_DIR}/generator/nanopb_generator.py
++        DESTINATION ${CMAKE_INSTALL_CMAKEDIR}
++        PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
++                    GROUP_EXECUTE GROUP_READ
++                    WORLD_EXECUTE WORLD_READ
++    )
+ endif()
+ 
+ if(nanopb_BUILD_RUNTIME)
+-    add_library(protobuf-nanopb STATIC
++    add_library(protobuf-nanopb SHARED
+         pb.h
+         pb_common.h
+         pb_common.c
+@@ -75,7 +90,7 @@ if(nanopb_BUILD_RUNTIME)
+         nanopb-config-version.cmake @ONLY)
+ 
+     install(TARGETS protobuf-nanopb EXPORT nanopb-targets
+-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
++        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+     install(EXPORT nanopb-targets
+         DESTINATION ${CMAKE_INSTALL_CMAKEDIR}
+diff --git a/extra/nanopb-config.cmake b/extra/nanopb-config.cmake
+index 4f726a6..3a75728 100644
+--- a/extra/nanopb-config.cmake
++++ b/extra/nanopb-config.cmake
+@@ -1 +1,59 @@
+-include(${CMAKE_CURRENT_LIST_DIR}/nanopb-targets.cmake)
++# generator for cmake users. Given a .proto file generates .pb.h and .pb.c
++# in the same directory as the .proto file.
++#
++#  Usage:
++#   find_package(Nanopb REQUIRED)
++#   nanopb_generate_cpp(PROTO_SRCS PROTO_HDRS proto/sap-api.proto)
++#  this will produce a proto/sap-api.pb.h and proto/sap-api.pb.c files.
++#
++#
++function(NANOPB_GENERATE_CPP SRCS HDRS)
++  if(NOT ARGN)
++    return()
++  endif()
++
++  set(_nanobp_include_path -I ${CMAKE_CURRENT_SOURCE_DIR})
++
++  set(${SRCS})
++  set(${HDRS})
++
++  foreach(FIL ${ARGN})
++    get_filename_component(ABS_FIL ${FIL} ABSOLUTE)
++    get_filename_component(FIL_WE ${ABS_FIL} NAME_WE)
++    get_filename_component(FIL_DIR ${ABS_FIL} PATH)
++    set(NANOPB_OPTIONS_FILE ${FIL_DIR}/${FIL_WE}.options)
++    set(NANOPB_OPTIONS)
++    if(EXISTS ${NANOPB_OPTIONS_FILE})
++        set(NANOPB_OPTIONS -f ${NANOPB_OPTIONS_FILE})
++    endif()
++
++    list(APPEND ${SRCS} "${FIL_DIR}/${FIL_WE}.pb.c")
++    list(APPEND ${HDRS} "${FIL_DIR}/${FIL_WE}.pb.h")
++
++    add_custom_command(
++      OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${FIL_WE}.pb"
++      COMMAND  ${PROTOBUF_PROTOC_EXECUTABLE}
++      ARGS -I${CMAKE_CURRENT_BINARY_DIR} ${_nanobp_include_path}
++        -o${FIL_WE}.pb ${ABS_FIL}
++      COMMENT "Running C++ protocol buffer compiler on ${FIL}"
++      VERBATIM )
++
++    add_custom_command(
++      OUTPUT "${FIL_DIR}/${FIL_WE}.pb.c"
++             "${FIL_DIR}/${FIL_WE}.pb.h"
++      COMMAND ${PYTHON_EXECUTABLE}
++      ARGS ${NANOPB_GENERATOR_EXECUTABLE} ${FIL_WE}.pb ${NANOPB_OPTIONS} --output=${FIL_DIR}
++      DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/${FIL_WE}.pb"
++      COMMENT "Running nanopb generator on ${FIL_WE}.pb"
++      VERBATIM )
++  endforeach()
++
++  set_source_files_properties(${${SRCS}} ${${HDRS}} PROPERTIES GENERATED TRUE)
++  set(${SRCS} ${${SRCS}} ${NANOPB_SRCS} PARENT_SCOPE)
++  set(${HDRS} ${${HDRS}} ${NANOPB_HDRS} PARENT_SCOPE)
++
++endfunction()
++
++set(NANOPB_GENERATOR_EXECUTABLE ${CMAKE_CURRENT_LIST_DIR}/nanopb_generator.py)
++find_package(PythonInterp REQUIRED)
++find_package(Protobuf REQUIRED)
+-- 
+1.9.1
+

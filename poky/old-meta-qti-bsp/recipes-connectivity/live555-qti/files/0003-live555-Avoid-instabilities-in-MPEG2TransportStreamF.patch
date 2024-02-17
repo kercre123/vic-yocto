@@ -1,0 +1,38 @@
+From f29ea78b7af38c23740cade3121d2be50ef7d030 Mon Sep 17 00:00:00 2001
+From: Emilian Peev <epeevs@codeaurora.org>
+Date: Mon, 15 Feb 2016 09:47:05 +0200
+Subject: [PATCH 3/4] live555: Avoid instabilities in
+ MPEG2TransportStreamFromESSource
+
+ - A code path exists that will invoke
+   "InputESSourceRecord::askForNewData" after its
+   destructor got invoked. Add a simple check to
+   avoid any instabilities by trying to access
+   released resources.
+
+Change-Id: Ibf01b860c6f3a30b5ea5e6f5b7033e52fc335f29
+---
+ liveMedia/MPEG2TransportStreamFromESSource.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/liveMedia/MPEG2TransportStreamFromESSource.cpp b/liveMedia/MPEG2TransportStreamFromESSource.cpp
+index 4008e8b..b0a801c 100644
+--- a/liveMedia/MPEG2TransportStreamFromESSource.cpp
++++ b/liveMedia/MPEG2TransportStreamFromESSource.cpp
+@@ -169,11 +169,13 @@ InputESSourceRecord
+ InputESSourceRecord::~InputESSourceRecord() {
+   Medium::close(fInputSource);
+   delete[] fInputBuffer;
++  fInputBuffer = NULL;
+   delete fNext;
+ }
+ 
+ void InputESSourceRecord::askForNewData() {
+   if (fInputBufferInUse) return;
++  if (NULL == fInputBuffer) return;
+ 
+   if (fInputBufferBytesAvailable == 0) {
+     // Reset our buffer, by adding a simple PES header at the start:
+-- 
+1.9.1
+

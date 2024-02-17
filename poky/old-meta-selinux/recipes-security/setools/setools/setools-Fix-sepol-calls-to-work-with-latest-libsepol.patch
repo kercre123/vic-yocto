@@ -1,0 +1,36 @@
+From 16d3a0b41273be4289f70d1d63fb983721bb60c0 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Wed, 7 Mar 2012 10:54:55 +0800
+Subject: [PATCH 4/7] setools: Fix sepol calls to work with latest libsepol
+
+Integrated from Fedora:
+https://community.dev.fedoraproject.org/packages/setools/sources/patches/
+---
+ configure.ac |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index e837e03..3c11e23 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -505,7 +505,7 @@ AC_COMPILE_IFELSE(
+                   [AC_LANG_SOURCE([
+ #include <sepol/policydb/expand.h>
+ int main () {
+-  return role_set_expand(NULL, NULL, NULL, NULL);
++  return role_set_expand(NULL, NULL, NULL, NULL, NULL);
+ }])],
+                   sepol_new_user_role_mapping="yes",
+                   sepol_new_user_role_mapping="no")
+@@ -541,7 +541,7 @@ if test ${sepol_check_boolmap} = "yes"; then
+                          [AC_LANG_SOURCE([
+ #include <sepol/policydb/expand.h>
+ int main () {
+-  return expand_module_avrules(NULL, NULL, NULL, NULL, NULL, 0, 0);
++  return expand_module_avrules(NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0);
+ }])],
+                          AC_MSG_RESULT([yes]),
+                          AC_MSG_ERROR([this version of libsepol is incompatible with SETools]))
+-- 
+1.7.5.4
+

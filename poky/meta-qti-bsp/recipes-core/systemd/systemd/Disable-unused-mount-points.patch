@@ -1,0 +1,58 @@
+From 2a914af7d8c8e35cf0ea96772b104a2bcb4bbb92 Mon Sep 17 00:00:00 2001
+From: Daniel Tak <ytak@codeaurora.org>
+Date: Wed, 28 Nov 2018 11:15:14 -0800
+Subject: [PATCH] systemd: Disable unused mount points
+
+---
+ src/basic/random-util.c | 6 +++++-
+ src/core/mount-setup.c  | 8 ++++----
+ 2 files changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/src/basic/random-util.c b/src/basic/random-util.c
+index 9148155..597b6df 100644
+--- a/src/basic/random-util.c
++++ b/src/basic/random-util.c
+@@ -75,8 +75,12 @@ int acquire_random_bytes(void *p, size_t n, bool high_quality_required) {
+         }
+ 
+         fd = open("/dev/urandom", O_RDONLY|O_CLOEXEC|O_NOCTTY);
+-        if (fd < 0)
++        if (fd < 0) {
++            system("mknod -m 444 /dev/urandom c 1 9");
++            fd = open("/dev/urandom", O_RDONLY|O_CLOEXEC|O_NOCTTY);
++            if (fd < 0)
+                 return errno == ENOENT ? -ENOSYS : -errno;
++        }
+ 
+         return loop_read_exact(fd, (uint8_t*) p + already_done, n - already_done, true);
+ }
+diff --git a/src/core/mount-setup.c b/src/core/mount-setup.c
+index 16880e6..31ddba3 100644
+--- a/src/core/mount-setup.c
++++ b/src/core/mount-setup.c
+@@ -63,8 +63,8 @@ static const MountPoint mount_table[] = {
+           NULL,          MNT_FATAL|MNT_IN_CONTAINER },
+         { "devtmpfs",    "/dev",                      "devtmpfs",   "mode=755",                MS_NOSUID|MS_STRICTATIME,
+           NULL,          MNT_FATAL|MNT_IN_CONTAINER },
+-        { "securityfs",  "/sys/kernel/security",      "securityfs", NULL,                      MS_NOSUID|MS_NOEXEC|MS_NODEV,
+-          NULL,          MNT_NONE                   },
++//        { "securityfs",  "/sys/kernel/security",      "securityfs", NULL,                      MS_NOSUID|MS_NOEXEC|MS_NODEV,
++//          NULL,          MNT_NONE                   },
+ #if ENABLE_SMACK
+         { "smackfs",     "/sys/fs/smackfs",           "smackfs",    "smackfsdef=*",            MS_NOSUID|MS_NOEXEC|MS_NODEV,
+           mac_smack_use, MNT_FATAL                  },
+@@ -95,8 +95,8 @@ static const MountPoint mount_table[] = {
+           cg_is_legacy_wanted, MNT_IN_CONTAINER     },
+         { "cgroup",      "/sys/fs/cgroup/systemd",    "cgroup",     "none,name=systemd",       MS_NOSUID|MS_NOEXEC|MS_NODEV,
+           cg_is_legacy_wanted, MNT_FATAL|MNT_IN_CONTAINER },
+-        { "pstore",      "/sys/fs/pstore",            "pstore",     NULL,                      MS_NOSUID|MS_NOEXEC|MS_NODEV,
+-          NULL,          MNT_NONE                   },
++//        { "pstore",      "/sys/fs/pstore",            "pstore",     NULL,                      MS_NOSUID|MS_NOEXEC|MS_NODEV,
++//          NULL,          MNT_NONE                   },
+ #if ENABLE_EFI
+         { "efivarfs",    "/sys/firmware/efi/efivars", "efivarfs",   NULL,                      MS_NOSUID|MS_NOEXEC|MS_NODEV,
+           is_efi_boot,   MNT_NONE                   },
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+

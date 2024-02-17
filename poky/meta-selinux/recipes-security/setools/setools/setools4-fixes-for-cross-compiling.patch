@@ -1,0 +1,40 @@
+From a104374147b398838edc04e937c92e762ea3f5d9 Mon Sep 17 00:00:00 2001
+From: Wenzong Fan <wenzong.fan@windriver.com>
+Date: Tue, 14 Feb 2017 06:32:35 +0000
+Subject: [meta-selinux][PATCH] setools4: fixes for cross compiling
+
+* search libsepol from $STAGING_LIBDIR
+* fix manual install path as '/usr/share/man/man1'
+
+Upstream-Status: Inappropriate [embedded specific]
+
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+---
+ setup.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 2ca44c9..300ff70 100644
+--- a/setup.py
++++ b/setup.py
+@@ -77,7 +77,7 @@ class BuildExtCommand(build_ext):
+         build_ext.run(self)
+ 
+ 
+-base_lib_dirs = ['.', '/usr/lib64', '/usr/lib', '/usr/local/lib']
++base_lib_dirs = [os.environ["STAGING_LIBDIR"]]
+ include_dirs = ['libqpol', 'libqpol/include']
+ 
+ try:
+@@ -182,7 +182,7 @@ setup(name='setools',
+                 'build_qhc': QtHelpCommand},
+       packages=['setools', 'setools.diff', 'setools.policyrep', 'setoolsgui', 'setoolsgui.apol'],
+       scripts=['apol', 'sediff', 'seinfo', 'seinfoflow', 'sesearch', 'sedta'],
+-      data_files=[(join(sys.prefix, 'share/man/man1'), glob.glob("man/*.1"))],
++      data_files=[('/usr/share/man/man1', glob.glob("man/*.1"))],
+       package_data={'': ['*.ui', '*.qhc', '*.qch'], 'setools': ['perm_map']},
+       ext_modules=ext_py_mods,
+       test_suite='tests',
+-- 
+2.13.0
+

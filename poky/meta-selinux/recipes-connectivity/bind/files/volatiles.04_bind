@@ -1,0 +1,4 @@
+# <type> <owner> <group> <mode> <path> <linksource>
+d root root 0755 /var/run/named none
+d root root 0755 /var/run/bind/run none
+d root root 0755 /var/cache/bind none

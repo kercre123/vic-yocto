@@ -1,0 +1,12 @@
+# /etc/profile: system-wide .profile file for the Bourne shells
+
+echo
+echo -n "Processing /etc/profile... "
+# no-op
+
+# Disable ls color as adb shell doesn't support it.
+LS_COLORS=none
+export LS_COLORS
+
+echo "Done"
+echo

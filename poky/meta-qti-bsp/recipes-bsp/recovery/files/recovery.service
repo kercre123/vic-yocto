@@ -1,0 +1,12 @@
+[Unit]
+Description= Recovery Service
+After=find-recovery-partitions.service adbd.service mount-data.service multi-user.target
+Requires=mount-data.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/recovery
+
+[Install]
+WantedBy=multi-user.target

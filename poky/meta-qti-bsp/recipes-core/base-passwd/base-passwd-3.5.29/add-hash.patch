@@ -1,0 +1,22 @@
+From 510c2edaf609b1660c4b2f4a55a3405438254cd6 Mon Sep 17 00:00:00 2001
+From: John Lima <jlima@codeaurora.org>
+Date: Wed, 23 May 2012 13:30:52 -0700
+Subject: [PATCH 1/1] added hash
+
+---
+ passwd.master |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/passwd.master b/passwd.master
+index a01a6aa..2a8585f 100644
+--- a/passwd.master
++++ b/passwd.master
+@@ -1,4 +1,4 @@
+-root::0:0:root:/home/root:/bin/sh
++root:$1$v4DK.qyA$p0bMEw90cq8oJ.2YwxB8b.:0:0:root:/home/root:/bin/sh
+ daemon:*:1:1:daemon:/usr/sbin:/bin/sh
+ bin:*:2:2:bin:/bin:/bin/sh
+ sys:*:3:3:sys:/dev:/bin/sh
+-- 
+1.7.8.3
+

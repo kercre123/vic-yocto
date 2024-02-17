@@ -1,0 +1,47 @@
+refpolicy-minimum: systemd: mount: enable required refpolicy booleans
+
+enable required refpolicy booleans for these modules
+
+i. mount:  allow_mount_anyfile
+without enabling this boolean we are getting below avc denial
+
+audit(): avc:  denied  { mounton } for  pid=462 comm="mount" path="/run/media
+/mmcblk2p1" dev="tmpfs" ino=11523 scontext=system_u:system_r:mount_t:s0
+tcontext=system_u:object_r:initrc_var_run_t:s0 tclass=dir permissive=0
+
+This avc can be allowed using the boolean 'allow_mount_anyfile'
+allow mount_t initrc_var_run_t:dir mounton;
+
+ii. systemd : systemd_tmpfiles_manage_all
+without enabling this boolean we are not getting access to mount systemd
+essential tmpfs during bootup, also not getting access to create audit.log
+
+audit(): avc:  denied  { search } for  pid=168 comm="systemd-tmpfile" name=
+"sys" dev="proc" ino=4026531855 scontext=system_u:system_r:systemd_tmpfiles
+_t:s0 tcontext=system_u:object_r:sysctl_t:s0 tclass=dir permissive=0
+
+ ls  /var/log
+ /var/log -> volatile/log
+:~#
+
+Upstream-Status: Pending
+
+Signed-off-by: Shrikant Bobade <shrikant_bobade@mentor.com>
+
+--- a/policy/booleans.conf
++++ b/policy/booleans.conf
+@@ -1156,12 +1156,12 @@ racoon_read_shadow = false
+ #
+ # Allow the mount command to mount any directory or file.
+ # 
+-allow_mount_anyfile = false
++allow_mount_anyfile = true
+ 
+ #
+ # Enable support for systemd-tmpfiles to manage all non-security files.
+ # 
+-systemd_tmpfiles_manage_all = false
++systemd_tmpfiles_manage_all = true
+ 
+ #
+ # Allow users to connect to mysql

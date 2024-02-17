@@ -1,0 +1,22 @@
+From 2f5981f2244289a1cc79748e9ffdaaea168b1df2 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Fri, 23 Aug 2013 16:36:09 +0800
+Subject: [PATCH] fix dmesg to use /dev/kmsg as default input
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/admin/dmesg.if |    1 +
+ policy/modules/admin/dmesg.te |    2 ++
+ 2 files changed, 3 insertions(+)
+
+--- a/policy/modules/admin/dmesg.if
++++ b/policy/modules/admin/dmesg.if
+@@ -35,6 +35,7 @@ interface(`dmesg_exec',`
+ 		type dmesg_exec_t;
+ 	')
+ 
+ 	corecmd_search_bin($1)
+ 	can_exec($1, dmesg_exec_t)
++	dev_read_kmsg($1)
+ ')

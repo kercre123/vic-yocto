@@ -1,0 +1,102 @@
+From ec96260a28f9aae44afc8eec0e089bf95a36b557 Mon Sep 17 00:00:00 2001
+From: Shrikant Bobade <shrikant_bobade@mentor.com>
+Date: Fri, 26 Aug 2016 17:54:17 +0530
+Subject: [PATCH 8/9] refpolicy-minimum: systemd: fix for systemd tmp-files
+ services
+
+fix for systemd tmp files setup service while using refpolicy-minimum and
+systemd as init manager.
+
+these allow rules require kernel domain & files access, so added interfaces
+at systemd.te to merge these allow rules.
+
+without these changes we are getting avc denails like these and below
+systemd services failure:
+
+audit[]: AVC avc:  denied  { getattr } for  pid=232 comm="systemd-tmpfile"
+path="/var/tmp" dev="mmcblk2p2" ino=4993 scontext=system_u:system_r:systemd
+_tmpfiles_t:s0 tcontext=system_u:object_r:tmp_t:s0 tclass=lnk_file
+
+audit[]: AVC avc:  denied  { search } for  pid=232 comm="systemd-tmpfile"
+name="kernel" dev="proc" ino=9341 scontext=system_u:system_r:
+systemd_tmpfiles_t:s0 tcontext=system_u:object_r:sysctl_kernel_t:s0
+tclass=dir permissive=0
+
+[FAILED] Failed to start Create Static Device Nodes in /dev.
+See 'systemctl status systemd-tmpfiles-setup-dev.service' for details.
+
+[FAILED] Failed to start Create Volatile Files and Directories.
+See 'systemctl status systemd-tmpfiles-setup.service' for details.
+
+Upstream-Status: Pending
+
+Signed-off-by: Shrikant Bobade <shrikant_bobade@mentor.com>
+---
+ policy/modules/kernel/files.if   | 19 +++++++++++++++++++
+ policy/modules/kernel/kernel.if  | 23 +++++++++++++++++++++++
+ policy/modules/system/systemd.te |  3 +++
+ 3 files changed, 45 insertions(+)
+
+--- a/policy/modules/kernel/files.if
++++ b/policy/modules/kernel/files.if
+@@ -6906,3 +6906,22 @@ interface(`files_unconfined',`
+ 
+ 	typeattribute $1 files_unconfined_type;
+ ')
++
++########################################
++## <summary>
++##	systemd tmp files access to kernel tmp files domain
++## </summary>
++## <param name="domain">
++##	<summary>
++##	Domain allowed access.
++##	</summary>
++## </param>
++#
++interface(`systemd_service_allow_kernel_files_domain_to_tmp_t',`
++	gen_require(`
++	type tmp_t;
++        class lnk_file getattr;
++	')
++
++	allow $1 tmp_t:lnk_file getattr;
++')
+--- a/policy/modules/kernel/kernel.if
++++ b/policy/modules/kernel/kernel.if
+@@ -3418,3 +3418,26 @@ interface(`kernel_rw_vm_overcommit_sysct
+ 	kernel_search_vm_sysctl($1)
+ 	allow $1 sysctl_vm_overcommit_t:file rw_file_perms;
+ ')
++
++########################################
++## <summary>
++##	systemd tmp files access to kernel sysctl domain
++## </summary>
++## <param name="domain">
++##	<summary>
++##	Domain allowed access.
++##	</summary>
++## </param>
++#
++interface(`systemd_service_allow_kernel_domain_access_to_sysctl_kernel_t',`
++         gen_require(`
++                type sysctl_kernel_t;
++                class dir search;
++                class file { open read };
++         ')
++
++        allow $1 sysctl_kernel_t:dir search;
++        allow $1 sysctl_kernel_t:file { open read };
++
++')
++
+--- a/policy/modules/system/systemd.te
++++ b/policy/modules/system/systemd.te
+@@ -374,3 +374,6 @@ allow systemd_tmpfiles_t initrc_t:unix_d
+ allow systemd_tmpfiles_t self:capability net_admin;
+ 
+ allow systemd_tmpfiles_t init_t:file { open getattr read };
++
++systemd_service_allow_kernel_domain_access_to_sysctl_kernel_t(systemd_tmpfiles_t)
++systemd_service_allow_kernel_files_domain_to_tmp_t(systemd_tmpfiles_t)

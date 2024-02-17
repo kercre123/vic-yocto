@@ -1,0 +1,2 @@
+# Data OPEN SOURCE PACKAGES
+include ${BASEMACHINE}/${BASEMACHINE}-data-image.inc

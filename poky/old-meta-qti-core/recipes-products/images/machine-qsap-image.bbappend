@@ -1,0 +1,2 @@
+# Core OPEN SOURCE PACKAGES
+include ${BASEMACHINE}/${BASEMACHINE}-core-image.inc

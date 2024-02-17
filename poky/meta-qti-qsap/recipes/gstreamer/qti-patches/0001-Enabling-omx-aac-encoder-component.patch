@@ -1,0 +1,75 @@
+From 2c7076e65f0436aa6e455b105b2786e0c08794a2 Mon Sep 17 00:00:00 2001
+From: Abhinav Asati <asatiabhi@codeaurora.org>
+Date: Thu, 6 Apr 2017 16:52:39 +0530
+Subject: [PATCH] :Enabling-omx-aac-encoder-component
+
+---
+ config/bellagio/gstomx.conf | 44 ++++++++++++++++++++++----------------------
+ 1 file changed, 22 insertions(+), 22 deletions(-)
+
+diff --git a/config/bellagio/gstomx.conf b/config/bellagio/gstomx.conf
+index 5ca8ba6..ede7396 100644
+--- a/config/bellagio/gstomx.conf
++++ b/config/bellagio/gstomx.conf
+@@ -1,35 +1,35 @@
+-[omxmpeg4videodec]
+-type-name=GstOMXMPEG4VideoDec
+-core-name=/usr/local/lib/libomxil-bellagio.so.0
+-component-name=OMX.st.video_decoder.mpeg4
+-rank=257
++[omxaacenc]
++type-name=GstOMXAACEnc
++core-name=/usr/lib/libOmxCore.so
++component-name=OMX.qcom.audio.encoder.aac
++rank=0
+ in-port-index=0
+ out-port-index=1
+-hacks=event-port-settings-changed-ndata-parameter-swap;event-port-settings-changed-port-0-to-1
++hacks=no-disable-outport
+
+-[omxh264dec]
+-type-name=GstOMXH264Dec
+-core-name=/usr/local/lib/libomxil-bellagio.so.0
+-component-name=OMX.st.video_decoder.avc
+-rank=257
++[omxaacdec]
++type-name=GstOMXAACDec
++core-name=/usr/lib/libOmxCore.so
++component-name=OMX.qcom.audio.decoder.multiaac
++rank=0
+ in-port-index=0
+ out-port-index=1
+-hacks=event-port-settings-changed-ndata-parameter-swap;event-port-settings-changed-port-0-to-1
++hacks=no-disable-outport
+
+-[omxmpeg4videoenc]
+-type-name=GstOMXMPEG4VideoEnc
+-core-name=/usr/local/lib/libomxil-bellagio.so.0
+-component-name=OMX.st.video_encoder.mpeg4
++[omxamrnbdec]
++type-name=GstOMXAMRDec
++core-name=/usr/lib/libOmxCore.so
++component-name=OMX.qcom.audio.decoder.amrnb
+ rank=0
+ in-port-index=0
+ out-port-index=1
+-hacks=event-port-settings-changed-ndata-parameter-swap;video-framerate-integer;syncframe-flag-not-used
++hacks=no-disable-outport
+
+-[omxaacenc]
+-type-name=GstOMXAACEnc
+-core-name=/usr/local/lib/libomxil-bellagio.so.0
+-component-name=OMX.st.audio_encoder.aac
++[omxamrwbdec]
++type-name=GstOMXAMRDec
++core-name=/usr/lib/libOmxCore.so
++component-name=OMX.qcom.audio.decoder.amrwb
+ rank=0
+ in-port-index=0
+ out-port-index=1
+-hacks=event-port-settings-changed-ndata-parameter-swap
++hacks=no-disable-outport
+\ No newline at end of file
+--
+1.9.1
+

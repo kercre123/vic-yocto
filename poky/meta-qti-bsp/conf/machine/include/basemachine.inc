@@ -1,0 +1,21 @@
+BASEMACHINE ??= ""
+
+# Add BASEMACHINE to machine overrides
+MACHINEOVERRIDES =. "${@['', '${BASEMACHINE}:']['${BASEMACHINE}' != '']}"
+
+# Define BASEMACHINE_ARCH
+BASEMACHINE_ARCH = "${@['${MACHINE_ARCH}', '${BASEMACHINE}']['${BASEMACHINE}' != '']}"
+
+# Add BASEMACHINE_ARCH to PACKAGE_ARCHS. 
+# This variable is originally set in bitbake.conf
+PACKAGE_ARCHS .= "${@['', ' ${BASEMACHINE_ARCH}']['${BASEMACHINE_ARCH}' != '${MACHINE_ARCH}']}"
+PACKAGE_ARCHS[vardepsexclude] += "BASEMACHINE_ARCH"
+
+# Default Image names
+BOOTIMAGE_TARGET ?= "${BASEMACHINE}-boot.img"
+CACHEIMAGE_TARGET ?= "${BASEMACHINE}-cache.ext4"
+PERSISTIMAGE_TARGET ?= "${BASEMACHINE}-persist.ext4"
+RECOVERYIMAGE_TARGET ?= "${BASEMACHINE}-recoveryfs.ext4"
+SYSTEMIMAGE_TARGET ?= "${BASEMACHINE}-sysfs.ext4"
+SYSTEMRWIMAGE_TARGET ?= "${BASEMACHINE}-systemrw.ext4"
+USERDATAIMAGE_TARGET ?= "${BASEMACHINE}-usrfs.ext4"

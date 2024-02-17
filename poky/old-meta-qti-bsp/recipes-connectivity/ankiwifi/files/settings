@@ -1,0 +1,12 @@
+[global]
+OfflineMode=false
+DefaultAutoConnectTechnologies=wifi
+PreferredTechnologies=wifi
+
+[WiFi]
+Enable=true
+Tethering=false
+
+[P2P]
+Enable=false
+Tethering=false

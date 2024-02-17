@@ -1,0 +1,69 @@
+From 9476fb0aad7caa725014e72cd009b78389ba66d5 Mon Sep 17 00:00:00 2001
+From: Shrikant Bobade <shrikant_bobade@mentor.com>
+Date: Fri, 26 Aug 2016 17:54:29 +0530
+Subject: [PATCH 9/9] refpolicy-minimum: systemd: fix for syslog
+
+syslog & getty related allow rules required to fix the syslog mixup with
+boot log, while using systemd as init manager.
+
+without this change we are getting these avc denials:
+
+audit: avc:  denied  { search } for  pid=484 comm="syslogd" name="/"
+dev="tmpfs" ino=7269 scontext=system_u:system_r:syslogd_t:s0 tcontext=
+system_u:object_r:tmpfs_t:s0 tclass=dir permissive=0
+
+audit: avc:  denied  { write } for  pid=372 comm="syslogd" name="log" dev=
+"tmpfs" ino=954 scontext=system_u:system_r:syslogd_t:s0 tcontext=system_u:
+object_r:tmpfs_t:s0 tclass=dir permissive=0
+
+audit: avc:  denied  { add_name } for  pid=390 comm="syslogd" name=
+"messages" scontext=system_u:system_r:syslogd_t:s0 tcontext=system_u:object_r
+:tmpfs_t:s0 tclass=dir permissive=0
+
+audit: avc:  denied  { sendto } for  pid=558 comm="agetty" path="/run/systemd
+/journal/dev-log" scontext=system_u:system_r:getty_t:s0 tcontext=system_u:
+system_r:initrc_t:s0 tclass=unix_dgram_socket permissive=0
+
+audit: avc:  denied  { create } for  pid=374 comm="syslogd" name="messages"
+scontext=system_u:system_r:syslogd_t:s0 tcontext=system_u:object_r:tmpfs_t:
+s0 tclass=file permissive=0
+
+audit: avc:  denied  { append } for  pid=423 comm="syslogd" name="messages"
+dev="tmpfs" ino=7995 scontext=system_u:system_r:syslogd_t:s0 tcontext=
+system_u:object_r:tmpfs_t:s0 tclass=file permissive=0
+
+audit: avc:  denied  { getattr } for  pid=425 comm="syslogd" path="/var/
+volatile/log/messages" dev="tmpfs" ino=8857 scontext=system_u:system_r:
+syslogd_t:s0 tcontext=system_u:object_r:tmpfs_t:s0 tclass=file permissive=0
+
+Upstream-Status: Pending
+
+Signed-off-by: Shrikant Bobade <shrikant_bobade@mentor.com>
+---
+ policy/modules/system/getty.te   | 1 +
+ policy/modules/system/logging.te | 3 ++-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/policy/modules/system/getty.te b/policy/modules/system/getty.te
+index 84eaf77..2e53daf 100644
+--- a/policy/modules/system/getty.te
++++ b/policy/modules/system/getty.te
+@@ -142,3 +142,4 @@ optional_policy(`
+ 
+ allow getty_t tmpfs_t:dir search;
+ allow getty_t tmpfs_t:file { open write lock };
++allow getty_t initrc_t:unix_dgram_socket sendto;
+diff --git a/policy/modules/system/logging.te b/policy/modules/system/logging.te
+index 107db03..95de86d 100644
+--- a/policy/modules/system/logging.te
++++ b/policy/modules/system/logging.te
+@@ -581,4 +581,5 @@ allow klogd_t initrc_t:unix_dgram_socket sendto;
+ allow syslogd_t self:shm create;
+ allow syslogd_t self:sem { create read unix_write write };
+ allow syslogd_t self:shm { read unix_read unix_write write };
+-allow syslogd_t tmpfs_t:file { read write };
++allow syslogd_t tmpfs_t:file { read write create getattr append open };
++allow syslogd_t tmpfs_t:dir { search write add_name };
+-- 
+1.9.1
+

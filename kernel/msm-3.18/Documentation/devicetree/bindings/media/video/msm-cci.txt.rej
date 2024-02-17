@@ -1,0 +1,10 @@
+--- Documentation/devicetree/bindings/media/video/msm-cci.txt
++++ Documentation/devicetree/bindings/media/video/msm-cci.txt
+@@ -64,6 +64,7 @@
+     - "ovti,ov5645"
+     - "ovti,ov7695"
+     - "qcom,mt9m114"
++    - "qcom,gc2145_8909"
+ - reg : should contain i2c slave address of the device
+ - qcom,csiphy-sd-index : should contain csiphy instance that will used to
+     receive sensor data

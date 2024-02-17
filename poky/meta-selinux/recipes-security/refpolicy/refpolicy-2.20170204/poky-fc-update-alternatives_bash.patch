@@ -1,0 +1,24 @@
+From 845518a6f196e6e8c49ba38791c85e17276920e1 Mon Sep 17 00:00:00 2001
+From: Mark Hatle <mark.hatle@windriver.com>
+Date: Thu, 14 Sep 2017 15:02:23 -0500
+Subject: [PATCH 3/4] fix update-alternatives for hostname
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Mark Hatle <mark.hatle@windriver.com>
+---
+ policy/modules/system/corecommands.fc |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: refpolicy/policy/modules/kernel/corecommands.fc
+===================================================================
+--- refpolicy.orig/policy/modules/kernel/corecommands.fc
++++ refpolicy/policy/modules/kernel/corecommands.fc
+@@ -6,6 +6,7 @@
+ /bin/d?ash			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /bin/bash			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /bin/bash2			--	gen_context(system_u:object_r:shell_exec_t,s0)
++/bin/bash\.bash			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /bin/fish			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /bin/ksh.*			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /bin/mksh			--	gen_context(system_u:object_r:shell_exec_t,s0)

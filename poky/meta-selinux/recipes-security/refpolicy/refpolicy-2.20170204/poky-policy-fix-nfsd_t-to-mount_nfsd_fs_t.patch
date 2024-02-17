@@ -1,0 +1,79 @@
+From 054a2d81a42bc127d29a916c64b43ad5a7c97f21 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Fri, 23 Aug 2013 12:01:53 +0800
+Subject: [PATCH] fix policy for nfsserver to mount nfsd_fs_t.
+
+Upstream-Status: Pending
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/contrib/rpc.te       |    5 +++++
+ policy/modules/contrib/rpcbind.te   |    5 +++++
+ policy/modules/kernel/filesystem.te |    1 +
+ policy/modules/kernel/kernel.te     |    2 ++
+ 4 files changed, 13 insertions(+)
+
+--- a/policy/modules/contrib/rpcbind.te
++++ b/policy/modules/contrib/rpcbind.te
+@@ -71,8 +71,13 @@ auth_use_nsswitch(rpcbind_t)
+ 
+ logging_send_syslog_msg(rpcbind_t)
+ 
+ miscfiles_read_localization(rpcbind_t)
+ 
++# nfsd_t would not be allowed to send unix_stream_socket to rpcbind_t,
++# because the are running in different level. So add rules to allow this.
++mls_socket_read_all_levels(rpcbind_t)
++mls_socket_write_all_levels(rpcbind_t)
++
+ ifdef(`distro_debian',`
+ 	term_dontaudit_use_unallocated_ttys(rpcbind_t)
+ ')
+--- a/policy/modules/contrib/rpc.te
++++ b/policy/modules/contrib/rpc.te
+@@ -275,10 +275,15 @@ tunable_policy(`nfs_export_all_ro',`
+ 	files_read_non_auth_files(nfsd_t)
+ ')
+ 
+ optional_policy(`
+ 	mount_exec(nfsd_t)
++	# Should domtrans to mount_t while mounting nfsd_fs_t.
++	mount_domtrans(nfsd_t)
++	# nfsd_t need to chdir to /var/lib/nfs and read files.
++	files_list_var(nfsd_t)
++	rpc_read_nfs_state_data(nfsd_t)
+ ')
+ 
+ ########################################
+ #
+ # GSSD local policy
+--- a/policy/modules/kernel/filesystem.te
++++ b/policy/modules/kernel/filesystem.te
+@@ -127,10 +127,11 @@ fs_noxattr_type(mvfs_t)
+ allow mvfs_t self:filesystem associate;
+ genfscon mvfs / gen_context(system_u:object_r:mvfs_t,s0)
+ 
+ type nfsd_fs_t;
+ fs_type(nfsd_fs_t)
++files_mountpoint(nfsd_fs_t)
+ genfscon nfsd / gen_context(system_u:object_r:nfsd_fs_t,s0)
+ 
+ type nsfs_t;
+ fs_type(nsfs_t)
+ genfscon nsfs / gen_context(system_u:object_r:nsfs_t,s0)
+--- a/policy/modules/kernel/kernel.te
++++ b/policy/modules/kernel/kernel.te
+@@ -324,10 +324,12 @@ mcs_process_set_categories(kernel_t)
+ 
+ mls_process_read_all_levels(kernel_t)
+ mls_process_write_all_levels(kernel_t)
+ mls_file_write_all_levels(kernel_t)
+ mls_file_read_all_levels(kernel_t)
++mls_socket_write_all_levels(kernel_t)
++mls_fd_use_all_levels(kernel_t)
+ 
+ ifdef(`distro_redhat',`
+ 	# Bugzilla 222337
+ 	fs_rw_tmpfs_chr_files(kernel_t)
+ ')

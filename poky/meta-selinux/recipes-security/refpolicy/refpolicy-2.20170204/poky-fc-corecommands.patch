@@ -1,0 +1,24 @@
+Subject: [PATCH] refpolicy: fix real path for corecommands
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/kernel/corecommands.fc | 1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/policy/modules/kernel/corecommands.fc
++++ b/policy/modules/kernel/corecommands.fc
+@@ -154,10 +154,11 @@ ifdef(`distro_gentoo',`
+ /sbin				-d	gen_context(system_u:object_r:bin_t,s0)
+ /sbin/.*				gen_context(system_u:object_r:bin_t,s0)
+ /sbin/insmod_ksymoops_clean	--	gen_context(system_u:object_r:bin_t,s0)
+ /sbin/mkfs\.cramfs		--	gen_context(system_u:object_r:bin_t,s0)
+ /sbin/nologin			--	gen_context(system_u:object_r:shell_exec_t,s0)
++/usr/sbin/nologin		--	gen_context(system_u:object_r:shell_exec_t,s0)
+ 
+ #
+ # /opt
+ #
+ /opt/(.*/)?bin(/.*)?			gen_context(system_u:object_r:bin_t,s0)

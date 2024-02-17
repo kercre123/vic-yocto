@@ -1,0 +1,224 @@
+From 6419748c6b8888eb4bedd58b0663c522cb179f3d Mon Sep 17 00:00:00 2001
+From: Mohamad Ayyash <mkayyash@google.com>
+Date: Tue, 24 Feb 2015 19:21:29 -0800
+Subject: [PATCH] squashfs-tools: Allow setting selinux xattrs through
+ file_context
+
+Add a context-file flag that allows passing an selinux security context
+file to set security.selinux xattrs rather than reading xattrs from
+filesystem's source directory.
+
+Change-Id: Icad4d38a736137d85835a0eab9650c0c99908721
+Signed-off-by: Mohamad Ayyash <mkayyash@google.com>
+[stummala@codeaurora.org: Port the change to LE environment.
+Change the path provided to selabel_lookup() to use the
+path from the root of the filesystem. Add WITH_SELINUX to
+CFLAGS to ensure the code compiles fine even when selinux
+library support is not available.]
+Signed-off-by: Sahitya Tummala <stummala@codeaurora.org>
+---
+ squashfs-tools/Makefile     |  6 ++++
+ squashfs-tools/mksquashfs.c | 15 +++++++-
+ squashfs-tools/xattr.c      | 85 ++++++++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 104 insertions(+), 2 deletions(-)
+
+diff --git a/squashfs-tools/Makefile b/squashfs-tools/Makefile
+index 52d2582..73d0aaf 100644
+--- a/squashfs-tools/Makefile
++++ b/squashfs-tools/Makefile
+@@ -123,6 +123,12 @@ CFLAGS += $(EXTRA_CFLAGS) $(INCLUDEDIR) -D_FILE_OFFSET_BITS=64 \
+ 	-Wall
+ 
+ LIBS = -lpthread -lm
++
++ifeq ($(WITH_SELINUX),1)
++CFLAGS += -DWITH_SELINUX
++LIBS += -lselinux
++endif
++
+ ifeq ($(GZIP_SUPPORT),1)
+ CFLAGS += -DGZIP_SUPPORT
+ MKSQUASHFS_OBJS += gzip_wrapper.o
+diff --git a/squashfs-tools/mksquashfs.c b/squashfs-tools/mksquashfs.c
+index d221c35..6341137 100644
+--- a/squashfs-tools/mksquashfs.c
++++ b/squashfs-tools/mksquashfs.c
+@@ -129,6 +129,8 @@ unsigned int cache_bytes = 0, cache_size = 0, inode_count = 0;
+ /* inode lookup table */
+ squashfs_inode *inode_lookup_table = NULL;
+ 
++char *context_file = NULL;
++
+ /* in memory directory data */
+ #define I_COUNT_SIZE		128
+ #define DIR_ENTRIES		32
+@@ -5088,7 +5090,6 @@ void calculate_queue_sizes(int mem, int *readq, int *fragq, int *bwriteq,
+ 	*fragq = mem - *readq - *bwriteq - *fwriteq;
+ }
+ 
+-
+ #define VERSION() \
+ 	printf("mksquashfs version 4.3-git (2014/09/12)\n");\
+ 	printf("copyright (C) 2014 Phillip Lougher "\
+@@ -5521,6 +5522,15 @@ print_compressor_options:
+ 		else if(strcmp(argv[i], "-xattrs") == 0)
+ 			no_xattrs = FALSE;
+ 
++		else if(strcmp(argv[i], "-context-file") == 0) {
++			if(++i == argc) {
++				ERROR("%s: -context-file: missing file name\n",
++					argv[0]);
++				exit(1);
++			}
++			context_file = argv[i];
++		}
++
+ 		else if(strcmp(argv[i], "-nopad") == 0)
+ 			nopad = TRUE;
+ 
+@@ -5569,6 +5579,9 @@ printOptions:
+ 				NOXOPT_STR "\n");
+ 			ERROR("-xattrs\t\t\tstore extended attributes" XOPT_STR
+ 				"\n");
++			ERROR("-context-file <file>\tApply selinux security "
++				"xattrs from context-file instead\n\t\t\t"
++				"of reading xattrs from file system\n");
+ 			ERROR("-noI\t\t\tdo not compress inode table\n");
+ 			ERROR("-noD\t\t\tdo not compress data blocks\n");
+ 			ERROR("-noF\t\t\tdo not compress fragment blocks\n");
+diff --git a/squashfs-tools/xattr.c b/squashfs-tools/xattr.c
+index b46550c..49fc836 100644
+--- a/squashfs-tools/xattr.c
++++ b/squashfs-tools/xattr.c
+@@ -36,6 +36,11 @@
+ #include <stdlib.h>
+ #include <sys/xattr.h>
+ 
++#ifdef WITH_SELINUX
++#include <selinux/label.h>
++#include <selinux/selinux.h>
++#endif
++
+ #include "squashfs_fs.h"
+ #include "squashfs_swap.h"
+ #include "mksquashfs.h"
+@@ -43,6 +48,8 @@
+ #include "error.h"
+ #include "progressbar.h"
+ 
++#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
++
+ /* compressed xattr table */
+ static char *xattr_table = NULL;
+ static unsigned int xattr_size = 0;
+@@ -76,6 +83,7 @@ extern int no_xattrs, noX;
+ extern long long bytes;
+ extern int fd;
+ extern unsigned int xattr_bytes, total_xattr_bytes;
++extern char *context_file;
+ 
+ /* helper functions from mksquashfs.c */
+ extern unsigned short get_checksum(char *, int, unsigned short);
+@@ -110,7 +118,69 @@ static int get_prefix(struct xattr_list *xattr, char *name)
+ 	return prefix_table[i].type;
+ }
+ 
++#ifdef WITH_SELINUX
++
++static struct selabel_handle *sehnd = NULL;
++
++struct selabel_handle *get_sehnd(const char *context_file) {
++    struct selinux_opt seopts[] = {
++        {
++            .type = SELABEL_OPT_PATH,
++            .value = context_file
++        }
++    };
++    struct selabel_handle *sehnd =
++        selabel_open(SELABEL_CTX_FILE, seopts, ARRAY_SIZE(seopts));
++
++    if (!sehnd) {
++        perror("Error running selabel_open.");
++        exit(EXIT_FAILURE);
++    }
++    return sehnd;
++}
++
++char *set_selabel(const char *path, unsigned int mode, struct selabel_handle *sehnd) {
++    char *secontext;
++    if (sehnd != NULL) {
++        int full_name_size = strlen(path) + 2;
++        char* full_name = (char*) malloc(full_name_size);
++        if (full_name == NULL) {
++            perror("Malloc Failure.");
++            exit(EXIT_FAILURE);
++        }
++
++        full_name[0] = '/';
++        strncpy(full_name + 1, path, full_name_size - 1);
++
++        if (selabel_lookup(sehnd, &secontext, full_name, mode)) {
++            secontext = strdup("u:object_r:unlabeled:s0");
++        }
++
++        free(full_name);
++        return secontext;
++    }
++    perror("Selabel handle is NULL.");
++    exit(EXIT_FAILURE);
++}
++
+ 	
++static int read_xattrs_from_context_file(char *filename, int mode,
++	struct selabel_handle *sehnd, struct xattr_list **xattrs)
++{
++	char *attr_val;
++	struct xattr_list *x = malloc(sizeof(*x));
++	if(x == NULL)
++		MEM_ERROR();
++
++	x->type = get_prefix(x, "security.selinux");
++	attr_val = set_selabel(filename, mode, sehnd);
++	x->value = (void *)attr_val;
++	x->vsize = strlen(attr_val);
++	*xattrs = x;
++	return 1;
++}
++#endif
++
+ static int read_xattrs_from_system(char *filename, struct xattr_list **xattrs)
+ {
+ 	ssize_t size, vsize;
+@@ -603,18 +673,31 @@ int generate_xattrs(int xattrs, struct xattr_list *xattr_list)
+ }
+ 
+ 
++extern char *subpathname(struct dir_ent *dir_ent);
+ int read_xattrs(void *d)
+ {
+ 	struct dir_ent *dir_ent = d;
+ 	struct inode_info *inode = dir_ent->inode;
+ 	char *filename = pathname(dir_ent);
++	char *subpath = subpathname(dir_ent);
+ 	struct xattr_list *xattr_list;
+ 	int xattrs;
+ 
+ 	if(no_xattrs || IS_PSEUDO(inode) || inode->root_entry)
+ 		return SQUASHFS_INVALID_XATTR;
+ 
+-	xattrs = read_xattrs_from_system(filename, &xattr_list);
++#ifdef WITH_SELINUX
++	if (context_file) {
++		if (sehnd == NULL)
++			sehnd = get_sehnd(context_file);
++		xattrs = read_xattrs_from_context_file(subpath, inode->buf.st_mode,
++				sehnd, &xattr_list);
++	} else {
++		xattrs = read_xattrs_from_system(filename, &xattr_list);
++	}
++#else
++		xattrs = read_xattrs_from_system(filename, &xattr_list);
++#endif
+ 	if(xattrs == 0)
+ 		return SQUASHFS_INVALID_XATTR;
+ 

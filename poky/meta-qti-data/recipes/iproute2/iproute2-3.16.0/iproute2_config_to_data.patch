@@ -1,0 +1,11 @@
+--- a/Makefile	2013-04-30 20:17:54.000000000 +0530
++++ b/Makefile	2016-08-11 16:57:53.970806684 +0530
+@@ -2,7 +2,7 @@
+ PREFIX=/usr
+ LIBDIR=$(PREFIX)/lib
+ SBINDIR=/sbin
+-CONFDIR=/etc/iproute2
++CONFDIR=/etc/data/iproute2
+ DATADIR=$(PREFIX)/share
+ DOCDIR=$(DATADIR)/doc/iproute2
+ MANDIR=$(DATADIR)/man

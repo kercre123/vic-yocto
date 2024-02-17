@@ -1,0 +1,33 @@
+Subject: [PATCH] fix file_contexts.subs_dist for poky
+
+This file is used for Linux distros to define specific pathes 
+mapping to the pathes in file_contexts.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ config/file_contexts.subs_dist |   10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+--- a/config/file_contexts.subs_dist
++++ b/config/file_contexts.subs_dist
+@@ -21,5 +21,17 @@
+ 
+ # backward compatibility
+ # not for refpolicy intern, but for /var/run using applications,
+ # like systemd tmpfiles or systemd socket configurations
+ /var/run /run
++
++# Yocto compatibility
++/var/volatile/log /var/log
++/var/volatile/run /var/run
++/var/volatile/cache /var/cache
++/var/volatile/tmp /var/tmp
++/var/volatile/lock /var/lock
++/var/volatile/run/lock /var/lock
++/www /var/www
++/usr/lib/busybox/bin /bin
++/usr/lib/busybox/sbin /sbin
++/usr/lib/busybox/usr /usr

@@ -1,0 +1,45 @@
+From: Philip Tricca <flihp@twobit.us>
+To: tytso@mit.edu
+Cc: liezhi.yang@windriver.com
+Date: Sat, 20 Feb 2016 18:58:58 +0000
+Subject: [PATCH] misc/create_inode.c: Copy xattrs from root directory when populating fs.
+
+When copying a file system using the -d option the xattrs from the root
+directory need to be copied before the populate_fs recusion starts.
+
+Signed-off-by: Philip Tricca <flihp@twobit.us>
+Signed-off-by: Jeremy Puhlman <jpuhlman@mvista.com>
+
+---
+ misc/create_inode.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/misc/create_inode.c b/misc/create_inode.c
+index a7b6d348..cfd15922 100644
+--- a/misc/create_inode.c
++++ b/misc/create_inode.c
+@@ -979,6 +979,13 @@ errcode_t populate_fs2(ext2_filsys fs, ext2_ino_t parent_ino,
+ 		return retval;
+ 	}
+ 
++	retval = set_inode_xattr(fs, root, source_dir);
++	if (retval) {
++		com_err(__func__, retval,
++			_("while setting xattrs for \"%s\""), source_dir);
++		goto out;
++	}
++
+ 	file_info.path_len = 0;
+ 	file_info.path_max_len = 255;
+ 	file_info.path = calloc(file_info.path_max_len, 1);
+@@ -987,6 +994,7 @@ errcode_t populate_fs2(ext2_filsys fs, ext2_ino_t parent_ino,
+ 			       &file_info, fs_callbacks);
+ 
+ 	free(file_info.path);
++out:
+ 	free(hdlinks.hdl);
+ 	return retval;
+ }
+-- 
+2.11.1
+

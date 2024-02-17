@@ -1,0 +1,31 @@
+From 4376342a5382df384cb387e2a63eaf0bddb51d26 Mon Sep 17 00:00:00 2001
+From: Joe MacDonald <joe@deserted.net>
+Date: Wed, 7 May 2014 11:36:27 -0400
+Subject: [PATCH] libsemanage: disable expand-check on policy load
+
+For small policy modules it's not necessary to walk the hierarchy on load.
+On embedded devices that are low-powered or resource-constrained disabling
+the hierarchy processing can make the difference between seconds and
+(many) minutes of load time (or being able to load the policy at all).
+
+Upstream-Status: Denied [upstream developers want to preserve the default
+                 checking: http://marc.info/?l=selinux&m=121794804217721&w=2]
+
+Signed-off-by: Joe MacDonald <joe@deserted.net>
+
+---
+ src/semanage.conf | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/semanage.conf b/src/semanage.conf
+index dc8d46b..254f156 100644
+--- a/src/semanage.conf
++++ b/src/semanage.conf
+@@ -39,3 +39,7 @@ module-store = direct
+ # By default, semanage will generate policies for the SELinux target.
+ # To build policies for Xen, uncomment the following line.
+ #target-platform = xen
++
++# Don't check the entire policy hierarchy when inserting / expanding a policy
++# module.  This results in a significant speed-up in policy loading.
++expand-check=0

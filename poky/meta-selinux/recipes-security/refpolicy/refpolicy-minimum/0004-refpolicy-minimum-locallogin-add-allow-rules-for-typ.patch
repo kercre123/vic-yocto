@@ -1,0 +1,53 @@
+From 0e99f9e7c6d69d5f784fe7352c9507791d8cbef9 Mon Sep 17 00:00:00 2001
+From: Shrikant Bobade <shrikant_bobade@mentor.com>
+Date: Fri, 26 Aug 2016 17:53:46 +0530
+Subject: [PATCH 4/9] refpolicy-minimum: locallogin: add allow rules for type
+ local_login_t
+
+add allow rules for locallogin module avc denials.
+
+without this change we are getting errors like these:
+
+type=AVC msg=audit(): avc:  denied  { read write open } for  pid=353
+comm="login" path="/var/volatile/log/lastlog" dev="tmpfs" ino=12281 scontext
+=system_u:system_r:local_login_t:s0-s0:c0.c1023 tcontext=system_u:object_r:
+var_log_t:s0 tclass=file permissive=1
+
+type=AVC msg=audit(): avc:  denied  { sendto } for  pid=353 comm="login"
+path="/run/systemd/journal/dev-log" scontext=system_u:system_r:
+local_login_t:s0-s0:c0.c1023 tcontext=system_u:system_r:initrc_t:s0
+tclass=unix_dgram_socket permissive=1
+
+type=AVC msg=audit(): avc:  denied  { lock } for  pid=353 comm="login" path=
+"/var/volatile/log/lastlog" dev="tmpfs" ino=12281 scontext=system_u:system_r
+:local_login_t:s0-s0:c0.c1023 tcontext=system_u:object_r:var_log_t:s0 tclass
+=file permissive=1
+
+Upstream-Status: Pending
+
+Signed-off-by: Shrikant Bobade <shrikant_bobade@mentor.com>
+---
+ policy/modules/system/locallogin.te | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/policy/modules/system/locallogin.te b/policy/modules/system/locallogin.te
+index 53923f8..09ec33f 100644
+--- a/policy/modules/system/locallogin.te
++++ b/policy/modules/system/locallogin.te
+@@ -274,3 +274,13 @@ optional_policy(`
+ optional_policy(`
+ 	nscd_use(sulogin_t)
+ ')
++
++allow local_login_t initrc_t:fd use;
++allow local_login_t initrc_t:unix_dgram_socket sendto;
++allow local_login_t initrc_t:unix_stream_socket connectto;
++allow local_login_t self:capability net_admin;
++allow local_login_t var_log_t:file { create lock open read write };
++allow local_login_t var_run_t:file { open read write lock};
++allow local_login_t var_run_t:sock_file write;
++allow local_login_t tmpfs_t:dir { add_name write search};
++allow local_login_t tmpfs_t:file { create open read write lock };
+-- 
+1.9.1
+

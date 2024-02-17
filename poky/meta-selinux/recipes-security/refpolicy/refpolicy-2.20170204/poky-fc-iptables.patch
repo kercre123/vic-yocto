@@ -1,0 +1,24 @@
+Subject: [PATCH] refpolicy: fix real path for iptables
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/iptables.fc | 1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/policy/modules/system/iptables.fc
++++ b/policy/modules/system/iptables.fc
+@@ -14,10 +14,11 @@
+ /sbin/ipvsadm			--	gen_context(system_u:object_r:iptables_exec_t,s0)
+ /sbin/ipvsadm-restore		--	gen_context(system_u:object_r:iptables_exec_t,s0)
+ /sbin/ipvsadm-save		--	gen_context(system_u:object_r:iptables_exec_t,s0)
+ /sbin/nft			--	gen_context(system_u:object_r:iptables_exec_t,s0)
+ /sbin/xtables-multi		--	gen_context(system_u:object_r:iptables_exec_t,s0)
++/usr/sbin/xtables-multi		--	gen_context(system_u:object_r:iptables_exec_t,s0)
+ 
+ /usr/lib/systemd/system/[^/]*arptables.* -- gen_context(system_u:object_r:iptables_unit_t,s0)
+ /usr/lib/systemd/system/[^/]*ebtables.*	 -- gen_context(system_u:object_r:iptables_unit_t,s0)
+ /usr/lib/systemd/system/[^/]*ip6tables.* -- gen_context(system_u:object_r:iptables_unit_t,s0)
+ /usr/lib/systemd/system/[^/]*iptables.*	-- gen_context(system_u:object_r:iptables_unit_t,s0)

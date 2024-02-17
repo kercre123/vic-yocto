@@ -1,0 +1,26 @@
+From ba985f77b7209af74981ccdd57ca2a6a2aad77e9 Mon Sep 17 00:00:00 2001
+From: Emilian Peev <epeevs@codeaurora.org>
+Date: Mon, 15 Feb 2016 09:47:01 +0200
+Subject: [PATCH 2/4] live555: Decrease RTP buffer size
+
+Change-Id: Ie8e5270bf91893a36019d330a45e88f3760403bd
+---
+ liveMedia/MultiFramedRTPSource.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/liveMedia/MultiFramedRTPSource.cpp b/liveMedia/MultiFramedRTPSource.cpp
+index 866a149..fa16e69 100644
+--- a/liveMedia/MultiFramedRTPSource.cpp
++++ b/liveMedia/MultiFramedRTPSource.cpp
+@@ -73,7 +73,7 @@ MultiFramedRTPSource
+   fReorderingBuffer = new ReorderingPacketBuffer(packetFactory);
+ 
+   // Try to use a big receive buffer for RTP:
+-  increaseReceiveBufferTo(env, RTPgs->socketNum(), 2000000);
++  increaseReceiveBufferTo(env, RTPgs->socketNum(), 50*1024);
+ }
+ 
+ void MultiFramedRTPSource::reset() {
+-- 
+1.9.1
+

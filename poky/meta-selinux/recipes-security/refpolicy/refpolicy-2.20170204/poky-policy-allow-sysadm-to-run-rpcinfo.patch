@@ -1,0 +1,33 @@
+From 7005533d61770fed5a3312aa9dfd1c18dae88c16 Mon Sep 17 00:00:00 2001
+From: Roy Li <rongqing.li@windriver.com>
+Date: Sat, 15 Feb 2014 09:45:00 +0800
+Subject: [PATCH] allow sysadm to run rpcinfo
+
+Upstream-Status: Pending
+
+type=AVC msg=audit(1392427946.976:264): avc:  denied  { connectto } for  pid=2111 comm="rpcinfo" path="/run/rpcbind.sock" scontext=system_u:system_r:rpcbind_t:s0-s15:c0.c1023 tcontext=system_u:system_r:rpcbind_t:s0-s15:c0.c1023 tclass=unix_stream_socket
+type=SYSCALL msg=audit(1392427946.976:264): arch=c000003e syscall=42 success=no exit=-13 a0=3 a1=7fff3aa20000 a2=17 a3=22 items=0 ppid=2108 pid=2111 auid=4294967295 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0 ses=4294967295 tty=pts0 comm="rpcinfo" exe="/usr/sbin/rpcinfo" subj=system_u:system_r:rpcbind_t:s0-s15:c0.c1023 key=(null)
+
+Signed-off-by: Roy Li <rongqing.li@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/roles/sysadm.te |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+--- a/policy/modules/roles/sysadm.te
++++ b/policy/modules/roles/sysadm.te
+@@ -1169,10 +1169,14 @@ optional_policy(`
+ 	virt_admin(sysadm_t, sysadm_r)
+ 	virt_stream_connect(sysadm_t)
+ ')
+ 
+ optional_policy(`
++	rpcbind_stream_connect(sysadm_t)
++')
++
++optional_policy(`
+ 	vmware_role(sysadm_r, sysadm_t)
+ ')
+ 
+ optional_policy(`
+ 	vnstatd_admin(sysadm_t, sysadm_r)

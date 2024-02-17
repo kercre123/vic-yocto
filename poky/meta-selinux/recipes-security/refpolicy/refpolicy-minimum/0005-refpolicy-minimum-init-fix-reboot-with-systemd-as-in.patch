@@ -1,0 +1,36 @@
+From 07b7eb45458de8a6781019a927c66aabe736e03a Mon Sep 17 00:00:00 2001
+From: Shrikant Bobade <shrikant_bobade@mentor.com>
+Date: Fri, 26 Aug 2016 17:53:53 +0530
+Subject: [PATCH 5/9] refpolicy-minimum: init: fix reboot with systemd as init
+ manager.
+
+add allow rule to fix avc denial during system reboot.
+
+without this change we are getting:
+
+audit: type=1107 audit(): pid=1 uid=0 auid=4294967295 ses=4294967295 subj=
+system_u:system_r:init_t:s0 msg='avc:  denied  { reboot } for auid=n/a uid=0
+gid=0 cmdline="/bin/systemctl --force reboot" scontext=system_u:system_r:
+initrc_t:s0 tcontext=system_u:system_r:init_t:s0 tclass=system
+
+Upstream-Status: Pending
+
+Signed-off-by: Shrikant Bobade <shrikant_bobade@mentor.com>
+---
+ policy/modules/system/init.te | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/policy/modules/system/init.te b/policy/modules/system/init.te
+index f9d7114..19a7a20 100644
+--- a/policy/modules/system/init.te
++++ b/policy/modules/system/init.te
+@@ -1103,5 +1103,5 @@ allow devpts_t device_t:filesystem associate;
+ allow init_t self:capability2 block_suspend;
+ allow init_t self:capability2 audit_read;
+ 
+-allow initrc_t init_t:system { start status };
++allow initrc_t init_t:system { start status reboot };
+ allow initrc_t init_var_run_t:service { start status };
+-- 
+1.9.1
+

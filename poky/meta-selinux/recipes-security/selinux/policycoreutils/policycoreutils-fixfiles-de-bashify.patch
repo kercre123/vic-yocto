@@ -1,0 +1,89 @@
+From 25ca94680f2fe20f49b80e8b5b180a0dbb903f17 Mon Sep 17 00:00:00 2001
+From: Joe MacDonald <joe_macdonald@mentor.com>
+Date: Fri, 20 Feb 2015 17:00:19 -0500
+Subject: [PATCH] fixfiles: de-bashify
+
+Most of the bashisms in fixfiles are pretty easy to work around, the only
+complex one is the use of PIPESTATUS.  The common solution to this is to
+use fifos but considering the action this script is performing, that's not
+necessarily the best option here.  Introducing a second invocation of rpm
+is minimal overhead on an operation that should happen very infrequently,
+so we'll try that instead.
+
+Upstream-Status: Pending
+
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+---
+ scripts/fixfiles | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
+
+diff --git a/scripts/fixfiles b/scripts/fixfiles
+index 1aa330f..a10837d 100755
+--- a/scripts/fixfiles
++++ b/scripts/fixfiles
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ # fixfiles
+ #
+ # Script to restore labels on a SELinux box
+@@ -27,7 +27,7 @@ set -o nounset
+ # number if the current kernel version is greater than 2.6.30, a negative
+ # number if the current is less than 2.6.30 and 0 if they are the same.
+ #
+-function useseclabel {
++useseclabel () {
+ 	VER=`uname -r`
+ 	SUP=2.6.30
+ 	expr '(' "$VER" : '\([^.]*\)' ')' '-' '(' "$SUP" : '\([^.]*\)' ')' '|' \
+@@ -93,9 +93,10 @@ exclude_dirs_from_relabelling() {
+ 	  # skip not absolute path
+ 	  # skip not directory
+ 	  [ -z "${i}" ] && continue
+-	  [[ "${i}" =~ ^[[:blank:]]*# ]] && continue
+-	  [[ ! "${i}" =~ ^/.* ]] && continue
+-	  [[ ! -d "${i}" ]] && continue
++	  echo "${i}" | egrep -q '^[[:space:]]*#' && continue
++	  echo "${i}" | egrep -v '^/.*' && continue
++	  [ ! -d "${i}" ] && continue
++
+ 	  exclude_from_relabelling="$exclude_from_relabelling -e $i"
+ 	done < /etc/selinux/fixfiles_exclude_dirs
+     fi
+@@ -138,7 +139,7 @@ fi
+ # Log directories excluded from relabelling by configuration file
+ #
+ LogExcluded() {
+-for i in ${EXCLUDEDIRS//-e / }; do
++for i in `echo ${EXCLUDEDIRS} | sed -e 's/-e / /g'`; do
+     echo "skipping the directory $i"
+ done
+ }
+@@ -201,8 +202,12 @@ fi
+ }
+ 
+ rpmlist() {
+-rpm -q --qf '[%{FILESTATES} %{FILENAMES}\n]' "$1" | grep '^0 ' | cut -f2- -d ' '
+-[ ${PIPESTATUS[0]} != 0 ] && echo "$1 not found" >/dev/stderr
++    if rpm -q --qf '[%{FILESTATES} %{FILENAMES}\n]' "$1" >/dev/null
++    then
++        rpm -q --qf '[%{FILESTATES} %{FILENAMES}\n]' "$1" | grep '^0 ' | cut -f2- -d ' '
++    else
++        echo "$1 not found" >/dev/stderr
++    fi
+ }
+ 
+ #
+@@ -276,7 +281,7 @@ relabel() {
+ 	exit 1
+     fi
+ 
+-    if [ $fullFlag == 1  ]; then
++    if [ $fullFlag = 1  ]; then
+ 	fullrelabel
+ 	return
+     fi
+-- 
+2.13.0
+

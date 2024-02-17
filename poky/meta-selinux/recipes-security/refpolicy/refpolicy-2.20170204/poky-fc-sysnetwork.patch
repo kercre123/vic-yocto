@@ -1,0 +1,48 @@
+From 56ec3e527f2a03d217d5f07ebb708e6e26fa26ff Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Tue, 9 Jun 2015 21:22:52 +0530
+Subject: [PATCH] refpolicy: fix real path for sysnetwork
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Shrikant Bobade <Shrikant_Bobade@mentor.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/sysnetwork.fc |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+--- a/policy/modules/system/sysnetwork.fc
++++ b/policy/modules/system/sysnetwork.fc
+@@ -2,10 +2,11 @@
+ #
+ # /bin
+ #
+ /bin/ifconfig		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /bin/ip			--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
++/sbin/ip\.iproute2 --  gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ 
+ #
+ # /dev
+ #
+ ifdef(`distro_debian',`
+@@ -43,17 +44,19 @@ ifdef(`distro_redhat',`
+ /sbin/dhclient.*	--	gen_context(system_u:object_r:dhcpc_exec_t,s0)
+ /sbin/dhcdbd		--	gen_context(system_u:object_r:dhcpc_exec_t,s0)
+ /sbin/dhcpcd		--	gen_context(system_u:object_r:dhcpc_exec_t,s0)
+ /sbin/ethtool		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/ifconfig		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
++/sbin/ifconfig\.net-tools  --  gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/ip		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/ipx_configure	--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/ipx_interface	--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/ipx_internal_net	--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/iw		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/iwconfig		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/mii-tool		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
++/sbin/mii-tool\.net-tools  --  gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ /sbin/pump		--	gen_context(system_u:object_r:dhcpc_exec_t,s0)
+ /sbin/tc		--	gen_context(system_u:object_r:ifconfig_exec_t,s0)
+ 
+ #
+ # /usr

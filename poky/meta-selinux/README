@@ -1,0 +1,127 @@
+meta-selinux
+============
+
+This layer's purpose is enabling SE Linux support.
+
+The majority of this layers work is accomplished in bbappend files, used to
+enable SE Linux support in existing recipes.
+
+A new recipes-security was added.  The purpose of this category is to add
+software specific to system security.
+
+Please see the MAINTAINERS file for information on contacting the maintainers
+of this layer, as well as instructions for submitting patches.
+
+
+Dependencies
+------------
+
+This layer depends on the openembedded-core metadata.
+
+This layer also optionally depends on the following layers:
+
+URI: git://github.com/openembedded/meta-oe.git
+branch: master
+revision: HEAD
+layers: meta-oe
+        meta-networking
+        meta-python
+
+URI: git://git.yoctoproject.org/meta-virtualization
+branch: master
+revision: HEAD
+
+
+Maintenance
+-----------
+Please see the MAINTAINERS file for information on contacting the maintainers
+of this layer, as well as instructions for submitting patches.
+
+
+Building the meta-selinux layer
+-------------------------------
+In order to add selinux support to the poky build this layer should be added
+to your projects bblayers.conf file.
+
+By default the selinux components are disabled.  This conforms to the
+Yocto Project compatible guideline that indicate that simply including a
+layer should not change the system behavior.
+
+In order to use the components in this layer you must add the 'selinux' to the
+DISTRO_FEATURES.  In addition to selinux, you should be sure that acl, xattr and
+pam are also present.
+e.g. DISTRO_FEATURES_append = " acl xattr pam selinux"
+
+You must also specify a preferred provider for the virtual/refpolicy.  The
+included policies with this layer are simply reference policies and will need
+to be tailored for your environment.  
+* Enable the refpolicy-mls:
+e.g. PREFERRED_PROVIDER_virtual/refpolicy ?= "refpolicy-mls"
+
+
+Using different versions of refpolicy
+-------------------------------------
+To prepare selinux enabled images using different ver. of refpolicy,
+we can choose supported releases of refpolicy
+refer to available versions under recipes-security/refpolicy
+
+We can use the refpolicy directly from git repository instead of release tarballs.
+By default refpolicy from git builds head commit of master branch, we can update
+SRCREV for refpolicy and refpolicy-contrib as appropriate at refpolicy_git.inc
+to check refpolicy as per required commits.
+
+* enable the preferred refpolicy-minimum:
+PREFERRED_VERSION_refpolicy-minimum = "2.20151208"
+PREFERRED_VERSION_refpolicy = "2.20151208"
+
+
+Using different init manager
+----------------------------
+By default selinux enabled images coming up with "sysvinit" as init manager,
+we can use "systemd" as an init manager using below changes to local.conf
+
+* enable systemd as init manager changes to local.conf
+DISTRO_FEATURES_remove = " sysvinit"
+DISTRO_FEATURES_append = " systemd"
+VIRTUAL-RUNTIME_init_manager = "systemd"
+DISTRO_FEATURES_BACKFILL_CONSIDERED = ""
+
+
+Starting up the system
+----------------------
+Most likely the reference policy selected will not just work "out of the box".
+
+As always, if you update the reference policy to better work with OpenEmbedded
+or Poky configurations, please submit the changes back to the project.
+
+When using 'core-image-selinux', the system will boot and automatically setup
+the policy by running the "fixfiles -f -F relabel" for you.  This is
+implemented via the 'selinux-autorelabel' recipe.
+
+The 'core-image-selinux-minimal' does not automatically relabel the system.
+So you must boot using the parameters "selinux=1 enforcing=0", and then
+manually perform the setup.  Running 'fixfiles -f -F relabel' is available
+in this configuration.
+
+After logging in you can verify selinux is present using:
+
+$ sestatus
+
+Output should include:
+SELinux status:                 enabled
+...
+Current mode:                   enforcing
+...
+
+The above indicates that selinux is currently running, and if you are running
+in an enforcing mode or not.
+
+
+License
+-------
+
+All metadata is MIT licensed unless otherwise stated. Source code included
+in tree for individual recipes is under the LICENSE stated in each recipe
+(.bb file) unless otherwise stated.
+
+This README document is Copyright (C) 2012 Wind River Systems, Inc.

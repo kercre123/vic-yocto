@@ -1,0 +1,17 @@
+Add the "mcstrans" subdir so it gets built too.
+
+Upstream-Status: Inappropriate [embedded specific]
+
+Signed-off-by: Roy Li <rongqing.li@windriver.com>
+diff --git a/Makefile b/Makefile
+index 83ebd45..3ae784f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,7 @@
+ SUBDIRS = sepolicy setfiles semanage load_policy newrole run_init sandbox secon audit2allow sestatus semodule_package semodule semodule_link semodule_expand semodule_deps sepolgen-ifgen setsebool scripts po man gui
+ 
++SUBDIRS += mcstrans
++
+ INOTIFYH = $(shell ls /usr/include/sys/inotify.h 2>/dev/null)
+ 
+ ifeq (${INOTIFYH}, /usr/include/sys/inotify.h)

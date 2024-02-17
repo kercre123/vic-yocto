@@ -1,0 +1,10 @@
+[Unit]
+SourcePath=/usr/bin/ipacm
+Description= IPACM Service
+
+[Service]
+Restart=no
+ExecStart=/usr/bin/ipacm
+
+[Install]
+WantedBy=multi-user.target

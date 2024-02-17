@@ -1,0 +1,28 @@
+Subject: [PATCH] util-linux: fix libmount_la_DEPENDENCIES.
+
+Upstream-Status: Pending
+
+libmount_la_LIBADD contains "-lselinux", this is not a object that
+could consider as a dependency target. So fix this.
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+---
+ libmount/src/Makemodule.am |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/libmount/src/Makemodule.am b/libmount/src/Makemodule.am
+index 494e02a..bf494a4 100644
+--- a/libmount/src/Makemodule.am
++++ b/libmount/src/Makemodule.am
+@@ -38,7 +38,7 @@ libmount_la_CFLAGS = \
+ 	-I$(top_srcdir)/libmount/src
+ 
+ libmount_la_DEPENDENCIES = \
+-	$(libmount_la_LIBADD) \
++	libcommon.la libblkid.la \
+ 	libmount/src/libmount.sym \
+ 	libmount/src/libmount.h.in
+ 
+-- 
+1.7.5.4
+

@@ -1,0 +1,26 @@
+commit 54875dcb50f5e40fc86d6fe98dde244bfe4751af
+Author: Joe MacDonald <joe_macdonald@mentor.com>
+Date:   Fri Aug 7 15:16:45 2015 -0400
+
+    mcstrans: remove dependency on bash in initscript
+
+    There were no apparent bashisms in mcstrans.init, so remove the dependency
+    on bash.
+
+    Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+
+Upstream-Status: Pending
+
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+---
+ src/mcstrans.init |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/src/mcstrans.init
++++ b/src/mcstrans.init
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ #
+ # mcstransd        This starts and stops mcstransd
+ #

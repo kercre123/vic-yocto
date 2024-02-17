@@ -1,0 +1,35 @@
+From 29a0d287880f8f83cf4337a3db7c8b94c0c36e1d Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:37:23 +0800
+Subject: [PATCH 6/6] don't audit tty_device_t in term_dontaudit_use_console.
+
+We should also not audit terminal to rw tty_device_t and fds in
+term_dontaudit_use_console.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/kernel/terminal.if |    3 +++
+ 1 file changed, 3 insertions(+)
+
+--- a/policy/modules/kernel/terminal.if
++++ b/policy/modules/kernel/terminal.if
+@@ -297,13 +297,16 @@ interface(`term_use_console',`
+ ## </param>
+ #
+ interface(`term_dontaudit_use_console',`
+ 	gen_require(`
+ 		type console_device_t;
++		type tty_device_t;
+ 	')
+ 
++	init_dontaudit_use_fds($1)
+ 	dontaudit $1 console_device_t:chr_file rw_chr_file_perms;
++	dontaudit $1 tty_device_t:chr_file rw_chr_file_perms;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Set the attributes of the console

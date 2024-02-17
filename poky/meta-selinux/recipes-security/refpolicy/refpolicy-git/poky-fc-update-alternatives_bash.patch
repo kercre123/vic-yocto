@@ -1,0 +1,12 @@
+diff --git a/policy/modules/kernel/corecommands.fc b/policy/modules/kernel/corecommands.fc
+index f2e4f51..c39912d 100644
+--- a/policy/modules/kernel/corecommands.fc
++++ b/policy/modules/kernel/corecommands.fc
+@@ -141,6 +141,7 @@ ifdef(`distro_gentoo',`
+ /usr/bin/d?ash			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /usr/bin/bash			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /usr/bin/bash2			--	gen_context(system_u:object_r:shell_exec_t,s0)
++/usr/bin\.bash			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /usr/bin/fish			--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /usr/bin/git-shell		--	gen_context(system_u:object_r:shell_exec_t,s0)
+ /usr/bin/insmod_ksymoops_clean	--	gen_context(system_u:object_r:bin_t,s0)

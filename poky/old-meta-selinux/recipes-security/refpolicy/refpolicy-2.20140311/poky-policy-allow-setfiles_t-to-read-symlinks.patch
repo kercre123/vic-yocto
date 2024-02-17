@@ -1,0 +1,29 @@
+From 22cd030a8118faae37c0835eb7875e482efe5dc1 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:37:23 +0800
+Subject: [PATCH] fix setfiles_t to read symlinks
+
+Upstream-Status: Pending 
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+---
+ policy/modules/system/selinuxutil.te |    3 +++
+ 1 files changed, 3 insertions(+), 0 deletions(-)
+
+diff --git a/policy/modules/system/selinuxutil.te b/policy/modules/system/selinuxutil.te
+index ec01d0b..45ed81b 100644
+--- a/policy/modules/system/selinuxutil.te
++++ b/policy/modules/system/selinuxutil.te
+@@ -553,6 +553,9 @@ files_list_all(setfiles_t)
+ files_relabel_all_files(setfiles_t)
+ files_read_usr_symlinks(setfiles_t)
+ 
++# needs to be able to read symlinks to make restorecon on symlink working
++files_read_all_symlinks(setfiles_t)
++
+ fs_getattr_xattr_fs(setfiles_t)
+ fs_list_all(setfiles_t)
+ fs_search_auto_mountpoints(setfiles_t)
+-- 
+1.7.5.4
+

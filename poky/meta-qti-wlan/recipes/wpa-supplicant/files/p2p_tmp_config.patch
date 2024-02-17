@@ -1,0 +1,176 @@
+diff --git a/wpa_supplicant/Android.mk b/wpa_supplicant/Android.mk
+index fa0000b..80e3744 100644
+--- a/wpa_supplicant/Android.mk
++++ b/wpa_supplicant/Android.mk
+@@ -178,6 +178,10 @@ ifdef CONFIG_NO_CONFIG_WRITE
+ L_CFLAGS += -DCONFIG_NO_CONFIG_WRITE
+ endif
+ 
++ifdef CONFIG_SYSTEM_RW_TEMP_CONFIG
++L_CFLAGS += -DCONFIG_SYSTEM_RW_TEMP_CONFIG
++endif
++
+ ifdef CONFIG_NO_CONFIG_BLOBS
+ L_CFLAGS += -DCONFIG_NO_CONFIG_BLOBS
+ endif
+diff --git a/wpa_supplicant/Makefile b/wpa_supplicant/Makefile
+index f2a9a3f..4c4afe4 100644
+--- a/wpa_supplicant/Makefile
++++ b/wpa_supplicant/Makefile
+@@ -189,6 +189,10 @@ ifdef CONFIG_NO_CONFIG_WRITE
+ CFLAGS += -DCONFIG_NO_CONFIG_WRITE
+ endif
+ 
++ifdef CONFIG_SYSTEM_RW_TEMP_CONFIG
++CFLAGS += -DCONFIG_SYSTEM_RW_TEMP_CONFIG
++endif
++
+ ifdef CONFIG_NO_CONFIG_BLOBS
+ CFLAGS += -DCONFIG_NO_CONFIG_BLOBS
+ endif
+diff --git a/wpa_supplicant/android.config b/wpa_supplicant/android.config
+index 6dbd67e..21d9de3 100644
+--- a/wpa_supplicant/android.config
++++ b/wpa_supplicant/android.config
+@@ -225,6 +225,10 @@ CONFIG_BACKEND=file
+ # about 3.5 kB.
+ #CONFIG_NO_CONFIG_WRITE=y
+ 
++# For the filesystem with RW permission but no permission to create file dynamically
++# Create temp configuration file in tempfs directory which is specific to each system
++#CONFIG_SYSTEM_RW_TEMP_CONFIG=y
++
+ # Remove support for configuration blobs to reduce code size by about 1.5 kB.
+ #CONFIG_NO_CONFIG_BLOBS=y
+ 
+diff --git a/wpa_supplicant/config_file.c b/wpa_supplicant/config_file.c
+index 15fefc2..0039fa9 100644
+--- a/wpa_supplicant/config_file.c
++++ b/wpa_supplicant/config_file.c
+@@ -1297,6 +1297,120 @@ static void wpa_config_write_global(FILE *f, struct wpa_config *config)
+ 
+ #endif /* CONFIG_NO_CONFIG_WRITE */
+ 
++#ifdef CONFIG_SYSTEM_RW_TEMP_CONFIG
++
++#define QCS405_TEMP_CONFIG_PREFIX "/var/run/"
++
++int wpa_config_write(const char *name, struct wpa_config *config)
++{
++#ifndef CONFIG_NO_CONFIG_WRITE
++	FILE *f;
++	struct wpa_ssid *ssid;
++	struct wpa_cred *cred;
++#ifndef CONFIG_NO_CONFIG_BLOBS
++	struct wpa_config_blob *blob;
++#endif /* CONFIG_NO_CONFIG_BLOBS */
++	int ret = 0;
++	const char *orig_name = name;
++	int tmp_len, system_cp_len, system_rm_len;
++	char *filename, *tmp_name, *system_cp, *system_rm;
++
++    filename = strrchr(name, '/');
++    if(filename == NULL) {
++		wpa_printf(MSG_DEBUG, "Failed to get filename");
++        return -1;
++    }
++    filename++;
++    tmp_len = os_strlen(QCS405_TEMP_CONFIG_PREFIX) + os_strlen(filename) + 5; /* allow space for .tmp suffix */
++    tmp_name = os_malloc(tmp_len);
++	if (tmp_name) {
++		os_snprintf(tmp_name, tmp_len, "%s%s.tmp", QCS405_TEMP_CONFIG_PREFIX, filename);
++	}
++
++    system_cp_len = os_strlen(tmp_name) + os_strlen(orig_name) + 5;
++    system_cp = os_malloc(system_cp_len);
++    if(system_cp) {
++        os_snprintf(system_cp, system_cp_len, "cp %s %s", tmp_name, orig_name);
++    }
++    system_rm_len = os_strlen(tmp_name) + 4;
++    system_rm = os_malloc(system_rm_len);
++    if(system_rm) {
++        os_snprintf(system_rm, system_rm_len, "rm %s", tmp_name);
++    }
++	wpa_printf(MSG_DEBUG, "Writing configuration file '%s'", tmp_name);
++
++	f = fopen(tmp_name, "w");
++	if (f == NULL) {
++		wpa_printf(MSG_DEBUG, "Failed to open '%s' for writing", tmp_name);
++		os_free(tmp_name);
++		os_free(system_cp);
++		os_free(system_rm);
++		return -1;
++	}
++
++	wpa_config_write_global(f, config);
++
++	for (cred = config->cred; cred; cred = cred->next) {
++		if (cred->temporary)
++			continue;
++		fprintf(f, "\ncred={\n");
++		wpa_config_write_cred(f, cred);
++		fprintf(f, "}\n");
++	}
++
++	for (ssid = config->ssid; ssid; ssid = ssid->next) {
++		if (ssid->key_mgmt == WPA_KEY_MGMT_WPS || ssid->temporary)
++			continue; /* do not save temporary networks */
++		if (wpa_key_mgmt_wpa_psk(ssid->key_mgmt) && !ssid->psk_set &&
++		    !ssid->passphrase)
++			continue; /* do not save invalid network */
++		fprintf(f, "\nnetwork={\n");
++		wpa_config_write_network(f, ssid);
++		fprintf(f, "}\n");
++	}
++
++#ifndef CONFIG_NO_CONFIG_BLOBS
++	for (blob = config->blobs; blob; blob = blob->next) {
++		ret = wpa_config_write_blob(f, blob);
++		if (ret)
++			break;
++	}
++#endif /* CONFIG_NO_CONFIG_BLOBS */
++
++	os_fdatasync(f);
++
++	fclose(f);
++
++	if (tmp_name) {
++		int chmod_ret = 0;
++        int system_ret = 0;
++
++#ifdef ANDROID
++		chmod_ret = chmod(tmp_name,
++				  S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
++#endif /* ANDROID */
++	    wpa_printf(MSG_DEBUG, "system call '%s'", system_cp);
++        system_ret = system(system_cp);
++        if ((chmod_ret != 0) || (system_ret != 0))
++            ret = -1;
++
++	    wpa_printf(MSG_DEBUG, "system call '%s'", system_rm);
++        system(system_rm);
++
++		os_free(tmp_name);
++		os_free(system_cp);
++		os_free(system_rm);
++	}
++
++	wpa_printf(MSG_DEBUG, "Configuration file '%s' written %ssuccessfully",
++		   orig_name, ret ? "un" : "");
++	return ret;
++#else /* CONFIG_NO_CONFIG_WRITE */
++	return -1;
++#endif /* CONFIG_NO_CONFIG_WRITE */
++}
++
++#else
+ 
+ int wpa_config_write(const char *name, struct wpa_config *config)
+ {
+@@ -1379,3 +1493,5 @@ int wpa_config_write(const char *name, struct wpa_config *config)
+ 	return -1;
+ #endif /* CONFIG_NO_CONFIG_WRITE */
+ }
++#endif
++

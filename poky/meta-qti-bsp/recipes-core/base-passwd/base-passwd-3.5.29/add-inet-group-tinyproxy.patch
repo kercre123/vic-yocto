@@ -1,0 +1,11 @@
+From: Mohammed Javid <mjavid@codeaurora.org>
+Date: Fri, 12 July 2017 10:51:24 +0530
+Subject: [PATCH] new
+
+--- a/group.master 2017-07-03 21:08:40.412699700 +0530
++++ b/group.master 2017-07-12 17:19:06.129289315 +0530
+@@ -42,3 +42,4 @@
+ diag:*:53:
+ rebooters:*:1301:diag
+ nogroup:*:65534:
++inet:x:3003:nobody,root

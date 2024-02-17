@@ -1,0 +1,25 @@
+From 6205e2169fceb236790afa6da7a8f3dbe6760c6c Mon Sep 17 00:00:00 2001
+From: Daniel Tak <ytak@codeaurora.org>
+Date: Fri, 7 Dec 2018 12:57:36 -0700
+Subject: [PATCH] add sdcard diag groups
+
+%% original patch: add-sdcard-diag-groups.patch
+---
+ group.master | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/group.master b/group.master
+index cea9d60..d0ee227 100644
+--- a/group.master
++++ b/group.master
+@@ -38,4 +38,6 @@ staff:*:50:
+ games:*:60:
+ shutdown:*:70:
+ users:*:100:
++sdcard:*:1015:diag
++diag:*:53:
+ nogroup:*:65534:
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+

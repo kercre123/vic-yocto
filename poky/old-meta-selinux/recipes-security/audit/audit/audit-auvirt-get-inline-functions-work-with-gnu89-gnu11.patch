@@ -1,0 +1,71 @@
+From 15036dd4fa9eb209f5e148c6f7ee081f5ca78fa4 Mon Sep 17 00:00:00 2001
+From: Wenzong Fan <wenzong.fan@windriver.com>
+Date: Fri, 11 Sep 2015 03:37:13 -0400
+Subject: [PATCH] audit/auvirt: get inline functions work with both gnu89 & gnu11
+
+After gcc upgraded to gcc5, and if the codes are compiled without
+optimization (-O0), and the below error will happen:
+
+  auvirt.c:484: undefined reference to `copy_str'
+  auvirt.c:667: undefined reference to `is_resource'
+  collect2: error: ld returned 1 exit status
+
+gcc5 defaults to -std=gnu11 instead of -std=gnu89, and it requires that
+exactly one C source file has the callable copy of the inline function.
+Consider the following program:
+
+  inline int
+  foo (void)
+  {
+    return 42;
+  }
+
+  int
+  main (void)
+  {
+    return foo ();
+  }
+
+The program above will not link with the C99 inline semantics, because
+no out-of-line function foo is generated. To fix this, either mark the
+function foo as static, or add the following declaration:
+
+  static inline int foo (void);
+
+More information refer to: https://gcc.gnu.org/gcc-5/porting_to.html
+
+Note: using "extern inline" will fail to build with gcc4.x, so replace
+inline with "static inline".
+
+Upstream-Status: Pending
+
+Signed-off-by: Wenzong Fan <wenzong.fan@windriver.com>
+---
+ tools/auvirt/auvirt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tools/auvirt/auvirt.c b/tools/auvirt/auvirt.c
+index 655c454..b16d718 100644
+--- a/tools/auvirt/auvirt.c
++++ b/tools/auvirt/auvirt.c
+@@ -138,7 +138,7 @@ void event_free(struct event *event)
+ 	}
+ }
+ 
+-inline char *copy_str(const char *str)
++static inline char *copy_str(const char *str)
+ {
+ 	return (str) ? strdup(str) : NULL;
+ }
+@@ -650,7 +650,7 @@ int process_control_event(auparse_state_t *au)
+ 	return 0;
+ }
+ 
+-inline int is_resource(const char *res)
++static inline int is_resource(const char *res)
+ {
+ 	if (res == NULL ||
+ 	    res[0] == '\0' ||
+-- 
+1.9.1
+

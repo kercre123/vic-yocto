@@ -1,0 +1,17 @@
+# /etc/localtime symlinks to /data/etc/localtime
+# This script creates /data/etc and symlinks /data/etc/localtime to
+# whatever is pointed to by /etc/localtime.default (should be Universal or UTC)
+[Unit]
+Description=Setup /etc/localtime link
+DefaultDependencies=No
+Requires=mount-data.service
+After=mount-data.service
+Wants=time-sync.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/etc/initscripts/setup_localtime_link
+
+[Install]
+WantedBy=multi-user.target

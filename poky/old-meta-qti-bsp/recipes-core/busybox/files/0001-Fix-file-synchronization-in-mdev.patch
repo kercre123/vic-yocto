@@ -1,0 +1,104 @@
+From 3551ed0e5aa10c690b22980e021c824243ca2916 Mon Sep 17 00:00:00 2001
+From: Leon Peng <liangyan@codeaurora.org>
+Date: Wed, 22 Feb 2017 09:45:55 +0800
+Subject: [PATCH] Fix file synchronization in mdev
+
+When some UEVENTS are received by mdev in parallel
+at the very beginning, they may try to write mdev.seq
+at the same time which cause the final value of
+mdev.seq unexpected and cause some mdev instances
+can't be woken up until 2 seconds timeout.
+---
+ util-linux/mdev.c | 57 ++++++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 40 insertions(+), 17 deletions(-)
+
+diff --git a/util-linux/mdev.c b/util-linux/mdev.c
+index 2ffc467..e1863b0 100644
+--- a/util-linux/mdev.c
++++ b/util-linux/mdev.c
+@@ -951,7 +951,9 @@ wait_for_seqfile(const char *seq)
+ 	int seq_fd = -1;
+ 	int do_once = 1;
+ 	sigset_t set_CHLD;
++	unsigned long long seq_cur, seq_writen;
+ 
++	seq_cur = atoll(seq);
+ 	sigemptyset(&set_CHLD);
+ 	sigaddset(&set_CHLD, SIGCHLD);
+ 	sigprocmask(SIG_BLOCK, &set_CHLD, NULL);
+@@ -973,16 +975,39 @@ wait_for_seqfile(const char *seq)
+ 		}
+ 		seqbuf[seqlen] = '\0';
+ 		if (seqbuf[0] == '\n' || seqbuf[0] == '\0') {
+-			/* seed file: write out seq ASAP */
+-			xwrite_str(seq_fd, seq);
+-			xlseek(seq_fd, 0, SEEK_SET);
+-			dbg2("first seq written");
+-			break;
++			/* Multiple mdev instances may reach here, use flock to synchronize */
++			if (flock(seq_fd, LOCK_EX | LOCK_NB) >= 0) {
++				seqlen = pread(seq_fd, seqbuf, sizeof(seqbuf) - 1, 0);
++				if (seqlen < 0) {
++					flock(seq_fd, LOCK_UN);
++					close(seq_fd);
++					seq_fd = -1;
++					break;
++				}
++				seqbuf[seqlen] = '\0';
++				if (seqbuf[0] == '\n' || seqbuf[0] == '\0') {
++					/* seed file: write out seq ASAP */
++					xwrite_str(seq_fd, seq);
++					xlseek(seq_fd, 0, SEEK_SET);
++					flock(seq_fd, LOCK_UN);
++					dbg2("first seq written");
++					break;
++				} else {
++					flock(seq_fd, LOCK_UN);
++				}
++			}
+ 		}
+-		if (strcmp(seq, seqbuf) == 0) {
++
++		seq_writen = atoll(seqbuf);
++		if (seq_cur == seq_writen) {
+ 			/* correct idx */
+ 			break;
++		} else if (seq_cur < seq_writen) {
++			close(seq_fd);
++			seq_fd = -1;
++			break;
+ 		}
++
+ 		if (do_once) {
+ 			dbg2("%s waiting for '%s'", curtime(), seqbuf);
+ 			do_once = 0;
+@@ -1176,17 +1201,15 @@ int mdev_main(int argc UNUSED_PARAM, char **argv)
+ 		);
+ 
+ 		snprintf(temp, PATH_MAX, "/sys%s", env_devpath);
+-		if (op == OP_change) {
+-			if(check_mtp_mode() != 0) { // mtp mode
+-				char usb_state[16];
+-				get_usb_state(usb_state);
+-				if (!strncmp(usb_state, "CONFIGURED", 10)) {//USB has been configured
+-					/* USB plug in */
+-					handle_mtp_plug_in_out(1);
+-				} else if (!strncmp(usb_state, "DISCONNECTED", 12)) {//USB has been disconnected
+-					/* USB plug out */
+-					handle_mtp_plug_in_out(0);
+-				}
++		if (op == OP_change && (check_mtp_mode() != 0)) {
++			char usb_state[16];
++			get_usb_state(usb_state);
++			if (!strncmp(usb_state, "CONFIGURED", 10)) {//USB has been configured
++				/* USB plug in */
++				handle_mtp_plug_in_out(1);
++			} else if (!strncmp(usb_state, "DISCONNECTED", 12)) {//USB has been disconnected
++				/* USB plug out */
++				handle_mtp_plug_in_out(0);
+ 			}
+ 		} else if (op == OP_remove) {
+ 			/* Ignoring "remove firmware". It was reported
+-- 
+1.9.1
+

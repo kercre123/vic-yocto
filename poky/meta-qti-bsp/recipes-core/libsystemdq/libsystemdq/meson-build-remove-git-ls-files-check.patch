@@ -1,0 +1,56 @@
+diff --git a/meson.build b/meson.build
+index 75b85fd..2e1befc 100644
+--- a/meson.build
++++ b/meson.build
+@@ -2142,51 +2142,6 @@ endforeach
+ # Enable tests for all supported sanitizers
+ ############################################################
+ 
+-if git.found()
+-        all_files = run_command(
+-                git,
+-                ['--git-dir=@0@/.git'.format(meson.current_source_dir()),
+-                 'ls-files',
+-                 ':/*.[ch]'])
+-        all_files = files(all_files.stdout().split())
+-
+-        custom_target(
+-                'tags',
+-                output : 'tags',
+-                command : [env, 'etags', '-o', '@0@/TAGS'.format(meson.current_source_dir())] + all_files)
+-        run_target(
+-                'ctags',
+-                command : [env, 'ctags', '-o', '@0@/tags'.format(meson.current_source_dir())] + all_files)
+-endif
+-
+-if git.found()
+-        meson_git_contrib_sh = find_program('tools/meson-git-contrib.sh')
+-        run_target(
+-                'git-contrib',
+-                command : [meson_git_contrib_sh])
+-endif
+-
+-if git.found()
+-        git_head = run_command(
+-                git,
+-                ['--git-dir=@0@/.git'.format(meson.current_source_dir()),
+-                 'rev-parse', 'HEAD']).stdout().strip()
+-        git_head_short = run_command(
+-                git,
+-                ['--git-dir=@0@/.git'.format(meson.current_source_dir()),
+-                 'rev-parse', '--short=7', 'HEAD']).stdout().strip()
+-
+-        run_target(
+-                'git-snapshot',
+-                command : ['git', 'archive',
+-                           '-o', '@0@/systemd-@1@.tar.gz'.format(meson.current_source_dir(),
+-                                                                 git_head_short),
+-                           '--prefix', 'systemd-@0@/'.format(git_head),
+-                           'HEAD'])
+-endif
+-
+-############################################################
+-
+ meson_check_api_docs_sh = find_program('tools/meson-check-api-docs.sh')
+ run_target(
+         'check-api-docs',

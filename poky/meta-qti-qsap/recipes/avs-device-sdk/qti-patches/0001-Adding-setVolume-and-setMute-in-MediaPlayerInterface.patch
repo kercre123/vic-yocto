@@ -1,0 +1,119 @@
+From 8f4e8f1ff49a314904c473377f16ee711f48dda1 Mon Sep 17 00:00:00 2001
+From: Prashanth Vadde <pvadde@codeaurora.org>
+Date: Wed, 23 Aug 2017 17:25:09 +0530
+Subject: [PATCH] Adding setVolume and setMute in MediaPlayerInterface
+
+---
+ .../include/AVSCommon/Utils/MediaPlayer/MediaPlayerInterface.h   | 2 ++
+ .../SpeechSynthesizer/test/SpeechSynthesizerTest.cpp             | 9 ++++++++-
+ Integration/include/Integration/TestMediaPlayer.h                | 3 ++-
+ Integration/src/TestMediaPlayer.cpp                              | 8 ++++++++
+ MediaPlayer/include/MediaPlayer/MediaPlayer.h                    | 2 ++
+ MediaPlayer/src/MediaPlayer.cpp                                  | 6 ++++++
+ 6 files changed, 28 insertions(+), 2 deletions(-)
+
+diff --git a/AVSCommon/Utils/include/AVSCommon/Utils/MediaPlayer/MediaPlayerInterface.h b/AVSCommon/Utils/include/AVSCommon/Utils/MediaPlayer/MediaPlayerInterface.h
+index c56ea64..4e48f2e 100644
+--- a/AVSCommon/Utils/include/AVSCommon/Utils/MediaPlayer/MediaPlayerInterface.h
++++ b/AVSCommon/Utils/include/AVSCommon/Utils/MediaPlayer/MediaPlayerInterface.h
+@@ -165,6 +165,8 @@ public:
+      */
+     virtual void setObserver(
+             std::shared_ptr<avsCommon::utils::mediaPlayer::MediaPlayerObserverInterface> playerObserver) = 0;
++    virtual void setVolume(double vol) = 0;
++    virtual void setMute(bool mute) = 0;
+ };
+
+ } // namespace mediaPlayer
+diff --git a/CapabilityAgents/SpeechSynthesizer/test/SpeechSynthesizerTest.cpp b/CapabilityAgents/SpeechSynthesizer/test/SpeechSynthesizerTest.cpp
+index 0c334cd..45d06c6 100644
+--- a/CapabilityAgents/SpeechSynthesizer/test/SpeechSynthesizerTest.cpp
++++ b/CapabilityAgents/SpeechSynthesizer/test/SpeechSynthesizerTest.cpp
+@@ -166,7 +166,8 @@ public:
+     // 'override' commented out to avoid needless warnings generated because MOCK_METHOD* does not use it.
+     void setObserver(
+             std::shared_ptr<avsCommon::utils::mediaPlayer::MediaPlayerObserverInterface> playerObserver) /*override*/;
+-
++    void setVolume(double vol);
++    void setMute(bool mute);
+     MOCK_METHOD1(setSource, MediaPlayerStatus(std::shared_ptr<avsCommon::avs::attachment::AttachmentReader> attachmentReader));
+     MOCK_METHOD2(setSource, MediaPlayerStatus(std::shared_ptr<std::istream> stream, bool repeat));
+ #ifdef __clang__
+@@ -316,6 +317,12 @@ MediaPlayerStatus MockMediaPlayer::mockPlay() {
+     m_wakeTriggerPlay.notify_one();
+     return MediaPlayerStatus::SUCCESS;
+ }
++void MockMediaPlayer::setVolume(double vol)
++{
++}
++void MockMediaPlayer::setMute(bool mute)
++{
++}
+
+ MediaPlayerStatus MockMediaPlayer::mockStop() {
+     std::unique_lock<std::mutex> lock(m_mutex);
+diff --git a/Integration/include/Integration/TestMediaPlayer.h b/Integration/include/Integration/TestMediaPlayer.h
+index 5dd8a3d..235df94 100644
+--- a/Integration/include/Integration/TestMediaPlayer.h
++++ b/Integration/include/Integration/TestMediaPlayer.h
+@@ -65,7 +65,8 @@ public:
+
+     void setObserver(
+             std::shared_ptr<avsCommon::utils::mediaPlayer::MediaPlayerObserverInterface> playerObserver) override;
+-
++    void setVolume(double vol) override;
++    void setMute(bool mute) override;
+ private:
+     /// Observer to notify of state changes.
+     std::shared_ptr<avsCommon::utils::mediaPlayer::MediaPlayerObserverInterface> m_observer;
+diff --git a/Integration/src/TestMediaPlayer.cpp b/Integration/src/TestMediaPlayer.cpp
+index e92f8d8..1fb874e 100644
+--- a/Integration/src/TestMediaPlayer.cpp
++++ b/Integration/src/TestMediaPlayer.cpp
+@@ -100,6 +100,14 @@ void TestMediaPlayer::setObserver(
+         std::shared_ptr<avsCommon::utils::mediaPlayer::MediaPlayerObserverInterface> playerObserver) {
+     m_observer = playerObserver;
+ }
++
++void TestMediaPlayer::setVolume(double vol)
++{
++}
++void TestMediaPlayer::setMute(bool mute)
++{
++}
++
+ } // namespace test
+ } // namespace integration
+ } // namespace alexaClientSDK
+diff --git a/MediaPlayer/include/MediaPlayer/MediaPlayer.h b/MediaPlayer/include/MediaPlayer/MediaPlayer.h
+index a1519fe..c221914 100644
+--- a/MediaPlayer/include/MediaPlayer/MediaPlayer.h
++++ b/MediaPlayer/include/MediaPlayer/MediaPlayer.h
+@@ -77,6 +77,8 @@ public:
+     avsCommon::utils::mediaPlayer::MediaPlayerStatus resume() override;
+     int64_t getOffsetInMilliseconds() override;
+     void setObserver(std::shared_ptr<avsCommon::utils::mediaPlayer::MediaPlayerObserverInterface> observer) override;
++    void setVolume(double vol) override;
++    void setMute(bool mute) override;
+     /// @}
+
+     /// @name Overridden PipelineInterface methods.
+diff --git a/MediaPlayer/src/MediaPlayer.cpp b/MediaPlayer/src/MediaPlayer.cpp
+index 212f725..da7e4e4 100644
+--- a/MediaPlayer/src/MediaPlayer.cpp
++++ b/MediaPlayer/src/MediaPlayer.cpp
+@@ -797,5 +797,11 @@ void MediaPlayer::sendBufferRefilled() {
+     }
+ }
+
++void MediaPlayer::setVolume(double vol)
++{
++}
++void MediaPlayer::setMute(bool mute)
++{
++}
+ } // namespace mediaPlayer
+ } // namespace alexaClientSDK
+--
+1.9.1
+

@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenSSH Key Generation
+ConditionPathExists=!/etc/ssh/ssh_host_rsa_key
+ConditionPathExists=!/etc/ssh/ssh_host_dsa_key
+ConditionPathExists=!/etc/ssh/ssh_host_ecdsa_key
+ConditionPathExists=!/etc/ssh/ssh_host_ed25519_key
+Before=sshd.service
+
+[Service]
+Environment="SYSCONFDIR=/data/ssh"
+ExecStart=@BASE_BINDIR@/mkdir -p $SYSCONFDIR
+ExecStart=@BINDIR@/ssh-keygen -q -f ${SYSCONFDIR}/ssh_host_rsa_key -N '' -t rsa
+ExecStart=@BINDIR@/ssh-keygen -q -f ${SYSCONFDIR}/ssh_host_dsa_key -N '' -t dsa
+ExecStart=@BINDIR@/ssh-keygen -q -f ${SYSCONFDIR}/ssh_host_ecdsa_key -N '' -t ecdsa
+ExecStart=@BINDIR@/ssh-keygen -q -f ${SYSCONFDIR}/ssh_host_ed25519_key -N '' -t ed25519
+Type=oneshot
+RemainAfterExit=yes

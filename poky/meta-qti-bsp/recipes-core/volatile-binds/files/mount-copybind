@@ -1,0 +1,50 @@
+#!/bin/sh
+#
+# Perform a bind mount, copying existing files as we do so to ensure the
+#!/bin/sh
+#
+# Perform a bind mount, copying existing files as we do so to ensure the
+# overlaid path has the necessary content.
+
+if [ ! -e "$2" ]; then
+   echo >&2 "No System file/directory exist"
+   exit 1
+fi
+
+spec=$1
+mountpoint=$2
+
+if [ -f "$mountpoint" ]; then
+    #Skip if already mount-binded
+    if grep -qs $mountpoint /proc/mounts; then
+        exit 0
+    fi
+
+    if [ ! -f "$spec" ]; then
+        mkdir -p $(dirname $spec)
+        cp -P --preserve=all "$mountpoint" "$spec"
+    fi
+
+    mount -o "bind" "$spec" "$mountpoint"
+fi
+
+if [ -d "$mountpoint" ]; then
+    mkdir -p $spec
+    cd $mountpoint
+    for file in *
+    do
+        #Skip if already mount-binded
+        # remove trailing '/' if present
+        mountpath=$(echo $mountpoint | sed 's:/*$::')
+        if grep -qs "$mountpath/$file" /proc/mounts; then
+            continue
+        fi
+
+        if [ -f "$mountpoint/$file" ]; then
+            if [ ! -f "$spec/$file" ]; then
+                cp --preserve=all "$file" "$spec/"
+            fi
+            mount -o "bind" "$spec/$file" "$mountpoint/$file"
+        fi
+   done
+fi

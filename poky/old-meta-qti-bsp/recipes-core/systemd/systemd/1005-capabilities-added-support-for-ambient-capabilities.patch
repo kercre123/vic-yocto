@@ -1,0 +1,427 @@
+From 4e8d34a23666244d42411ab3f840030a502cdc55 Mon Sep 17 00:00:00 2001
+From: Ismo Puustinen <ismo.puustinen@intel.com>
+Date: Thu, 31 Dec 2015 14:54:44 +0200
+Subject: [PATCH 2/2] capabilities: added support for ambient capabilities.
+
+This patch adds support for ambient capabilities in service files. The
+idea with ambient capabilities is that the execed processes can run with
+non-root user and get some inherited capabilities, without having any
+need to add the capabilities to the executable file.
+
+You need at least Linux 4.3 to use ambient capabilities. SecureBit
+keep-caps is automatically added when you use ambient capabilities and
+wish to change the user.
+
+An example system service file might look like this:
+
+[Unit]
+Description=Service for testing caps
+
+[Service]
+ExecStart=/usr/bin/sleep 10000
+User=nobody
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW
+
+After starting the service it has these capabilities:
+
+CapInh: 0000000000003000
+CapPrm: 0000000000003000
+CapEff: 0000000000003000
+CapBnd: 0000003fffffffff
+CapAmb: 0000000000003000
+(cherry picked from commit 755d4b67a471ed1a3472b8536cb51315d4e4e3c1)
+
+Conflicts:
+	src/basic/missing.h
+	src/core/execute.c
+	src/core/load-fragment.c
+---
+ src/basic/capability.c                | 55 +++++++++++++++++++++
+ src/basic/capability.h                |  3 ++
+ src/basic/missing.h                   | 61 ++++++++++++++++++++++++
+ src/core/dbus-execute.c               | 19 ++++++++
+ src/core/execute.c                    | 90 ++++++++++++++++++++++++++++-------
+ src/core/execute.h                    |  2 +
+ src/core/load-fragment-gperf.gperf.m4 |  1 +
+ src/core/load-fragment.c              |  3 +-
+ 8 files changed, 217 insertions(+), 17 deletions(-)
+
+diff --git a/src/basic/capability.c b/src/basic/capability.c
+index 16ca734..61dce53 100644
+--- a/src/basic/capability.c
++++ b/src/basic/capability.c
+@@ -93,6 +93,61 @@ unsigned long cap_last_cap(void) {
+         return p;
+ }
+ 
++int capability_update_inherited_set(cap_t caps, uint64_t set) {
++        unsigned long i;
++
++        /* Add capabilities in the set to the inherited caps. Do not apply
++         * them yet. */
++
++        for (i = 0; i < cap_last_cap(); i++) {
++
++                if (set & (UINT64_C(1) << i)) {
++                        cap_value_t v;
++
++                        v = (cap_value_t) i;
++
++                        /* Make the capability inheritable. */
++                        if (cap_set_flag(caps, CAP_INHERITABLE, 1, &v, CAP_SET) < 0)
++                                return -errno;
++                }
++        }
++
++        return 0;
++}
++
++int capability_ambient_set_apply(uint64_t set, bool also_inherit) {
++        unsigned long i;
++        _cleanup_cap_free_ cap_t caps = NULL;
++
++        /* Add the capabilities to the ambient set. */
++
++        if (also_inherit) {
++                int r;
++                caps = cap_get_proc();
++                if (!caps)
++                        return -errno;
++
++                r = capability_update_inherited_set(caps, set);
++                if (r < 0)
++                        return -errno;
++
++                if (cap_set_proc(caps) < 0)
++                        return -errno;
++        }
++
++        for (i = 0; i < cap_last_cap(); i++) {
++
++                if (set & (UINT64_C(1) << i)) {
++
++                        /* Add the capability to the ambient set. */
++                        if (prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, i, 0, 0) < 0)
++                                return -errno;
++                }
++        }
++
++        return 0;
++}
++
+ int capability_bounding_set_drop(uint64_t keep, bool right_now) {
+         _cleanup_cap_free_ cap_t after_cap = NULL;
+         cap_flag_value_t fv;
+diff --git a/src/basic/capability.h b/src/basic/capability.h
+index ede1855..b70b357 100644
+--- a/src/basic/capability.h
++++ b/src/basic/capability.h
+@@ -33,6 +33,9 @@ int have_effective_cap(int value);
+ int capability_bounding_set_drop(uint64_t keep, bool right_now);
+ int capability_bounding_set_drop_usermode(uint64_t keep);
+ 
++int capability_ambient_set_apply(uint64_t set, bool also_inherit);
++int capability_update_inherited_set(cap_t caps, uint64_t ambient_set);
++
+ int drop_privileges(uid_t uid, gid_t gid, uint64_t keep_capabilities);
+ 
+ int drop_capability(cap_value_t cv);
+diff --git a/src/basic/missing.h b/src/basic/missing.h
+index 34ab025..8b7358f 100644
+--- a/src/basic/missing.h
++++ b/src/basic/missing.h
+@@ -1035,3 +1035,64 @@ static inline int kcmp(pid_t pid1, pid_t pid2, int type, unsigned long idx1, uns
+ #ifndef INPUT_PROP_ACCELEROMETER
+ #define INPUT_PROP_ACCELEROMETER  0x06
+ #endif
++
++#ifndef HAVE_DECL_KEY_SERIAL_T
++typedef int32_t key_serial_t;
++#endif
++
++#ifndef HAVE_DECL_KEYCTL
++static inline long keyctl(int cmd, unsigned long arg2, unsigned long arg3, unsigned long arg4,unsigned long arg5) {
++#if defined(__NR_keyctl)
++        return syscall(__NR_keyctl, cmd, arg2, arg3, arg4, arg5);
++#else
++        errno = ENOSYS;
++        return -1;
++#endif
++}
++
++static inline key_serial_t add_key(const char *type, const char *description, const void *payload, size_t plen, key_serial_t ringid) {
++#if defined (__NR_add_key)
++        return syscall(__NR_add_key, type, description, payload, plen, ringid);
++#else
++        errno = ENOSYS;
++        return -1;
++#endif
++}
++
++static inline key_serial_t request_key(const char *type, const char *description, const char * callout_info, key_serial_t destringid) {
++#if defined (__NR_request_key)
++        return syscall(__NR_request_key, type, description, callout_info, destringid);
++#else
++        errno = ENOSYS;
++        return -1;
++#endif
++}
++#endif
++
++#ifndef KEYCTL_READ
++#define KEYCTL_READ 11
++#endif
++
++#ifndef KEYCTL_SET_TIMEOUT
++#define KEYCTL_SET_TIMEOUT 15
++#endif
++
++#ifndef KEY_SPEC_USER_KEYRING
++#define KEY_SPEC_USER_KEYRING -4
++#endif
++
++#ifndef PR_CAP_AMBIENT
++#define PR_CAP_AMBIENT 47
++#endif
++
++#ifndef PR_CAP_AMBIENT_IS_SET
++#define PR_CAP_AMBIENT_IS_SET 1
++#endif
++
++#ifndef PR_CAP_AMBIENT_RAISE
++#define PR_CAP_AMBIENT_RAISE 2
++#endif
++
++#ifndef PR_CAP_AMBIENT_CLEAR_ALL
++#define PR_CAP_AMBIENT_CLEAR_ALL 4
++#endif
+diff --git a/src/core/dbus-execute.c b/src/core/dbus-execute.c
+index 130897a..9a3c549 100644
+--- a/src/core/dbus-execute.c
++++ b/src/core/dbus-execute.c
+@@ -329,6 +329,24 @@ static int property_get_capability_bounding_set(
+         return sd_bus_message_append(reply, "t", c->capability_bounding_set);
+ }
+ 
++static int property_get_ambient_capabilities(
++                sd_bus *bus,
++                const char *path,
++                const char *interface,
++                const char *property,
++                sd_bus_message *reply,
++                void *userdata,
++                sd_bus_error *error) {
++
++        ExecContext *c = userdata;
++
++        assert(bus);
++        assert(reply);
++        assert(c);
++
++        return sd_bus_message_append(reply, "t", c->capability_ambient_set);
++}
++
+ static int property_get_capabilities(
+                 sd_bus *bus,
+                 const char *path,
+@@ -638,6 +656,7 @@ const sd_bus_vtable bus_exec_vtable[] = {
+         SD_BUS_PROPERTY("Capabilities", "s", property_get_capabilities, 0, SD_BUS_VTABLE_PROPERTY_CONST),
+         SD_BUS_PROPERTY("SecureBits", "i", bus_property_get_int, offsetof(ExecContext, secure_bits), SD_BUS_VTABLE_PROPERTY_CONST),
+         SD_BUS_PROPERTY("CapabilityBoundingSet", "t", property_get_capability_bounding_set, 0, SD_BUS_VTABLE_PROPERTY_CONST),
++        SD_BUS_PROPERTY("AmbientCapabilities", "t", property_get_ambient_capabilities, 0, SD_BUS_VTABLE_PROPERTY_CONST),
+         SD_BUS_PROPERTY("User", "s", NULL, offsetof(ExecContext, user), SD_BUS_VTABLE_PROPERTY_CONST),
+         SD_BUS_PROPERTY("Group", "s", NULL, offsetof(ExecContext, group), SD_BUS_VTABLE_PROPERTY_CONST),
+         SD_BUS_PROPERTY("SupplementaryGroups", "as", NULL, offsetof(ExecContext, supplementary_groups), SD_BUS_VTABLE_PROPERTY_CONST),
+diff --git a/src/core/execute.c b/src/core/execute.c
+index ea290e9..6e2be52 100644
+--- a/src/core/execute.c
++++ b/src/core/execute.c
+@@ -700,12 +700,7 @@ static int enforce_user(const ExecContext *context, uid_t uid) {
+         /* Sets (but doesn't lookup) the uid and make sure we keep the
+          * capabilities while doing so. */
+ 
+-        if (context->capabilities) {
+-                _cleanup_cap_free_ cap_t d = NULL;
+-                static const cap_value_t bits[] = {
+-                        CAP_SETUID,   /* Necessary so that we can run setresuid() below */
+-                        CAP_SETPCAP   /* Necessary so that we can set PR_SET_SECUREBITS later on */
+-                };
++        if (context->capabilities || context->capability_ambient_set != 0) {
+ 
+                 /* First step: If we need to keep capabilities but
+                  * drop privileges we need to make sure we keep our
+@@ -721,16 +716,24 @@ static int enforce_user(const ExecContext *context, uid_t uid) {
+                 /* Second step: set the capabilities. This will reduce
+                  * the capabilities to the minimum we need. */
+ 
+-                d = cap_dup(context->capabilities);
+-                if (!d)
+-                        return -errno;
++                if (context->capabilities) {
++                        _cleanup_cap_free_ cap_t d = NULL;
++                        static const cap_value_t bits[] = {
++                                CAP_SETUID,   /* Necessary so that we can run setresuid() below */
++                                CAP_SETPCAP   /* Necessary so that we can set PR_SET_SECUREBITS later on */
++                        };
+ 
+-                if (cap_set_flag(d, CAP_EFFECTIVE, ELEMENTSOF(bits), bits, CAP_SET) < 0 ||
+-                    cap_set_flag(d, CAP_PERMITTED, ELEMENTSOF(bits), bits, CAP_SET) < 0)
+-                        return -errno;
++                        d = cap_dup(context->capabilities);
++                        if (!d)
++                                return -errno;
+ 
+-                if (cap_set_proc(d) < 0)
+-                        return -errno;
++                        if (cap_set_flag(d, CAP_EFFECTIVE, ELEMENTSOF(bits), bits, CAP_SET) < 0 ||
++                            cap_set_flag(d, CAP_PERMITTED, ELEMENTSOF(bits), bits, CAP_SET) < 0)
++                                return -errno;
++
++                        if (cap_set_proc(d) < 0)
++                                return -errno;
++                }
+         }
+ 
+         /* Third step: actually set the uids */
+@@ -1702,6 +1705,8 @@ static int exec_child(
+ 
+         if (params->apply_permissions) {
+ 
++                int secure_bits = context->secure_bits;
++
+                 for (i = 0; i < _RLIMIT_MAX; i++) {
+                         if (!context->rlimit[i])
+                                 continue;
+@@ -1746,6 +1751,30 @@ static int exec_child(
+                 }
+ #endif
+ #endif
++                /* This is done before enforce_user, but ambient set
++                 * does not survive over setresuid() if keep_caps is not set. */
++                if (context->capability_ambient_set != 0) {
++                        r = capability_ambient_set_apply(context->capability_ambient_set, true);
++                        if (r < 0) {
++                                *exit_status = EXIT_CAPABILITIES;
++                                return r;
++                        }
++
++                        if (context->capabilities) {
++
++                                /* The capabilities in ambient set need to be also in the inherited
++                                 * set. If they aren't, trying to get them will fail. Add the ambient
++                                 * set inherited capabilities to the capability set in the context.
++                                 * This is needed because if capabilities are set (using "Capabilities="
++                                 * keyword), they will override whatever we set now. */
++
++                                r = capability_update_inherited_set(context->capabilities, context->capability_ambient_set);
++                                if (r < 0) {
++                                        *exit_status = EXIT_CAPABILITIES;
++                                        return r;
++                                }
++                        }
++                }
+ 
+                 if (context->user) {
+                         r = enforce_user(context, uid);
+@@ -1753,14 +1782,32 @@ static int exec_child(
+                                 *exit_status = EXIT_USER;
+                                 return r;
+                         }
++                        if (context->capability_ambient_set != 0) {
++
++                                /* Fix the ambient capabilities after user change. */
++                                r = capability_ambient_set_apply(context->capability_ambient_set, false);
++                                if (r < 0) {
++                                        *exit_status = EXIT_CAPABILITIES;
++                                        return r;
++                                }
++
++                                /* If we were asked to change user and ambient capabilities
++                                 * were requested, we had to add keep-caps to the securebits
++                                 * so that we would maintain the inherited capability set
++                                 * through the setresuid(). Make sure that the bit is added
++                                 * also to the context secure_bits so that we don't try to
++                                 * drop the bit away next. */
++
++                                 secure_bits |= 1<<SECURE_KEEP_CAPS;
++                        }
+                 }
+ 
+                 /* PR_GET_SECUREBITS is not privileged, while
+                  * PR_SET_SECUREBITS is. So to suppress
+                  * potential EPERMs we'll try not to call
+                  * PR_SET_SECUREBITS unless necessary. */
+-                if (prctl(PR_GET_SECUREBITS) != context->secure_bits)
+-                        if (prctl(PR_SET_SECUREBITS, context->secure_bits) < 0) {
++                if (prctl(PR_GET_SECUREBITS) != secure_bits)
++                        if (prctl(PR_SET_SECUREBITS, secure_bits) < 0) {
+                                 *exit_status = EXIT_SECUREBITS;
+                                 return -errno;
+                         }
+@@ -2418,6 +2465,17 @@ void exec_context_dump(ExecContext *c, FILE* f, const char *prefix) {
+                 fputs("\n", f);
+         }
+ 
++        if (c->capability_ambient_set != 0) {
++                unsigned long l;
++                fprintf(f, "%sAmbientCapabilities:", prefix);
++
++                for (l = 0; l <= cap_last_cap(); l++)
++                        if (c->capability_ambient_set & (UINT64_C(1) << l))
++                                fprintf(f, " %s", strna(capability_to_name(l)));
++
++                fputs("\n", f);
++        }
++
+         if (c->user)
+                 fprintf(f, "%sUser: %s\n", prefix, c->user);
+         if (c->group)
+diff --git a/src/core/execute.h b/src/core/execute.h
+index 92e1333..e650b39 100644
+--- a/src/core/execute.h
++++ b/src/core/execute.h
+@@ -155,6 +155,8 @@ struct ExecContext {
+ 
+         uint64_t capability_bounding_set;
+ 
++        uint64_t capability_ambient_set;
++
+         cap_t capabilities;
+         int secure_bits;
+ 
+diff --git a/src/core/load-fragment-gperf.gperf.m4 b/src/core/load-fragment-gperf.gperf.m4
+index 7606db4..cd74135 100644
+--- a/src/core/load-fragment-gperf.gperf.m4
++++ b/src/core/load-fragment-gperf.gperf.m4
+@@ -47,6 +47,7 @@ $1.SyslogLevelPrefix,            config_parse_bool,                  0,
+ $1.Capabilities,                 config_parse_exec_capabilities,     0,                             offsetof($1, exec_context)
+ $1.SecureBits,                   config_parse_exec_secure_bits,      0,                             offsetof($1, exec_context)
+ $1.CapabilityBoundingSet,        config_parse_capability_set,        0,                             offsetof($1, exec_context.capability_bounding_set)
++$1.AmbientCapabilities,          config_parse_capability_set,        0,                             offsetof($1, exec_context.capability_ambient_set)
+ $1.TimerSlackNSec,               config_parse_nsec,                  0,                             offsetof($1, exec_context.timer_slack_nsec)
+ $1.NoNewPrivileges,              config_parse_no_new_privileges,     0,                             offsetof($1, exec_context)
+ m4_ifdef(`HAVE_SECCOMP',
+diff --git a/src/core/load-fragment.c b/src/core/load-fragment.c
+index e888d72..f0ba157 100644
+--- a/src/core/load-fragment.c
++++ b/src/core/load-fragment.c
+@@ -1038,6 +1038,7 @@ int config_parse_capability_set(
+ 
+         if (strcmp(lvalue, "CapabilityBoundingSet") == 0)
+                 initial = CAP_ALL; /* initialized to all bits on */
++        /* else "AmbientCapabilities" initialized to all bits off */
+ 
+         FOREACH_WORD_QUOTED(word, l, rvalue, state) {
+                 _cleanup_free_ char *t = NULL;
+@@ -1049,7 +1050,7 @@ int config_parse_capability_set(
+ 
+                 cap = capability_from_name(t);
+                 if (cap < 0) {
+-                        log_syntax(unit, LOG_ERR, filename, line, errno, "Failed to parse capability in bounding set, ignoring: %s", t);
++                        log_syntax(unit, LOG_ERR, filename, line, 0, "Failed to parse capability in bounding/ambient set, ignoring: %s", t);
+                         continue;
+                 }
+ 
+-- 
+2.1.2
+

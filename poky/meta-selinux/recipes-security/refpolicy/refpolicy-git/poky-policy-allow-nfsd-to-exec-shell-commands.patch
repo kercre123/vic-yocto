@@ -1,0 +1,81 @@
+From 22cd030a8118faae37c0835eb7875e482efe5dc1 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:37:23 +0800
+Subject: [PATCH] allow nfsd to exec shell commands.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/contrib/rpc.te   |    2 +-
+ policy/modules/kernel/kernel.if |   18 ++++++++++++++++++
+ 2 files changed, 19 insertions(+), 1 deletion(-)
+
+--- a/policy/modules/contrib/rpc.te
++++ b/policy/modules/contrib/rpc.te
+@@ -224,11 +224,11 @@ allow nfsd_t { nfsd_rw_t nfsd_ro_t }:dir
+ 
+ kernel_read_network_state(nfsd_t)
+ kernel_dontaudit_getattr_core_if(nfsd_t)
+ kernel_setsched(nfsd_t)
+ kernel_request_load_module(nfsd_t)
+-# kernel_mounton_proc(nfsd_t)
++kernel_mounton_proc(nfsd_t)
+ 
+ corenet_sendrecv_nfs_server_packets(nfsd_t)
+ corenet_tcp_bind_nfs_port(nfsd_t)
+ corenet_udp_bind_nfs_port(nfsd_t)
+ 
+--- a/policy/modules/kernel/kernel.if
++++ b/policy/modules/kernel/kernel.if
+@@ -880,43 +880,42 @@ interface(`kernel_unmount_proc',`
+ 	allow $1 proc_t:filesystem unmount;
+ ')
+ 
+ ########################################
+ ## <summary>
+-##	Get the attributes of the proc filesystem.
++##	Mounton a proc filesystem.
+ ## </summary>
+ ## <param name="domain">
+ ##	<summary>
+ ##	Domain allowed access.
+ ##	</summary>
+ ## </param>
+ #
+-interface(`kernel_getattr_proc',`
++interface(`kernel_mounton_proc',`
+ 	gen_require(`
+ 		type proc_t;
+ 	')
+ 
+-	allow $1 proc_t:filesystem getattr;
++	allow $1 proc_t:dir mounton;
+ ')
+ 
+ ########################################
+ ## <summary>
+-##	Mount on proc directories.
++##	Get the attributes of the proc filesystem.
+ ## </summary>
+ ## <param name="domain">
+ ##	<summary>
+ ##	Domain allowed access.
+ ##	</summary>
+ ## </param>
+-## <rolecap/>
+ #
+-interface(`kernel_mounton_proc',`
++interface(`kernel_getattr_proc',`
+ 	gen_require(`
+ 		type proc_t;
+ 	')
+ 
+-	allow $1 proc_t:dir mounton;
++	allow $1 proc_t:filesystem getattr;
+ ')
+ 
+ ########################################
+ ## <summary>
+ ##	Do not audit attempts to set the

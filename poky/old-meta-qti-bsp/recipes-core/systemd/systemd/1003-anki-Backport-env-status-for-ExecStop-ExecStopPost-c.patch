@@ -1,0 +1,161 @@
+From 74bef1ce78040185601de8bf0558f0966bc10743 Mon Sep 17 00:00:00 2001
+From: Brian Chapados <chapados@anki.com>
+Date: Wed, 29 Aug 2018 17:59:52 -0700
+Subject: [PATCH] [anki] Backport env status for ExecStop=/ExecStopPost=
+ commands
+
+This is a minimal backport of commit 136dc4c43 from systemd v232 in order to populate env
+variables related to service exit status in ExecStop* scripts.
+
+--
+
+commit 136dc4c4350dfcb1d61ceaac982d0d0a8e6e3863
+Author: Lennart Poettering <lennart@poettering.net>
+Date:   Wed Jul 27 11:51:11 2016 +0200
+
+    core: set $SERVICE_RESULT, $EXIT_CODE and $EXIT_STATUS in ExecStop=/ExecStopPost= commands
+
+    This should simplify monitoring tools for services, by passing the most basic
+    information about service result/exit information via environment variables,
+    thus making it unnecessary to retrieve them explicitly via the bus.
+---
+ src/core/execute.h | 12 ++++++++++++
+ src/core/service.c | 29 ++++++++++++++++++++++++++++-
+ 2 files changed, 40 insertions(+), 1 deletion(-)
+
+diff --git a/src/core/execute.h b/src/core/execute.h
+index 8d14fe2..5e3adc1 100644
+--- a/src/core/execute.h
++++ b/src/core/execute.h
+@@ -202,6 +202,18 @@ struct ExecContext {
+         BusEndpoint *bus_endpoint;
+ };
+ 
++typedef enum ExecFlags {
++        EXEC_CONFIRM_SPAWN     = 1U << 0,
++        EXEC_APPLY_PERMISSIONS = 1U << 1,
++        EXEC_APPLY_CHROOT      = 1U << 2,
++        EXEC_APPLY_TTY_STDIN   = 1U << 3,
++
++        /* The following are not used by execute.c, but by consumers internally */
++        EXEC_PASS_FDS          = 1U << 4,
++        EXEC_IS_CONTROL        = 1U << 5,
++        EXEC_SETENV_RESULT     = 1U << 6,
++} ExecFlags;
++
+ #include "cgroup.h"
+ #include "cgroup-util.h"
+ 
+diff --git a/src/core/service.c b/src/core/service.c
+index b790ec9..ca90234 100644
+--- a/src/core/service.c
++++ b/src/core/service.c
+@@ -1042,6 +1042,7 @@ static int service_spawn(
+                 bool apply_chroot,
+                 bool apply_tty_stdin,
+                 bool is_control,
++                ExecFlags flags,
+                 pid_t *_pid) {
+ 
+         pid_t pid;
+@@ -1103,7 +1104,7 @@ static int service_spawn(
+         if (r < 0)
+                 goto fail;
+ 
+-        our_env = new0(char*, 6);
++        our_env = new0(char*, 9);
+         if (!our_env) {
+                 r = -ENOMEM;
+                 goto fail;
+@@ -1167,6 +1168,24 @@ static int service_spawn(
+                 }
+         }
+ 
++        if (flags & EXEC_SETENV_RESULT) {
++                if (asprintf(our_env + n_env++, "SERVICE_RESULT=%s", service_result_to_string(s->result)) < 0)
++                        return -ENOMEM;
++
++                if (s->main_exec_status.pid > 0 &&
++                    dual_timestamp_is_set(&s->main_exec_status.exit_timestamp)) {
++                        if (asprintf(our_env + n_env++, "EXIT_CODE=%s", sigchld_code_to_string(s->main_exec_status.code)) < 0)
++                                return -ENOMEM;
++
++                        if (s->main_exec_status.code == CLD_EXITED)
++                                r = asprintf(our_env + n_env++, "EXIT_STATUS=%i", s->main_exec_status.status);
++                        else
++                                r = asprintf(our_env + n_env++, "EXIT_STATUS=%s", signal_to_string(s->main_exec_status.status));
++                        if (r < 0)
++                                return -ENOMEM;
++                }
++        }
++
+         final_env = strv_env_merge(2, UNIT(s)->manager->environment, our_env, NULL);
+         if (!final_env) {
+                 r = -ENOMEM;
+@@ -1387,6 +1406,7 @@ static void service_enter_stop_post(Service *s, ServiceResult f) {
+                                   !s->root_directory_start_only,
+                                   true,
+                                   true,
++                                  EXEC_SETENV_RESULT,
+                                   &s->control_pid);
+                 if (r < 0)
+                         goto fail;
+@@ -1505,6 +1525,7 @@ static void service_enter_stop(Service *s, ServiceResult f) {
+                                   !s->root_directory_start_only,
+                                   false,
+                                   true,
++                                  EXEC_SETENV_RESULT,
+                                   &s->control_pid);
+                 if (r < 0)
+                         goto fail;
+@@ -1567,6 +1588,7 @@ static void service_enter_start_post(Service *s) {
+                                   !s->root_directory_start_only,
+                                   false,
+                                   true,
++                                  0,
+                                   &s->control_pid);
+                 if (r < 0)
+                         goto fail;
+@@ -1633,6 +1655,7 @@ static void service_enter_start(Service *s) {
+                           true,
+                           true,
+                           false,
++                          0,
+                           &pid);
+         if (r < 0)
+                 goto fail;
+@@ -1698,6 +1721,7 @@ static void service_enter_start_pre(Service *s) {
+                                   !s->root_directory_start_only,
+                                   true,
+                                   true,
++                                  0,
+                                   &s->control_pid);
+                 if (r < 0)
+                         goto fail;
+@@ -1778,6 +1802,7 @@ static void service_enter_reload(Service *s) {
+                                   !s->root_directory_start_only,
+                                   false,
+                                   true,
++                                  0,
+                                   &s->control_pid);
+                 if (r < 0)
+                         goto fail;
+@@ -1815,6 +1840,7 @@ static void service_run_next_control(Service *s) {
+                           s->control_command_id == SERVICE_EXEC_START_PRE ||
+                           s->control_command_id == SERVICE_EXEC_STOP_POST,
+                           true,
++                          (IN_SET(s->control_command_id, SERVICE_EXEC_STOP, SERVICE_EXEC_STOP_POST) ? EXEC_SETENV_RESULT : 0),
+                           &s->control_pid);
+         if (r < 0)
+                 goto fail;
+@@ -1857,6 +1883,7 @@ static void service_run_next_main(Service *s) {
+                           true,
+                           true,
+                           false,
++                          0,
+                           &pid);
+         if (r < 0)
+                 goto fail;
+-- 
+2.1.2
+

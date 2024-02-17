@@ -1,0 +1,9 @@
+[Unit]
+Description=Hardware RNG Entropy Gatherer Daemon
+
+[Service]
+ExecStart=@SBINDIR@/rngd -f -r /dev/hwrng
+SuccessExitStatus=66
+
+[Install]
+WantedBy=local-fs.target

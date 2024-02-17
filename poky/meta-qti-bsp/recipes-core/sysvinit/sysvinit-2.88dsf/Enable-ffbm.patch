@@ -1,0 +1,65 @@
+diff -ruN a/src/init.c b/src/init.c
+--- a/src/init.c	2010-04-13 17:48:54.000000000 +0800
++++ b/src/init.c	2016-06-24 10:06:36.209652374 +0800
+@@ -1681,6 +1681,31 @@
+ 	return lvl;
+ }
+ 
++//read the cmd line to get whether or not there has the request of FFBM
++static int get_mode(void){
++        int mode = 0;
++        char cmdline[512];
++        FILE *fp;
++
++        mode = 0;
++        if ((fp = fopen("/proc/cmdline", "r")) == NULL)
++                goto error;
++        while(!feof(fp)) {
++                if(fgets(cmdline, sizeof(cmdline), fp)) {
++                        if(strstr(cmdline, FFBM_CMDLINE)) {
++                                mode = FFBM_MODE;
++                                break;
++                        }
++                }
++        }
++        fclose(fp);
++        return mode;
++error:
++        if (fp >= 0)
++                close(fp);
++        return 0;
++}
++
+ /*
+  *	Search the INITTAB file for the 'initdefault' field, with the default
+  *	runlevel. If this fails, ask the user to supply a runlevel.
+@@ -1692,6 +1717,14 @@
+ 	int lvl = -1;
+ 	char *p;
+ 
++        /*
++         *      check whether or not be FFBM mode,
++         */
++         if(get_mode() == FFBM_MODE){
++                lvl = FFBM_RUNLEVEL;
++                return lvl;
++         }
++
+ 	/*
+ 	 *	Look for initdefault.
+ 	 */
+diff -ruN a/src/init.h b/src/init.h
+--- a/src/init.h	2009-11-24 18:03:19.000000000 +0800
++++ b/src/init.h	2016-06-23 20:22:11.278277748 +0800
+@@ -34,6 +34,11 @@
+ #define PIPE_FD    10			/* Fileno of initfifo. */
+ #define STATE_PIPE 11			/* used to pass state through exec */
+ 
++//FFBM relative feature
++#define FFBM_CMDLINE      "ffbm-01"
++#define FFBM_MODE         1
++#define FFBM_RUNLEVEL     '4'
++
+ /* Failsafe configuration */
+ #define MAXSPAWN   10			/* Max times respawned in.. */
+ #define TESTTIME   120			/* this much seconds */

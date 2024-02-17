@@ -1,0 +1,19 @@
+policycoreutils: Patch Makefile to get load_policy symlink right
+
+Setting DESTDIR in the policycoreutils do_install creates a bad
+symlink for load_policy. This patch fixes up the Makefile to
+create the symlink relative to DESTDIR.
+
+Signed-off-by: Philip Tricca <flihp@twobit.us>
+
+--- a/load_policy/Makefile
++++ b/load_policy/Makefile
+@@ -19,7 +19,7 @@ install: all
+ 	test -d $(MANDIR)/man8 || install -m 755 -d $(MANDIR)/man8
+ 	install -m 644 load_policy.8 $(MANDIR)/man8/
+ 	-mkdir -p $(USRSBINDIR)
+-	-ln -sf $(SBINDIR)/load_policy $(USRSBINDIR)/load_policy 
++	-ln -sf $(subst $(DESTDIR),,$(SBINDIR))/load_policy $(USRSBINDIR)/load_policy 
+ 
+ clean:
+ 	-rm -f $(TARGETS) *.o 

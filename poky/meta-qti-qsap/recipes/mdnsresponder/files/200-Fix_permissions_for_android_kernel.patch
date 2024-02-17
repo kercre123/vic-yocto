@@ -1,0 +1,33 @@
+Index: mDNSResponder-625.41.2/mDNSPosix/PosixDaemon.c
+===================================================================
+--- mDNSResponder-625.41.2.orig/mDNSPosix/PosixDaemon.c
++++ mDNSResponder-625.41.2/mDNSPosix/PosixDaemon.c
+@@ -37,6 +37,7 @@
+ #include <fcntl.h>
+ #include <pwd.h>
+ #include <sys/types.h>
++#include <grp.h>
+
+ #if __APPLE__
+ #undef daemon
+@@ -184,14 +185,16 @@ int main(int argc, char **argv)
+
+     Reconfigure(&mDNSStorage);
+
+-    // Now that we're finished with anything privileged, switch over to running as "nobody"
++    // Now that we're finished with anything privileged, switch over to running as "mdns"
+     if (mStatus_NoError == err)
+     {
+-        const struct passwd *pw = getpwnam("nobody");
+-        if (pw != NULL)
++        const struct passwd *pw = getpwnam("mdns");
++        if (pw != NULL) {
++            initgroups("mdns", pw->pw_gid);
+             setuid(pw->pw_uid);
++        }
+         else
+-            LogMsg("WARNING: mdnsd continuing as root because user \"nobody\" does not exist");
++            LogMsg("WARNING: mdnsd continuing as root because user \"mdns\" does not exist");
+     }
+
+     if (mStatus_NoError == err)

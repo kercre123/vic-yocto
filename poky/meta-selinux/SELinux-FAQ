@@ -1,0 +1,154 @@
+                                 SELinux FAQ
+
+----------------------------------------------------------------------------
+
+This file contains answers to frequently-asked questions about the SELinux
+feature for Poky.
+
+Copyright (C) 2012 Wind River Systems, Inc. 
+
+============================================================================
+
+Table of Contents
+
+1. About SELinux
+  * 1.1 What is SELinux?
+  * 1.2 How does this layer do to enable SELinux features? 
+
+2. Building with SELinux
+
+  * 2.1 How can I build a SELinux image?
+  * 2.2 How can I add SELinux to my custom images?
+
+3. Using SELinux
+
+  * 3.1 How do I turn SELinux off at boot?
+  * 3.2 How do I turn enforcing mode on/off at boot?
+
+4. Resolving Problems
+
+  * 4.1 Why I can not login in via ssh in enforcing mode? 
+
+==============================================================================
+
+1 - About SELinux
+
+------------------------------------------------------------------------------
+
+1.1 - What is SELinux?
+
+Security-enhanced Linux (SELinux) is a reference implementation of the Flask
+security architecture for flexible mandatory access control. It was created to
+demonstrate the value of flexible mandatory access controls and how such 
+controls could be added to an operating system. 
+
+1.2 - How does this layer do to enable SELinux features? 
+
+To enable SELinux features, this layers has done these works:
+
+   * new DISTRO_FEATURES "selinux" defined
+   * new DISTRO "poky-selinux" defined, with DISTRO_FEATURES += "pam selinux"
+   * config file for Linux kernel to enable SELinux
+   * recipes for SELinux userland libraries and tools
+   * package group (packagegroup-core-selinux) for SELinux userland packages
+   * bbappends for SELinux related recipes to build with SELinux enabled
+   * recipes for SELinux policy modified from refpolicy
+
+
+==============================================================================
+
+2 - Building with SELinux 
+
+------------------------------------------------------------------------------
+
+2.1 - How can I build a SELinux image?
+
+After init Poky build environment, please follow these steps:
+
+   1. Add meta-selinux path to BUILDDIR/conf/bblayers.conf file.
+
+   2. Set DISTRO="poky-selinux" or add DISTRO_FEATURES_append=" pam selinux"
+      in BUILDDIR/conf/local.conf file.
+
+   3. Build the default selinux image.
+
+       $ bitbake core-image-selinux
+
+2.2 - How can I add SELinux to my custom images?
+
+If you only want to add SELinux to your custom image, then you should perform
+the following steps:
+
+   1. Add meta-selinux path to BUILDDIR/conf/bblayers.conf file
+
+   2. Add DISTRO_FEATURES_append=" pam selinux" in BUILDDIR/conf/local.conf 
+      file.
+
+   3. Add packagegroup-core-selinux to your custom image.
+      For example, if core-image-custom.bb is your building image file, then
+      you should add packagegroup-core-selinux to IMAGE_INSTALL in 
+      core-image-custom.bb.
+
+   4. Build your custom image in build directory
+
+       $ bitbake core-image-custom
+
+
+
+==============================================================================
+
+3 - Using SELinux 
+
+------------------------------------------------------------------------------
+
+3.1 - How do I turn SELinux off at boot?
+
+Set SELINUX=disabled in /etc/selinux/config.
+
+Alternatively, you can add "selinux=0" to your kernel boot parameters. It is
+not recommended but useful on some testing situations.
+For example, when you are using qemu targets,  
+
+  $ runqemu qemumips core-image-selinux ext3 nographic bootparams="selinux=0"
+
+The initial filesystem relabel step requires considerable memory and can result
+in unexpected, sometimes impossible to reproduce, failures if an OOM condition
+occurs while it is in progress.  Therefore you should consider allocating at a
+minimum 512MB of RAM to your qemu image.  1GB or more is recommended.  This is
+accomplished by adding qemuparams="-m 1024" to your runqemu options.
+
+The defaults for various platforms vary, though it is usually around 256MB.
+
+3.2 - How do I turn enforcing mode on/off?
+
+You can specify the SELinux mode in /etc/selinux/config.
+
+  # SELINUX= can take one of these three values:
+  #       enforcing - SELinux security policy is enforced.
+  #       permissive - SELinux prints warnings instead of enforcing.
+  #       disabled - No SELinux policy is loaded.
+  SELINUX=enforcing
+
+Setting "SELINUX" to "enforcing" is the same as adding "enforcing=1" to the 
+kernel boot parameters. While to "permissive" is the same as adding
+"enforcing=0" to the kernel boot parameters.
+However, to "disabled" is not the same as the "selinux=0" kernel boot
+parameter. Rather than fully disabling SELinux in the kernel, the "disabled"
+setting instead turns enforcing off and skips loading a policy.
+
+==============================================================================
+
+4 - Resolving Problems
+
+------------------------------------------------------------------------------
+
+4.1 - Why I can not login in via ssh in enforcing mode?
+
+Please check "PermitEmptyPasswords" in /etc/ssh/sshd_config. If it is set to
+"yes", set to "no" then restart sshd. That's because pam_selinux module does 
+not allow sshd to set PermitEmptyPasswords to "yes".
+
+Note: If both IMAGE_FEATURES debug-tweaks ssh-server-openssh are enabled, this 
+"PermitEmptyPasswords" will be set to "yes" by default for Poky images.
+
+

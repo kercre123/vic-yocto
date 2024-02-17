@@ -1,0 +1,15 @@
+diff --git a/src/libsystemd/libsystemd.pc.in b/src/libsystemd/libsystemd.pc.in
+index c861905..4e3adda 100644
+--- a/src/libsystemd/libsystemd.pc.in
++++ b/src/libsystemd/libsystemd.pc.in
+@@ -13,8 +13,8 @@ libdir=@rootlibdir@
+ includedir=@includedir@
+ 
+ Name: systemd
+-Description: systemd Library
++Description: systemdq Library
+ URL: @PACKAGE_URL@
+ Version: @PACKAGE_VERSION@
+-Libs: -L${libdir} -lsystemd
++Libs: -L${libdir} -lsystemdq
+ Cflags: -I${includedir}

@@ -1,0 +1,12 @@
+diff --git a/rootdir/etc/init_post_boot.service b/rootdir/etc/init_post_boot.service
+index 620377f..715091c 100644
+--- a/rootdir/etc/init_post_boot.service
++++ b/rootdir/etc/init_post_boot.service
+@@ -29,6 +29,7 @@
+ [Unit]
+ SourcePath=/etc/initscripts/init_post_boot
+ Description=QTI Post Boot Service
++Before=connman.service wpa_supplicant.service
+ 
+ [Service]
+ Type=simple

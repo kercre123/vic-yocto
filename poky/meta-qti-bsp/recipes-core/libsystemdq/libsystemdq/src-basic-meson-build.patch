@@ -1,0 +1,13 @@
+diff --git a/src/basic/meson.build b/src/basic/meson.build
+index 31625b1..29800ad 100644
+--- a/src/basic/meson.build
++++ b/src/basic/meson.build
+@@ -97,8 +97,6 @@ basic_sources = files('''
+         io-util.c
+         io-util.h
+         ioprio.h
+-        journal-importer.c
+-        journal-importer.h
+         khash.c
+         khash.h
+         label.c

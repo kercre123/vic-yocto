@@ -1,0 +1,17 @@
+Subject: libselinux: drop flag: -Wno-unused-but-set-variable
+
+Upstream status: inappropriate (older compilers only).
+
+Signed-off-by: Randy MacLeod <Randy.MacLeod@windriver.com>
+
+--- libsemanage-2.1.9.orig/src/Makefile
++++ libsemanage-2.1.9/src/Makefile
+@@ -57,7 +57,7 @@
+ LOBJS= $(patsubst %.c,%.lo,$(SRCS)) conf-scan.lo conf-parse.lo
+ CFLAGS ?= -Werror -Wall -W -Wundef -Wshadow -Wmissing-noreturn -Wmissing-format-attribute
+ 
+-SWIG_CFLAGS += -Wno-error -Wno-unused-but-set-variable -Wno-unused-variable -Wno-shadow \
++SWIG_CFLAGS += -Wno-error -Wno-unused-variable -Wno-shadow \
+ 		-Wno-unused-parameter
+ 
+ override CFLAGS += -I../include -I$(INCLUDEDIR) -D_GNU_SOURCE 

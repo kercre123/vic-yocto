@@ -1,0 +1,50 @@
+Subject: [PATCH] fix real path for shadow commands.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/admin/usermanage.fc |    6 ++++++
+ 1 file changed, 6 insertions(+)
+
+--- a/policy/modules/admin/usermanage.fc
++++ b/policy/modules/admin/usermanage.fc
+@@ -2,20 +2,24 @@ ifdef(`distro_debian',`
+ /etc/cron\.daily/cracklib-runtime -- gen_context(system_u:object_r:crack_exec_t,s0)
+ ')
+ 
+ /usr/bin/chage		--	gen_context(system_u:object_r:passwd_exec_t,s0)
+ /usr/bin/chfn		--	gen_context(system_u:object_r:chfn_exec_t,s0)
++/usr/bin/chfn\.shadow	--	gen_context(system_u:object_r:chfn_exec_t,s0)
+ /usr/bin/chsh		--	gen_context(system_u:object_r:chfn_exec_t,s0)
++/usr/bin/chsh\.shadow	--	gen_context(system_u:object_r:chfn_exec_t,s0)
+ /usr/bin/crack_[a-z]*	--	gen_context(system_u:object_r:crack_exec_t,s0)
+ /usr/bin/cracklib-[a-z]* --	gen_context(system_u:object_r:crack_exec_t,s0)
+ /usr/bin/gpasswd	--	gen_context(system_u:object_r:groupadd_exec_t,s0)
+ /usr/bin/groupadd	--	gen_context(system_u:object_r:groupadd_exec_t,s0)
+ /usr/bin/groupdel	--	gen_context(system_u:object_r:groupadd_exec_t,s0)
+ /usr/bin/groupmod	--	gen_context(system_u:object_r:groupadd_exec_t,s0)
+ /usr/bin/grpconv	--	gen_context(system_u:object_r:admin_passwd_exec_t,s0)
+ /usr/bin/grpunconv	--	gen_context(system_u:object_r:admin_passwd_exec_t,s0)
+ /usr/bin/passwd		--	gen_context(system_u:object_r:passwd_exec_t,s0)
++/usr/bin/passwd\.shadow	--	gen_context(system_u:object_r:passwd_exec_t,s0)
++/usr/bin/passwd\.tinylogin	--	gen_context(system_u:object_r:passwd_exec_t,s0)
+ /usr/bin/pwconv		--	gen_context(system_u:object_r:admin_passwd_exec_t,s0)
+ /usr/bin/pwunconv	--	gen_context(system_u:object_r:admin_passwd_exec_t,s0)
+ /usr/bin/useradd	--	gen_context(system_u:object_r:useradd_exec_t,s0)
+ /usr/bin/userdel	--	gen_context(system_u:object_r:useradd_exec_t,s0)
+ /usr/bin/usermod	--	gen_context(system_u:object_r:useradd_exec_t,s0)
+@@ -36,10 +40,12 @@ ifdef(`distro_debian',`
+ /usr/sbin/pwunconv	--	gen_context(system_u:object_r:admin_passwd_exec_t,s0)
+ /usr/sbin/useradd	--	gen_context(system_u:object_r:useradd_exec_t,s0)
+ /usr/sbin/userdel	--	gen_context(system_u:object_r:useradd_exec_t,s0)
+ /usr/sbin/usermod	--	gen_context(system_u:object_r:useradd_exec_t,s0)
+ /usr/sbin/vigr		--	gen_context(system_u:object_r:admin_passwd_exec_t,s0)
++/usr/sbin/vigr\.shadow	--	gen_context(system_u:object_r:admin_passwd_exec_t,s0)
+ /usr/sbin/vipw		--	gen_context(system_u:object_r:admin_passwd_exec_t,s0)
++/usr/sbin/vipw\.shadow	--	gen_context(system_u:object_r:admin_passwd_exec_t,s0)
+ 
+ /usr/share/cracklib(/.*)?	gen_context(system_u:object_r:crack_db_t,s0)
+ 
+ /var/cache/cracklib(/.*)?	gen_context(system_u:object_r:crack_db_t,s0)

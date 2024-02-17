@@ -1,0 +1,23 @@
+From 3615e2d67f402a37ae7333e62b54f1d9d0a3bfd1 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 19:27:19 +0800
+Subject: [PATCH] refpolicy: fix real path for screen
+
+Upstream-Status: Inappropriate [configuration]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/contrib/screen.fc |    1 +
+ 1 file changed, 1 insertion(+)
+
+--- a/policy/modules/contrib/screen.fc
++++ b/policy/modules/contrib/screen.fc
+@@ -4,6 +4,7 @@ HOME_DIR/\.tmux\.conf	--	gen_context(sys
+ 
+ /run/screen(/.*)?		gen_context(system_u:object_r:screen_runtime_t,s0)
+ /run/tmux(/.*)?			gen_context(system_u:object_r:screen_runtime_t,s0)
+ 
+ /usr/bin/screen		--	gen_context(system_u:object_r:screen_exec_t,s0)
++/usr/bin/screen-.*	--	gen_context(system_u:object_r:screen_exec_t,s0)
+ /usr/bin/tmux		--	gen_context(system_u:object_r:screen_exec_t,s0)

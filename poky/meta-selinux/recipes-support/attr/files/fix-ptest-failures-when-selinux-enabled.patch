@@ -1,0 +1,41 @@
+Upstream-Status: Pending
+
+When enable selinux, file has a default attribute:
+
+# file: here
+security.selinux="system_u:object_r:lib_t:s0"
+
+That cause there is always more output than expected.
+
+Filter out selinux related attribute info to make ptest pass.
+
+Signed-off-by: Kai Kang <kai.kang@windriver.com>
+---
+diff --git a/test/run b/test/run
+index cf15252..945741e 100755
+--- a/test/run
++++ b/test/run
+@@ -132,6 +132,23 @@ sub process_test($$$$) {
+        print "[$prog_line] \$ ", join(' ',
+              map { s/\s/\\$&/g; $_ } @$p), " -- ";
+        my $result = exec_test($prog, $in);
++
++       # filter selinux related attributes info
++       my @strip1;
++       my @strip2;
++       foreach (@$result) {
++           unless (/security.selinux=.*\n/) {
++               push @strip1, $_;
++           }
++       }
++       for (my $i = 0; $i <= $#strip1; $i++) {
++           if ($strip1[$i] =~ /^# file:.*/ && $strip1[$i+1] =~ /^\n$/) {
++               $i++;
++           } else {
++               push @strip2, $strip1[$i];
++           }
++       }
++       $result = \@strip2;
+        my @good = ();
+        my $nmax = (@$out > @$result) ? @$out : @$result;
+        for (my $n=0; $n < $nmax; $n++) {

@@ -1,0 +1,54 @@
+From 4964fa5593349916d8f5c69edb0b16f611586098 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:39:41 +0800
+Subject: [PATCH 2/4] fix update-alternatives for sysklogd
+
+/etc/syslog.conf is a symlink to /etc/syslog.conf.sysklogd, so a allow rule
+for syslogd_t to read syslog_conf_t lnk_file is needed.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+Signed-off-by: Joe MacDonald <joe_macdonald@mentor.com>
+---
+ policy/modules/system/logging.fc |    4 ++++
+ policy/modules/system/logging.te |    1 +
+ 2 files changed, 5 insertions(+)
+
+Index: refpolicy/policy/modules/system/logging.fc
+===================================================================
+--- refpolicy.orig/policy/modules/system/logging.fc
++++ refpolicy/policy/modules/system/logging.fc
+@@ -2,6 +2,7 @@
+ 
+ /etc/rsyslog.conf		gen_context(system_u:object_r:syslog_conf_t,s0)
+ /etc/syslog.conf		gen_context(system_u:object_r:syslog_conf_t,s0)
++/etc/syslog.conf\.sysklogd	gen_context(system_u:object_r:syslog_conf_t,s0)
+ /etc/rsyslog.d(/.*)?	gen_context(system_u:object_r:syslog_conf_t,s0)
+ /etc/audit(/.*)?		gen_context(system_u:object_r:auditd_etc_t,mls_systemhigh)
+ /etc/rc\.d/init\.d/auditd --	gen_context(system_u:object_r:auditd_initrc_exec_t,s0)
+@@ -30,10 +31,12 @@
+ /usr/sbin/auditctl	--	gen_context(system_u:object_r:auditctl_exec_t,s0)
+ /usr/sbin/auditd	--	gen_context(system_u:object_r:auditd_exec_t,s0)
+ /usr/sbin/klogd		--	gen_context(system_u:object_r:klogd_exec_t,s0)
++/usr/sbin/klogd\.sysklogd	--	gen_context(system_u:object_r:klogd_exec_t,s0)
+ /usr/sbin/metalog	--	gen_context(system_u:object_r:syslogd_exec_t,s0)
+ /usr/sbin/minilogd	--	gen_context(system_u:object_r:syslogd_exec_t,s0)
+ /usr/sbin/rklogd	--	gen_context(system_u:object_r:klogd_exec_t,s0)
+ /usr/sbin/rsyslogd	--	gen_context(system_u:object_r:syslogd_exec_t,s0)
++/usr/sbin/syslogd\.sysklogd	--	gen_context(system_u:object_r:syslogd_exec_t,s0)
+ /usr/sbin/syslog-ng	--	gen_context(system_u:object_r:syslogd_exec_t,s0)
+ /usr/sbin/syslogd	--	gen_context(system_u:object_r:syslogd_exec_t,s0)
+ 
+Index: refpolicy/policy/modules/system/logging.te
+===================================================================
+--- refpolicy.orig/policy/modules/system/logging.te
++++ refpolicy/policy/modules/system/logging.te
+@@ -396,6 +396,7 @@ allow syslogd_t self:udp_socket create_s
+ allow syslogd_t self:tcp_socket create_stream_socket_perms;
+ 
+ allow syslogd_t syslog_conf_t:file read_file_perms;
++allow syslogd_t syslog_conf_t:lnk_file read_file_perms;
+ allow syslogd_t syslog_conf_t:dir list_dir_perms;
+ 
+ # Create and bind to /dev/log or /var/run/log.

@@ -1,0 +1,20 @@
+Add xattr name index for xattrs with the 'security' prefix. These are defined
+in the ext(2|3|4)/xattr.h in the kernel. We use the EXT2 prefix for consistency
+with e2fslibs naming.
+
+Signed-off-by: Philip Tricca <flihp@twobit.us>
+
+Index: e2fsprogs-1.42.9/lib/ext2fs/ext2_ext_attr.h
+===================================================================
+--- e2fsprogs-1.42.9.orig/lib/ext2fs/ext2_ext_attr.h
++++ e2fsprogs-1.42.9/lib/ext2fs/ext2_ext_attr.h
+@@ -15,6 +15,9 @@
+ /* Maximum number of references to one attribute block */
+ #define EXT2_EXT_ATTR_REFCOUNT_MAX	1024
+ 
++/* Name indexes */
++#define EXT2_XATTR_INDEX_SECURITY               6
++
+ struct ext2_ext_attr_header {
+ 	__u32	h_magic;	/* magic number for identification */
+ 	__u32	h_refcount;	/* reference count */

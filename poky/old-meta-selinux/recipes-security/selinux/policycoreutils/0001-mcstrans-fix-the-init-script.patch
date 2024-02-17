@@ -1,0 +1,27 @@
+[PATCH] mcstrans: fix the init script
+
+Upstream-Status: Inappropriate [embedded specific]
+
+replace daemon with start-stop-daemon, due to not daemon functions
+
+Signed-off-by: Roy Li <rongqing.li@windriver.com>
+---
+ mcstrans/src/mcstrans.init | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mcstrans/src/mcstrans.init b/mcstrans/src/mcstrans.init
+index 2804ec0..c660290 100644
+--- a/mcstrans/src/mcstrans.init
++++ b/mcstrans/src/mcstrans.init
+@@ -51,7 +51,7 @@ start(){
+ 	fi
+ 
+ 	unset HOME MAIL USER USERNAME
+-	daemon $prog "$EXTRAOPTIONS"
++	start-stop-daemon --start --quiet --exec $prog -- "$EXTRAOPTIONS"
+ 	RETVAL=$?
+ 	echo
+ 	if test $RETVAL = 0 ; then
+-- 
+1.9.1
+

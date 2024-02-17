@@ -1,0 +1,71 @@
+From 0db0276202094c8d902fc93a18eca453b6211f8a Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 12 Apr 2012 10:48:04 +0800
+Subject: [PATCH] sysvinit: Fix is_selinux_enabled() for libselinux
+
+is_selinux_enabled()!=1 means SELinux is disabled by kernel
+or SELinux is enabled but policy is not loaded.
+Only at this time, /sbin/init program should call
+selinux_init_load_policy() to detect whether SELinux is enabled
+and to load SELinux policy.
+
+This is fixed already in the upstream sysvinit,
+http://svn.savannah.nongnu.org/viewvc/sysvinit/trunk/src/init.c?root=sysvinit&r1=72&r2=90
+---
+ src/init.c |   33 +++++++++++++--------------------
+ 1 files changed, 13 insertions(+), 20 deletions(-)
+
+diff --git a/src/init.c b/src/init.c
+index 27532ad..75ccf25 100644
+--- a/src/init.c
++++ b/src/init.c
+@@ -54,10 +54,6 @@
+ 
+ #ifdef WITH_SELINUX
+ #  include <selinux/selinux.h>
+-#  include <sys/mount.h>
+-#  ifndef MNT_DETACH /* present in glibc 2.10, missing in 2.7 */
+-#    define MNT_DETACH 2
+-#  endif
+ #endif
+ 
+ #ifdef __i386__
+@@ -2869,22 +2865,19 @@ int main(int argc, char **argv)
+ 
+ #ifdef WITH_SELINUX
+ 	if (getenv("SELINUX_INIT") == NULL) {
+-	  const int rc = mount("proc", "/proc", "proc", 0, 0);
+-	  if (is_selinux_enabled() > 0) {
+-	    putenv("SELINUX_INIT=YES");
+-	    if (rc == 0) umount2("/proc", MNT_DETACH);
+-	    if (selinux_init_load_policy(&enforce) == 0) {
+-	      execv(myname, argv);
+-	    } else {
+-	      if (enforce > 0) {
+-		/* SELinux in enforcing mode but load_policy failed */
+-		/* At this point, we probably can't open /dev/console, so log() won't work */
+-		fprintf(stderr,"Unable to load SELinux Policy. Machine is in enforcing mode. Halting now.\n");
+-		exit(1);
+-	      }
+-	    }
+-	  }
+-	  if (rc == 0) umount2("/proc", MNT_DETACH);
++		if (is_selinux_enabled() != 1) {
++			if (selinux_init_load_policy(&enforce) == 0) {
++				putenv("SELINUX_INIT=YES");
++				execv(myname, argv);
++			} else {
++				if (enforce > 0) {
++					/* SELinux in enforcing mode but load_policy failed */
++					/* At this point, we probably can't open /dev/console, so log() won't work */
++					fprintf(stderr,"Unable to load SELinux Policy. Machine is in enforcing mode. Halting now.\n");
++					exit(1);
++				}
++			}
++		}
+ 	}
+ #endif  
+ 	/* Start booting. */
+-- 
+1.7.5.4
+

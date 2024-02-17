@@ -1,0 +1,20 @@
+[Unit]
+Description=Bind mount volatile @where@
+DefaultDependencies=no
+After=systemrw.mount sockets.target
+Before=basic.target
+RequiresMountsFor=@whereparent@
+ConditionPathIsReadWrite=@whatparent@
+ConditionPathExists=@where@
+ConditionPathIsReadWrite=!@where@
+
+[Service]
+Type=oneshot
+RemainAfterExit=Yes
+StandardOutput=syslog
+TimeoutSec=0
+ExecStart=/sbin/mount-copybind @what@ @where@
+ExecStop=/sbin/umount-copybind @where@
+
+[Install]
+WantedBy=basic.target

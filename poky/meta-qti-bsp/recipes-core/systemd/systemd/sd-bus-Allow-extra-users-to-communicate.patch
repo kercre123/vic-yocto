@@ -1,0 +1,37 @@
+From d590be2e7708ceece27da0346932642ede98c68d Mon Sep 17 00:00:00 2001
+From: Keerthi Gowda Balehalli Satyanarayana <kbalehal@codeaurora.org>
+Date: Thu, 1 Aug 2019 10:13:04 -0700
+Subject: [PATCH] sd-bus: Allow extra users to communicate
+
+---
+ src/libsystemd/sd-bus/bus-convenience.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/src/libsystemd/sd-bus/bus-convenience.c b/src/libsystemd/sd-bus/bus-convenience.c
+index 4ec0616..d5b7f57 100644
+--- a/src/libsystemd/sd-bus/bus-convenience.c
++++ b/src/libsystemd/sd-bus/bus-convenience.c
+@@ -546,9 +546,7 @@ _public_ int sd_bus_query_sender_privilege(sd_bus_message *call, int capability)
+ 
+         if (!BUS_IS_OPEN(call->bus->state))
+                 return -ENOTCONN;
+-
+         if (capability >= 0) {
+-
+                 r = sd_bus_query_sender_creds(call, SD_BUS_CREDS_UID|SD_BUS_CREDS_EUID|SD_BUS_CREDS_EFFECTIVE_CAPS, &creds);
+                 if (r < 0)
+                         return r;
+@@ -594,6 +592,10 @@ _public_ int sd_bus_query_sender_privilege(sd_bus_message *call, int capability)
+                         if (sender_uid == our_uid)
+                                 return 1;
+ 
++                        /* Other specific users also allowed access (radio) */
++                        if (sender_uid == 1001 || sender_uid == 1000 )
++                                return 1;
++
+                         /* Sender is root, we are not root. */
+                         if (our_uid != 0 && sender_uid == 0)
+                                 return 1;
+-- 
+1.9.1
+

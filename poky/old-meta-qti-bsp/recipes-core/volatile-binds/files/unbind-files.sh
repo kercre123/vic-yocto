@@ -1,0 +1,1 @@
+umount /persist/bootmisc.sh

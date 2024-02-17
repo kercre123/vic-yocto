@@ -1,0 +1,145 @@
+From 03cb6534f75812f3a33ac768fe83861e0805b0e0 Mon Sep 17 00:00:00 2001
+From: Xin Ouyang <Xin.Ouyang@windriver.com>
+Date: Thu, 22 Aug 2013 13:37:23 +0800
+Subject: [PATCH 2/6] add rules for the symlink of /var/log
+
+/var/log is a symlink in poky, so we need allow rules for files to read
+lnk_file while doing search/list/delete/rw.. in /var/log/ directory.
+
+Upstream-Status: Inappropriate [only for Poky]
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+---
+ policy/modules/system/logging.fc |    1 +
+ policy/modules/system/logging.if |   14 +++++++++++++-
+ policy/modules/system/logging.te |    1 +
+ 3 files changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/policy/modules/system/logging.fc b/policy/modules/system/logging.fc
+index c005f33..9529e40 100644
+--- a/policy/modules/system/logging.fc
++++ b/policy/modules/system/logging.fc
+@@ -41,6 +41,7 @@ ifdef(`distro_suse', `
+ /var/dnscache/log/main(/.*)?	gen_context(system_u:object_r:var_log_t,s0)
+ 
+ /var/log		-d	gen_context(system_u:object_r:var_log_t,s0-mls_systemhigh)
++/var/log		-l	gen_context(system_u:object_r:var_log_t,s0-mls_systemhigh)
+ /var/log/.*			gen_context(system_u:object_r:var_log_t,s0)
+ /var/log/boot\.log	--	gen_context(system_u:object_r:var_log_t,mls_systemhigh)
+ /var/log/messages[^/]*		gen_context(system_u:object_r:var_log_t,mls_systemhigh)
+diff --git a/policy/modules/system/logging.if b/policy/modules/system/logging.if
+index 4e94884..9a6f599 100644
+--- a/policy/modules/system/logging.if
++++ b/policy/modules/system/logging.if
+@@ -136,12 +136,13 @@ interface(`logging_set_audit_parameters',`
+ #
+ interface(`logging_read_audit_log',`
+ 	gen_require(`
+-		type auditd_log_t;
++		type auditd_log_t, var_log_t;
+ 	')
+ 
+ 	files_search_var($1)
+ 	read_files_pattern($1, auditd_log_t, auditd_log_t)
+ 	allow $1 auditd_log_t:dir list_dir_perms;
++	allow $1 var_log_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+@@ -626,6 +627,7 @@ interface(`logging_search_logs',`
+ 
+ 	files_search_var($1)
+ 	allow $1 var_log_t:dir search_dir_perms;
++	allow $1 var_log_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ #######################################
+@@ -663,6 +665,7 @@ interface(`logging_list_logs',`
+ 
+ 	files_search_var($1)
+ 	allow $1 var_log_t:dir list_dir_perms;
++	allow $1 var_log_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ #######################################
+@@ -682,6 +685,7 @@ interface(`logging_rw_generic_log_dirs',`
+ 
+ 	files_search_var($1)
+ 	allow $1 var_log_t:dir rw_dir_perms;
++	allow $1 var_log_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ #######################################
+@@ -793,10 +797,12 @@ interface(`logging_append_all_logs',`
+ interface(`logging_read_all_logs',`
+ 	gen_require(`
+ 		attribute logfile;
++		type var_log_t;
+ 	')
+ 
+ 	files_search_var($1)
+ 	allow $1 logfile:dir list_dir_perms;
++	allow $1 var_log_t:lnk_file read_lnk_file_perms;
+ 	read_files_pattern($1, logfile, logfile)
+ ')
+ 
+@@ -815,10 +821,12 @@ interface(`logging_read_all_logs',`
+ interface(`logging_exec_all_logs',`
+ 	gen_require(`
+ 		attribute logfile;
++		type var_log_t;
+ 	')
+ 
+ 	files_search_var($1)
+ 	allow $1 logfile:dir list_dir_perms;
++	allow $1 var_log_t:lnk_file read_lnk_file_perms;
+ 	can_exec($1, logfile)
+ ')
+ 
+@@ -880,6 +888,7 @@ interface(`logging_read_generic_logs',`
+ 
+ 	files_search_var($1)
+ 	allow $1 var_log_t:dir list_dir_perms;
++	allow $1 var_log_t:lnk_file read_lnk_file_perms;
+ 	read_files_pattern($1, var_log_t, var_log_t)
+ ')
+ 
+@@ -900,6 +909,7 @@ interface(`logging_write_generic_logs',`
+ 
+ 	files_search_var($1)
+ 	allow $1 var_log_t:dir list_dir_perms;
++	allow $1 var_log_t:lnk_file read_lnk_file_perms;
+ 	write_files_pattern($1, var_log_t, var_log_t)
+ ')
+ 
+@@ -938,6 +948,7 @@ interface(`logging_rw_generic_logs',`
+ 
+ 	files_search_var($1)
+ 	allow $1 var_log_t:dir list_dir_perms;
++	allow $1 var_log_t:lnk_file read_lnk_file_perms;
+ 	rw_files_pattern($1, var_log_t, var_log_t)
+ ')
+ 
+@@ -960,6 +971,7 @@ interface(`logging_manage_generic_logs',`
+ 
+ 	files_search_var($1)
+ 	manage_files_pattern($1, var_log_t, var_log_t)
++	allow $1 var_log_t:lnk_file read_lnk_file_perms;
+ ')
+ 
+ ########################################
+diff --git a/policy/modules/system/logging.te b/policy/modules/system/logging.te
+index 2ab0a49..2795d89 100644
+--- a/policy/modules/system/logging.te
++++ b/policy/modules/system/logging.te
+@@ -139,6 +139,7 @@ allow auditd_t auditd_etc_t:file read_file_perms;
+ manage_files_pattern(auditd_t, auditd_log_t, auditd_log_t)
+ manage_lnk_files_pattern(auditd_t, auditd_log_t, auditd_log_t)
+ allow auditd_t var_log_t:dir search_dir_perms;
++allow auditd_t var_log_t:lnk_file read_lnk_file_perms;
+ 
+ manage_files_pattern(auditd_t, auditd_var_run_t, auditd_var_run_t)
+ manage_sock_files_pattern(auditd_t, auditd_var_run_t, auditd_var_run_t)
+-- 
+1.7.9.5
+

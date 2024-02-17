@@ -1,0 +1,28 @@
+Subject: [PATCH] libsemanage: fix path length limit
+
+semanage_remove_directory uses NAME_MAX(255) as the max length of
+file pathes, this will cause failures when the path length>255.
+
+Upstream-Status: pending
+
+Signed-off-by: Xin Ouyang <Xin.Ouyang@windriver.com>
+---
+ src/semanage_store.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/semanage_store.c b/src/semanage_store.c
+index 3fd4996..251a2d6 100644
+--- a/src/semanage_store.c
++++ b/src/semanage_store.c
+@@ -580,7 +580,7 @@ int semanage_remove_directory(const char *path)
+ 		return -1;
+ 	}
+ 	for (i = 0; i < num_entries; i++) {
+-		char s[NAME_MAX];
++		char s[PATH_MAX];
+ 		struct stat buf;
+ 		snprintf(s, sizeof(s), "%s/%s", path, namelist[i]->d_name);
+ 		if (stat(s, &buf) == -1) {
+-- 
+1.7.9.5
+

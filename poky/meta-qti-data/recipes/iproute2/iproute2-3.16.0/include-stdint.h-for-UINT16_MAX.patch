@@ -1,0 +1,23 @@
+From: Pooja S Ganti <ganti@codeaurora.org>
+Date: Fri, 10 Nov 2017 13:49:38 -0800
+Subject: [PATCH] include stdint.h for UINT16_MAX
+
+---
+ tc/tc_core.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/tc/tc_core.c b/tc/tc_core.c
+index 7bbe0d7..821b741 100644
+--- a/tc/tc_core.c
++++ b/tc/tc_core.c
+@@ -12,6 +12,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <stdint.h>
+ #include <unistd.h>
+ #include <syslog.h>
+ #include <fcntl.h>
+-- 
+1.8.2.1
+

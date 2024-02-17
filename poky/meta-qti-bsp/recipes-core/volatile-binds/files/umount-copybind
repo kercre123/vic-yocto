@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Perform a bind mount, copying existing files as we do so to ensure the
+#!/bin/sh
+#
+# Perform a bind mount, copying existing files as we do so to ensure the
+# overlaid path has the necessary content.
+
+mountpoint=$1
+
+if [ -f "$mountpoint" ]; then
+    umount $mountpoint
+fi
+if [ -d "$mountpoint" ]; then
+    umount $mountpoint/*
+fi
+

@@ -1,0 +1,28 @@
+From c8cb2c77b28e6fc57339648e7e506830712e9e86 Mon Sep 17 00:00:00 2001
+From: Caupar Gu <quic_shiwgu@quicinc.com>
+Date: Fri, 6 May 2022 21:20:15 +0800
+Subject: [PATCH] Disable direct IO use case
+
+---
+ lib/utils_device.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/lib/utils_device.c b/lib/utils_device.c
+index 75449c0..8a7be74 100644
+--- a/lib/utils_device.c
++++ b/lib/utils_device.c
+@@ -162,6 +162,11 @@ static int device_ready(struct crypt_device *cd, struct device *device)
+	struct stat st;
+	size_t tmp_size;
+
++	/*
++	* Here disable direct IO use case to avoid apply memory failure issue
++	* in ubiblock driver.
++	*/
++	device_disable_direct_io(device);
+	if (device->o_direct) {
+		log_dbg(cd, "Trying to open and read device %s with direct-io.",
+			device_path(device));
+--
+2.17.1
+

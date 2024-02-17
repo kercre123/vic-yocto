@@ -1,0 +1,10 @@
+[Unit]
+Description=Recovery partition service
+
+[Service]
+Type=forking
+RemainAfterExit=yes
+ExecStart=/etc/init.d/find_recovery_partitions.sh
+
+[Install]
+WantedBy=multi-user.target

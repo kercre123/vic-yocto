@@ -1,0 +1,27 @@
+diff --git a/src/systemctl/systemctl.c b/src/systemctl/systemctl.c
+index f072ad0..4cf8c53 100644
+--- a/src/systemctl/systemctl.c
++++ b/src/systemctl/systemctl.c
+@@ -4350,21 +4350,7 @@ static void print_status_info(
+                         log_warning_errno(r, "Failed to dump process list for '%s', ignoring: %s", i->id, bus_error_message(&error, r));
+         }
+ 
+-        if (i->id && arg_transport == BUS_TRANSPORT_LOCAL)
+-                show_journal_by_unit(
+-                                stdout,
+-                                i->id,
+-                                arg_output,
+-                                0,
+-                                i->inactive_exit_timestamp_monotonic,
+-                                arg_lines,
+-                                getuid(),
+-                                get_output_flags() | OUTPUT_BEGIN_NEWLINE,
+-                                SD_JOURNAL_LOCAL_ONLY,
+-                                arg_scope == UNIT_FILE_SYSTEM,
+-                                ellipsized);
+-
+-        if (i->need_daemon_reload)
++               if (i->need_daemon_reload)
+                 warn_unit_file_changed(i->id);
+ }
+ 

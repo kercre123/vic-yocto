@@ -1,0 +1,22 @@
+--- a/syslog	2014-10-22 11:21:12.720668738 -0700
++++ b/syslog	2014-10-22 11:22:21.016585240 -0700
+@@ -53,15 +53,15 @@
+ 
+ case "$1" in
+   start)
+-	echo -n "Starting syslogd/klogd: "
++	echo -n "Starting syslogd "
+ 	start-stop-daemon -S -b -n syslogd -a /sbin/syslogd -- -n $SYSLOG_ARGS
+-	start-stop-daemon -S -b -n klogd -a /sbin/klogd -- -n
++	#start-stop-daemon -S -b -n klogd -a /sbin/klogd -- -n
+ 	echo "done"
+ 	;;
+   stop)
+-	echo -n "Stopping syslogd/klogd: "
++	echo -n "Stopping syslogd "
+ 	start-stop-daemon -K -n syslogd
+-	start-stop-daemon -K -n klogd
++	#start-stop-daemon -K -n klogd
+ 	echo "done"
+ 	;;
+   restart)

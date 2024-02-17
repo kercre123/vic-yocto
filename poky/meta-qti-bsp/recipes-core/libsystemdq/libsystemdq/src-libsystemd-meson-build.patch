@@ -1,0 +1,45 @@
+diff --git a/src/libsystemd/meson.build b/src/libsystemd/meson.build
+index 070fd6c..26c0db9 100644
+--- a/src/libsystemd/meson.build
++++ b/src/libsystemd/meson.build
+@@ -10,7 +10,7 @@ sd_daemon_c = files('sd-daemon/sd-daemon.c')
+ sd_event_c = files('sd-event/sd-event.c')
+ sd_login_c = files('sd-login/sd-login.c')
+ 
+-libsystemd_sources = files('''
++libsystemdq_sources = files('''
+         sd-bus/bus-common-errors.c
+         sd-bus/bus-common-errors.h
+         sd-bus/bus-container.c
+@@ -80,23 +80,23 @@ libsystemd_sources = files('''
+         sd-utf8/sd-utf8.c
+ '''.split()) + id128_sources + sd_daemon_c + sd_event_c + sd_login_c
+ 
+-libsystemd_c_args = ['-fvisibility=default']
++libsystemdq_c_args = ['-fvisibility=default']
+ 
+-libsystemd_static = static_library(
++libsystemdq_static = static_library(
+         'systemd_static',
+-        libsystemd_sources,
++        libsystemdq_sources,
+         install : false,
+         include_directories : includes,
+         link_with : libbasic,
+         dependencies : [threads,
+                         librt],
+-        c_args : libsystemd_c_args)
++        c_args : libsystemdq_c_args)
+ 
+-libsystemd_sym = 'src/libsystemd/libsystemd.sym'
++libsystemdq_sym = 'src/libsystemd/libsystemd.sym'
+ 
+-libsystemd_pc = configure_file(
++libsystemdq_pc = configure_file(
+         input : 'libsystemd.pc.in',
+-        output : 'libsystemd.pc',
++        output : 'libsystemdq.pc',
+         configuration : substs)
+-install_data(libsystemd_pc,
++install_data(libsystemdq_pc,
+              install_dir : pkgconfiglibdir)

@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 67176be..e7dcb7a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ PREFIX?=/usr
+ LIBDIR?=$(PREFIX)/lib
+ SBINDIR?=/sbin
+-CONFDIR?=/etc/iproute2
++CONFDIR?=/data/iproute2
+ DATADIR?=$(PREFIX)/share
+ DOCDIR?=$(DATADIR)/doc/iproute2
+ MANDIR?=$(DATADIR)/man

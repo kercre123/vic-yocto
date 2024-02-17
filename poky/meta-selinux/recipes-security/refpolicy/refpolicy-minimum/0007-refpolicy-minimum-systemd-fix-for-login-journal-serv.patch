@@ -1,0 +1,102 @@
+From 5a1cef9e4a9472982f6c68190f3aa20c73c8de1e Mon Sep 17 00:00:00 2001
+From: Shrikant Bobade <shrikant_bobade@mentor.com>
+Date: Fri, 26 Aug 2016 17:54:09 +0530
+Subject: [PATCH 7/9] refpolicy-minimum: systemd: fix for login & journal
+ service
+
+1. fix for systemd services: login & journal wile using refpolicy-minimum and
+systemd as init manager.
+2. fix login duration after providing root password.
+
+without these changes we are getting avc denails like these and below
+systemd services failure:
+
+audit[]: AVC avc:  denied  { write } for  pid=422 comm="login" path="/run/
+systemd/sessions/c1.ref" dev="tmpfs" ino=13455 scontext=system_u:system_r:
+local_login_t:s0-s0:c0.c1023 tcontext=system_u:object_r:init_var_run_t:s0
+tclass=fifo_file permissive=0
+
+audit[]: AVC avc:  denied  { open } for  pid=216 comm="systemd-tmpfile" path
+="/proc/1/environ" dev="proc" ino=9221 scontext=system_u:system_r:
+systemd_tmpfiles_t:s0 tcontext=system_u:system_r:init_t:s0 tclass=file
+
+audit[]: USER_AVC pid=1 uid=0 auid=4294967295 ses=4294967295 subj=system_u:
+system_r:init_t:s0 msg='avc:  denied  { stop } for auid=n/a uid=0 gid=0 path
+="/lib/systemd/system/systemd-journald.service" cmdline="/bin/journalctl
+--flush" scontext=system_u:system_r:initrc_t:s0 tcontext=system_u:object_r:
+lib_t:s0 tclass=service
+
+[FAILED] Failed to start Flush Journal to Persistent Storage.
+See 'systemctl status systemd-journal-flush.service' for details.
+
+[FAILED] Failed to start Login Service.
+See 'systemctl status systemd-logind.service' for details.
+
+[FAILED] Failed to start Avahi mDNS/DNS-SD Stack.
+See 'systemctl status avahi-daemon.service' for details.
+
+Upstream-Status: Pending
+
+Signed-off-by: Shrikant Bobade <shrikant_bobade@mentor.com>
+---
+ policy/modules/system/init.te       | 5 +++++
+ policy/modules/system/locallogin.te | 3 +++
+ policy/modules/system/systemd.if    | 6 ++++--
+ policy/modules/system/systemd.te    | 3 ++-
+ 4 files changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/policy/modules/system/init.te b/policy/modules/system/init.te
+index 19a7a20..cefa59d 100644
+--- a/policy/modules/system/init.te
++++ b/policy/modules/system/init.te
+@@ -1105,3 +1105,5 @@ allow init_t self:capability2 audit_read;
+ 
+ allow initrc_t init_t:system { start status reboot };
+ allow initrc_t init_var_run_t:service { start status };
++
++allow initrc_t init_var_run_t:service stop;
+diff --git a/policy/modules/system/locallogin.te b/policy/modules/system/locallogin.te
+index 09ec33f..be25c82 100644
+--- a/policy/modules/system/locallogin.te
++++ b/policy/modules/system/locallogin.te
+@@ -284,3 +284,6 @@ allow local_login_t var_run_t:file { open read write lock};
+ allow local_login_t var_run_t:sock_file write;
+ allow local_login_t tmpfs_t:dir { add_name write search};
+ allow local_login_t tmpfs_t:file { create open read write lock };
++allow local_login_t init_var_run_t:fifo_file write;
++allow local_login_t initrc_t:dbus send_msg;
++allow initrc_t local_login_t:dbus send_msg;
+diff --git a/policy/modules/system/systemd.if b/policy/modules/system/systemd.if
+index 822c03d..8723527 100644
+--- a/policy/modules/system/systemd.if
++++ b/policy/modules/system/systemd.if
+@@ -205,9 +205,11 @@ interface(`systemd_service_file_operations',`
+ #
+ interface(`systemd_service_lib_function',`
+          gen_require(`
+-               class service start;
++		class service { start status stop };
++		class file { execmod open };
+          ')
+ 
+-	allow initrc_t $1:service start;
++	allow initrc_t $1:service { start status stop };
++	allow initrc_t $1:file execmod;
+ 
+ ')
+diff --git a/policy/modules/system/systemd.te b/policy/modules/system/systemd.te
+index 70ccb0e..22021eb 100644
+--- a/policy/modules/system/systemd.te
++++ b/policy/modules/system/systemd.te
+@@ -265,6 +265,7 @@ tunable_policy(`systemd_tmpfiles_manage_all',`
+ 
+ allow systemd_tmpfiles_t init_t:dir search;
+ allow systemd_tmpfiles_t proc_t:filesystem getattr;
+-allow systemd_tmpfiles_t init_t:file read;
+ allow systemd_tmpfiles_t initrc_t:unix_dgram_socket sendto;
+ allow systemd_tmpfiles_t self:capability net_admin;
++
++allow systemd_tmpfiles_t init_t:file { open getattr read };
+-- 
+1.9.1
+
