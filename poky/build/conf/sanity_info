@@ -1,0 +1,4 @@
+SANITY_VERSION 1
+TMPDIR /var/build/opensource/poky/build/tmp-glibc
+SSTATE_DIR /var/build/opensource/poky/build/sstate-cache
+NATIVELSBSTRING ubuntu-16.04
