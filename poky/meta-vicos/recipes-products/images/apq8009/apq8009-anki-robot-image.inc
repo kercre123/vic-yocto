@@ -13,6 +13,7 @@ IMAGE_INSTALL += "rng-tools"
 IMAGE_INSTALL += "alsa-utils"
 IMAGE_INSTALL += "dhcpcd"
 IMAGE_INSTALL += "openssl-bin"
+IMAGE_INSTALL += "wiretestprog"
 
 IMAGE_INSTALL += "syslog-ng"
 IMAGE_INSTALL += "logrotate"

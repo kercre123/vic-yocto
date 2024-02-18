@@ -9,7 +9,7 @@ tmpfs                /media/ram      tmpfs     defaults,noauto                  
 tmpfs                /run            tmpfs     mode=0755,nodev,nosuid,noexec,strictatime      0  0
 tmpfs                /var/volatile   tmpfs     defaults,nodev,nosuid,noexec                   0  0
 tmpfs                /dev/shm        tmpfs     defaults,nodev,nosuid,noexec                   0  0
-pstore               /sys/fs/pstore  pstore    defaults,nodev,nosuid,noexec                   0  0
+#pstore               /sys/fs/pstore  pstore    defaults,nodev,nosuid,noexec                   0  0
 
 PARTLABEL=modem      /firmware       vfat      defaults,noexec,nosuid,nodev,noatime,ro        0  0
 PARTLABEL=persist    /persist        ext4      defaults,noexec,nosuid,nodev,noatime,noauto    0  0

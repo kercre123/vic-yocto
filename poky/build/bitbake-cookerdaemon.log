@@ -9442,3 +9442,973 @@ Processing Client
 Disconnecting Client
 No timeout, exiting.
 Exiting
+--- Starting bitbake server pid 1675 at 2024-02-18 07:14:46.860424 ---
+Started bitbake server pid 1675
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+NOTE: Your conf/bblayers.conf has been automatically updated.
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'invalidate_stamp': None, 'dry_run': False, 'dump_signatures': [], 'verbose': False, 'debug_domains': [], 'abort': True, 'profile': False, 'extra_assume_provided': [], 'debug': 0, 'force': False, 'server_timeout': None, 'prefile': [], 'postfile': []}, {'BUILDDIR': '/var/build/opensource/poky/build', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'HOSTNAME': 'e20c2f99f5a8', 'PWD': '/var/build/opensource/poky/build', 'LC_ALL': 'en_US.UTF-8', 'OLDPWD': '/var/build/opensource/poky', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'INITRD': 'no', 'HOME': '/var/build', 'USER': 'builduser', 'LANG': 'en_US.UTF-8', 'BBPATH': '/var/build/opensource/poky/build', 'SHLVL': '2', 'MAIL': '/var/mail/builduser', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'LC_CTYPE': 'en_US.UTF-8', 'DEBIAN_FRONTEND': 'noninteractive', 'LOGNAME': 'builduser', 'TERM': 'xterm', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LANGUAGE': 'en_US:en'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['wiretestprog'], 'build']
+Running command ['stateShutdown']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 199470 at 2024-02-18 07:25:44.739892 ---
+Started bitbake server pid 199470
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'invalidate_stamp': None, 'extra_assume_provided': [], 'debug_domains': [], 'postfile': [], 'profile': False, 'dry_run': False, 'debug': 0, 'prefile': [], 'verbose': False, 'server_timeout': None, 'abort': True, 'dump_signatures': [], 'force': False}, {'LANG': 'en_US.UTF-8', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'OLDPWD': '/var/build/opensource/poky', 'MAIL': '/var/mail/builduser', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'LC_CTYPE': 'en_US.UTF-8', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'TERM': 'xterm', 'BBPATH': '/var/build/opensource/poky/build', 'BUILDDIR': '/var/build/opensource/poky/build', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'DEBIAN_FRONTEND': 'noninteractive', 'LOGNAME': 'builduser', 'SHLVL': '2', 'LC_ALL': 'en_US.UTF-8', 'PWD': '/var/build/opensource/poky/build', 'LANGUAGE': 'en_US:en', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'HOME': '/var/build', 'USER': 'builduser', 'SHELL': '/bin/bash', 'INITRD': 'no', 'HOSTNAME': 'e20c2f99f5a8'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['wiretestprog'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 574628 at 2024-02-18 07:39:40.086588 ---
+Started bitbake server pid 574628
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'invalidate_stamp': None, 'dump_signatures': [], 'force': False, 'extra_assume_provided': [], 'debug_domains': [], 'abort': True, 'verbose': False, 'postfile': [], 'prefile': [], 'debug': 0, 'profile': False, 'server_timeout': None, 'dry_run': False}, {'LANGUAGE': 'en_US:en', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'MAIL': '/var/mail/builduser', 'TERM': 'xterm', 'USER': 'builduser', 'BBPATH': '/var/build/opensource/poky/build', 'DEBIAN_FRONTEND': 'noninteractive', 'LOGNAME': 'builduser', 'LC_ALL': 'en_US.UTF-8', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'OLDPWD': '/var/build/opensource/poky', 'PWD': '/var/build/opensource/poky/build', 'SHLVL': '2', 'INITRD': 'no', 'SHELL': '/bin/bash', 'LC_CTYPE': 'en_US.UTF-8', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'HOME': '/var/build', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'BUILDDIR': '/var/build/opensource/poky/build', 'HOSTNAME': 'e20c2f99f5a8'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['wiretestprog'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 576003 at 2024-02-18 07:47:53.919131 ---
+Started bitbake server pid 576003
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'verbose': False, 'extra_assume_provided': [], 'profile': False, 'debug': 0, 'invalidate_stamp': None, 'postfile': [], 'abort': True, 'dump_signatures': [], 'debug_domains': [], 'force': False, 'dry_run': False, 'prefile': [], 'server_timeout': None}, {'LC_CTYPE': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'OLDPWD': '/var/build/opensource/poky', 'HOME': '/var/build', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANGUAGE': 'en_US:en', 'BUILDDIR': '/var/build/opensource/poky/build', 'USER': 'builduser', 'HOSTNAME': 'e20c2f99f5a8', 'TERM': 'xterm', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LOGNAME': 'builduser', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'MAIL': '/var/mail/builduser', 'DEBIAN_FRONTEND': 'noninteractive', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LANG': 'en_US.UTF-8', 'PWD': '/var/build/opensource/poky/build', 'SHELL': '/bin/bash', 'SHLVL': '2', 'INITRD': 'no', 'LC_ALL': 'en_US.UTF-8', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'BBPATH': '/var/build/opensource/poky/build'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['wiretestprog'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 576098 at 2024-02-18 07:48:34.716109 ---
+Started bitbake server pid 576098
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'abort': True, 'profile': False, 'dry_run': False, 'postfile': [], 'prefile': [], 'dump_signatures': [], 'force': False, 'verbose': False, 'debug_domains': [], 'server_timeout': None, 'invalidate_stamp': None, 'extra_assume_provided': [], 'debug': 0}, {'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'OLDPWD': '/var/build/opensource/poky/build', 'HOME': '/var/build', 'LANGUAGE': 'en_US:en', 'SHELL': '/bin/bash', 'USER': 'builduser', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'VARIANT': 'debug', 'PWD': '/var/build/opensource/poky/build', 'LC_CTYPE': 'en_US.UTF-8', 'BBPATH': '/var/build/opensource/poky/build', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANG': 'en_US.UTF-8', 'BUILDDIR': '/var/build/opensource/poky/build', 'INITRD': 'no', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'HOSTNAME': 'e20c2f99f5a8', 'DEBIAN_FRONTEND': 'noninteractive', 'LC_ALL': 'en_US.UTF-8', 'SHLVL': '2', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LOGNAME': 'builduser', 'MAIL': '/var/mail/builduser', 'MACHINE': 'apq8009-robot', 'TERM': 'xterm', 'PRODUCT': 'robot'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['machine-robot-image'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2180289 at 2024-02-18 08:38:56.956266 ---
+Started bitbake server pid 2180289
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'postfile': [], 'force': False, 'dry_run': False, 'verbose': False, 'profile': False, 'debug': 0, 'prefile': [], 'extra_assume_provided': [], 'abort': True, 'invalidate_stamp': None, 'server_timeout': None, 'debug_domains': [], 'dump_signatures': []}, {'LOGNAME': 'builduser', 'INITRD': 'no', 'SHELL': '/bin/bash', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'MAIL': '/var/mail/builduser', 'MACHINE': 'apq8009-robot', 'PRODUCT': 'robot', 'TERM': 'xterm', 'LC_ALL': 'en_US.UTF-8', 'LANGUAGE': 'en_US:en', 'HOME': '/var/build', 'LANG': 'en_US.UTF-8', 'USER': 'builduser', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'DEBIAN_FRONTEND': 'noninteractive', 'LC_CTYPE': 'en_US.UTF-8', 'HOSTNAME': 'e20c2f99f5a8', 'BUILDDIR': '/var/build/opensource/poky/build', 'PWD': '/var/build/opensource/poky/build', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'SHLVL': '2', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'BBPATH': '/var/build/opensource/poky/build', 'OLDPWD': '/var/build/opensource/poky/build', 'VARIANT': 'debug'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'cleansstate', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'cleansstate']
+Running command ['buildTargets', ['wiretestprog'], 'cleansstate']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2180354 at 2024-02-18 08:39:21.767932 ---
+Started bitbake server pid 2180354
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'postfile': [], 'profile': False, 'prefile': [], 'invalidate_stamp': None, 'dump_signatures': [], 'force': False, 'debug_domains': [], 'dry_run': False, 'server_timeout': None, 'extra_assume_provided': [], 'debug': 0, 'abort': True, 'verbose': False}, {'LC_CTYPE': 'en_US.UTF-8', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'HOME': '/var/build', 'PRODUCT': 'robot', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'USER': 'builduser', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'OLDPWD': '/var/build/opensource/poky/build', 'DEBIAN_FRONTEND': 'noninteractive', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANG': 'en_US.UTF-8', 'MACHINE': 'apq8009-robot', 'MAIL': '/var/mail/builduser', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'LANGUAGE': 'en_US:en', 'PWD': '/var/build/opensource/poky/build', 'SHLVL': '2', 'HOSTNAME': 'e20c2f99f5a8', 'VARIANT': 'debug', 'TERM': 'xterm', 'SHELL': '/bin/bash', 'BBPATH': '/var/build/opensource/poky/build', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'BUILDDIR': '/var/build/opensource/poky/build', 'INITRD': 'no', 'LOGNAME': 'builduser', 'LC_ALL': 'en_US.UTF-8'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['wiretestprog'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2180438 at 2024-02-18 08:40:01.674259 ---
+Started bitbake server pid 2180438
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'debug': 0, 'abort': True, 'dump_signatures': [], 'invalidate_stamp': None, 'postfile': [], 'debug_domains': [], 'force': False, 'verbose': False, 'dry_run': False, 'extra_assume_provided': [], 'prefile': [], 'server_timeout': None, 'profile': False}, {'MACHINE': 'apq8009-robot', 'HOSTNAME': 'e20c2f99f5a8', 'SHELL': '/bin/bash', 'BBPATH': '/var/build/opensource/poky/build', 'MAIL': '/var/mail/builduser', 'LC_CTYPE': 'en_US.UTF-8', 'LANG': 'en_US.UTF-8', 'LC_ALL': 'en_US.UTF-8', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'DEBIAN_FRONTEND': 'noninteractive', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'USER': 'builduser', 'PWD': '/var/build/opensource/poky/build', 'LOGNAME': 'builduser', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'SHLVL': '2', 'PRODUCT': 'robot', 'INITRD': 'no', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LANGUAGE': 'en_US:en', 'HOME': '/var/build', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'BUILDDIR': '/var/build/opensource/poky/build', 'OLDPWD': '/var/build/opensource/poky/build', 'TERM': 'xterm', 'VARIANT': 'debug'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'cleansstate', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'cleansstate']
+Running command ['buildTargets', ['wiretestprog'], 'cleansstate']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2180503 at 2024-02-18 08:42:49.732523 ---
+Started bitbake server pid 2180503
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'force': False, 'debug': 0, 'abort': True, 'prefile': [], 'postfile': [], 'invalidate_stamp': None, 'debug_domains': [], 'dry_run': False, 'profile': False, 'verbose': False, 'dump_signatures': [], 'server_timeout': None, 'extra_assume_provided': []}, {'VARIANT': 'debug', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'builduser', 'OLDPWD': '/var/build/opensource/poky/build', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'DEBIAN_FRONTEND': 'noninteractive', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'BUILDDIR': '/var/build/opensource/poky/build', 'PWD': '/var/build/opensource/poky/build', 'LC_ALL': 'en_US.UTF-8', 'INITRD': 'no', 'SHELL': '/bin/bash', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LANG': 'en_US.UTF-8', 'SHLVL': '2', 'LC_CTYPE': 'en_US.UTF-8', 'TERM': 'xterm', 'HOSTNAME': 'e20c2f99f5a8', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'MAIL': '/var/mail/builduser', 'HOME': '/var/build', 'PRODUCT': 'robot', 'LOGNAME': 'builduser', 'BBPATH': '/var/build/opensource/poky/build', 'MACHINE': 'apq8009-robot', 'LANGUAGE': 'en_US:en', 'LESSCLOSE': '/usr/bin/lesspipe %s %s'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['wiretestprog'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2181016 at 2024-02-18 08:44:46.765898 ---
+[1;33mWARNING[0m: [33mLayer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+[1;33mWARNING[0m: [33mLayer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+[1;33mWARNING[0m: [33mLayer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+[1;33mWARNING[0m: [33mLayer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+[1;33mWARNING[0m: [33mLayer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+[1;33mWARNING[0m: [33mLayer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+[1;33mWARNING[0m: [33mLayer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+[1;33mWARNING[0m: [33mLayer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+[1;33mWARNING[0m: [33mLayer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+[1;33mWARNING[0m: [33mLayer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+[1;33mWARNING[0m: [33mLayer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+[1;33mWARNING[0m: [33mDuplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc[0m
+[1;33mWARNING[0m: [33mDuplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc[0m
+Started bitbake server pid 2181016
+[1;33mWARNING[0m: [33mLayer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+[1;33mWARNING[0m: [33mLayer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+[1;33mWARNING[0m: [33mLayer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+[1;33mWARNING[0m: [33mLayer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+[1;33mWARNING[0m: [33mLayer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+[1;33mWARNING[0m: [33mLayer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+[1;33mWARNING[0m: [33mLayer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+[1;33mWARNING[0m: [33mLayer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+[1;33mWARNING[0m: [33mLayer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+[1;33mWARNING[0m: [33mLayer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+[1;33mWARNING[0m: [33mLayer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.[0m
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+[1;33mWARNING[0m: [33mDuplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc[0m
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+[1;33mWARNING[0m: [33mDuplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc[0m
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'debug': 0, 'postfile': [], 'invalidate_stamp': None, 'force': False, 'verbose': False, 'prefile': [], 'extra_assume_provided': [], 'dry_run': False, 'server_timeout': None, 'abort': True, 'profile': False, 'debug_domains': [], 'dump_signatures': []}, {'HOME': '/var/build', 'DEBIAN_FRONTEND': 'noninteractive', 'OLDPWD': '/var/build/opensource/poky/build', 'MAIL': '/var/mail/builduser', 'LC_CTYPE': 'en_US.UTF-8', 'LANGUAGE': 'en_US:en', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'LOGNAME': 'builduser', 'INITRD': 'no', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'LANG': 'en_US.UTF-8', 'PRODUCT': 'robot', 'VARIANT': 'debug', '_': '/var/build/opensource/poky/scripts/devtool', 'LC_ALL': 'en_US.UTF-8', 'SHLVL': '2', 'SHELL': '/bin/bash', 'MACHINE': 'apq8009-robot', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'BUILDDIR': '/var/build/opensource/poky/build', 'PWD': '/var/build/opensource/poky/build', 'TERM': 'xterm', 'BBPATH': '/var/build/opensource/poky/build', 'HOSTNAME': 'e20c2f99f5a8', 'USER': 'builduser'}, ['/var/build/opensource/poky/scripts/devtool', 'modify', 'wiretestprog']]
+Running command ['parseConfiguration']
+Running command ['dataStoreConnectorFindVar', None, 'BBPATH']
+Running command ['dataStoreConnectorFindVar', None, 'TOPDIR']
+Running command ['clientComplete']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2181023 at 2024-02-18 08:44:47.107501 ---
+Started bitbake server pid 2181023
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2, 1]]
+Running command ['updateConfig', {'debug': 0, 'postfile': [], 'invalidate_stamp': None, 'force': False, 'verbose': False, 'prefile': [], 'extra_assume_provided': [], 'dry_run': False, 'server_timeout': None, 'abort': True, 'profile': False, 'debug_domains': [], 'dump_signatures': []}, {'HOME': '/var/build', 'LC_CTYPE': 'en_US.UTF-8', 'OLDPWD': '/var/build/opensource/poky/build', 'MAIL': '/var/mail/builduser', 'DEBIAN_FRONTEND': 'noninteractive', 'LANGUAGE': 'en_US:en', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'LOGNAME': 'builduser', 'INITRD': 'no', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'LANG': 'en_US.UTF-8', 'PRODUCT': 'robot', 'VARIANT': 'debug', '_': '/var/build/opensource/poky/scripts/devtool', 'LC_ALL': 'en_US.UTF-8', 'SHLVL': '2', 'SHELL': '/bin/bash', 'MACHINE': 'apq8009-robot', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'BUILDDIR': '/var/build/opensource/poky/build', 'PWD': '/var/build/opensource/poky/build', 'TERM': 'xterm', 'BBPATH': '/var/build/opensource/poky/build', 'HOSTNAME': 'e20c2f99f5a8', 'USER': 'builduser'}, ['/var/build/opensource/poky/scripts/devtool', 'modify', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['getVariable', 'BBTARGETS']
+Running command ['parseFiles']
+Running command ['findBestProvider', 'wiretestprog']
+Running command ['getFileAppends', '/var/build/opensource/poky/meta-vicos/recipes-extended/wiretestprog/wiretestprog.bb']
+Running command ['enableDataTracking']
+Running command ['parseRecipeFile', '/var/build/opensource/poky/meta-vicos/recipes-extended/wiretestprog/wiretestprog.bb', False, []]
+Running command ['disableDataTracking']
+Running command ['dataStoreConnectorFindVar', 1, 'OVERRIDES']
+Running command ['dataStoreConnectorFindVar', 1, 'TARGET_OS']
+Running command ['dataStoreConnectorFindVar', 1, 'LIBCEXTENSION']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'LIBCEXTENSION', "['', '-gnu'][(d.getVar('ABIEXTENSION') or '') != '']"]
+Running command ['dataStoreConnectorFindVar', 1, 'ABIEXTENSION']
+Running command ['dataStoreConnectorFindVar', 1, 'TRANSLATED_TARGET_ARCH']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'TRANSLATED_TARGET_ARCH', 'd.getVar(\'TARGET_ARCH\').replace("_", "-")']
+Running command ['dataStoreConnectorFindVar', 1, 'PN']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'PN', "bb.parse.BBHandler.vars_from_file(d.getVar('FILE', False),d)[0] or 'defaultpkgname'"]
+Running command ['dataStoreConnectorFindVar', 1, 'MACHINEOVERRIDES']
+Running command ['dataStoreConnectorFindVar', 1, 'SOC_FAMILY']
+Running command ['dataStoreConnectorFindVar', 1, 'BASEMACHINE']
+Running command ['dataStoreConnectorFindVar', 1, 'MACHINE']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv4', 'armv4:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv5', 'armv5:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv6', 'armv6:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv7a', 'armv7a:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv7ve', 'armv7ve:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "['', 'msm8909:']['msm8909' != '']"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "['', 'apq8009:']['apq8009' != '']"]
+Running command ['dataStoreConnectorFindVar', 1, 'DISTROOVERRIDES']
+Running command ['dataStoreConnectorFindVar', 1, 'BASEDISTRO']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'DISTROOVERRIDES', "['', ':']['' != '']"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'DISTROOVERRIDES', "d.getVar('DISTRO') or ''"]
+Running command ['dataStoreConnectorFindVar', 1, 'CLASSOVERRIDE']
+Running command ['dataStoreConnectorFindVar', 1, 'LIBCOVERRIDE']
+Running command ['dataStoreConnectorFindVar', 1, 'OVERRIDES']
+Running command ['dataStoreConnectorFindVar', 1, 'TARGET_OS']
+Running command ['dataStoreConnectorFindVar', 1, 'LIBCEXTENSION']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'LIBCEXTENSION', "['', '-gnu'][(d.getVar('ABIEXTENSION') or '') != '']"]
+Running command ['dataStoreConnectorFindVar', 1, 'ABIEXTENSION']
+Running command ['dataStoreConnectorFindVar', 1, 'TRANSLATED_TARGET_ARCH']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'TRANSLATED_TARGET_ARCH', 'd.getVar(\'TARGET_ARCH\').replace("_", "-")']
+Running command ['dataStoreConnectorFindVar', 1, 'PN']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'PN', "bb.parse.BBHandler.vars_from_file(d.getVar('FILE', False),d)[0] or 'defaultpkgname'"]
+Running command ['dataStoreConnectorFindVar', 1, 'MACHINEOVERRIDES']
+Running command ['dataStoreConnectorFindVar', 1, 'SOC_FAMILY']
+Running command ['dataStoreConnectorFindVar', 1, 'BASEMACHINE']
+Running command ['dataStoreConnectorFindVar', 1, 'MACHINE']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv4', 'armv4:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv5', 'armv5:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv6', 'armv6:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv7a', 'armv7a:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv7ve', 'armv7ve:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "['', 'msm8909:']['msm8909' != '']"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "['', 'apq8009:']['apq8009' != '']"]
+Running command ['dataStoreConnectorFindVar', 1, 'DISTROOVERRIDES']
+Running command ['dataStoreConnectorFindVar', 1, 'BASEDISTRO']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'DISTROOVERRIDES', "['', ':']['' != '']"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'DISTROOVERRIDES', "d.getVar('DISTRO') or ''"]
+Running command ['dataStoreConnectorFindVar', 1, 'CLASSOVERRIDE']
+Running command ['dataStoreConnectorFindVar', 1, 'LIBCOVERRIDE']
+Running command ['dataStoreConnectorGetKeys', 1]
+Running command ['dataStoreConnectorFindVar', 1, 'FILE']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, 'do_unpack']
+Running command ['dataStoreConnectorGetVarHistory', 1, 'SRC_URI']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, 'WORKDIR']
+Running command ['dataStoreConnectorFindVar', 1, 'BASE_WORKDIR']
+Running command ['dataStoreConnectorFindVar', 1, 'TMPDIR']
+Running command ['dataStoreConnectorFindVar', 1, 'MULTIMACH_TARGET_SYS']
+Running command ['dataStoreConnectorFindVar', 1, 'PACKAGE_ARCH']
+Running command ['dataStoreConnectorFindVar', 1, 'TUNE_PKGARCH']
+Running command ['dataStoreConnectorFindVar', 1, 'ARMPKGARCH']
+Running command ['dataStoreConnectorFindVar', 1, 'DEFAULTTUNE']
+Running command ['dataStoreConnectorFindVar', 1, 'ARMPKGARCH_tune-armv7ahf-neon']
+Running command ['dataStoreConnectorFindVar', 1, 'ARMPKGSFX_THUMB']
+Running command ['dataStoreConnectorFindVar', 1, 'ARM_THUMB_SUFFIX']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'ARM_THUMB_SUFFIX', "bb.utils.contains_any('TUNE_FEATURES', 'armv4 armv5 armv6', 't', 't2', d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'ARMPKGSFX_THUMB', "bb.utils.contains('TUNE_FEATURES', 'thumb', 't2', '', d) if d.getVar('ARM_M_OPT') == 'thumb' else ''"]
+Running command ['dataStoreConnectorFindVar', 1, 'ARMPKGSFX_DSP']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'ARMPKGSFX_DSP', "bb.utils.contains('TUNE_FEATURES', [ 'armv5', 'dsp' ], 'e', '', d)"]
+Running command ['dataStoreConnectorFindVar', 1, 'ARMPKGSFX_EABI']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'ARMPKGSFX_EABI', " 'hf'                                 if (d.getVar('TUNE_CCARGS_MFLOAT') == 'hard') else ''"]
+Running command ['dataStoreConnectorFindVar', 1, 'ARMPKGSFX_ENDIAN']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'ARMPKGSFX_ENDIAN', "bb.utils.contains('TUNE_FEATURES', 'bigendian', 'b', '', d)"]
+Running command ['dataStoreConnectorFindVar', 1, 'ARMPKGSFX_FPU']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'ARMPKGSFX_FPU', " ('-%s'       % d.getVar('TUNE_CCARGS_MFPU').split()[-1].replace('vfpv3-d16', 'vfpv3d16')) if (d.getVar('TUNE_CCARGS_MFPU') != '') else ''"]
+Running command ['dataStoreConnectorFindVar', 1, 'TARGET_VENDOR']
+Running command ['dataStoreConnectorFindVar', 1, 'EXTENDPE']
+Running command ['dataStoreConnectorFindVar', 1, 'PE']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'EXTENDPE', "['','_'][int(d.getVar('PE') or 0) > 0]"]
+Running command ['dataStoreConnectorFindVar', 1, 'PV']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'PV', "bb.parse.BBHandler.vars_from_file(d.getVar('FILE', False),d)[1] or '1.0'"]
+Running command ['dataStoreConnectorFindVar', 1, 'PR']
+Running command ['dataStoreConnectorFindVar', 1, 'SSTATE_MANIFESTS']
+Running command ['dataStoreConnectorFindVar', 1, 'STAMP']
+Running command ['dataStoreConnectorFindVar', 1, 'STAMPS_DIR']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.event.BuildStarted', 'bb.event.BuildCompleted', 'logging.LogRecord', 'bb.event.NoProvider', 'bb.command.CommandCompleted', 'bb.command.CommandFailed', 'bb.build.TaskStarted', 'bb.build.TaskFailed', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.sceneQueueTaskStarted', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['dataStoreConnectorFindVar', None, 'BBINCLUDELOGS']
+Running command ['dataStoreConnectorFindVar', None, 'BBINCLUDELOGS_LINES']
+Running command ['buildTargets', ['wiretestprog'], 'do_patch']
+Running command ['dataStoreConnectorFindVar', 1, 'S']
+Running command ['dataStoreConnectorGetKeys', 1]
+Running command ['dataStoreConnectorFindVar', 1, 'PATCH_GIT_USER_NAME']
+Running command ['dataStoreConnectorFindVar', 1, 'PATCH_GIT_USER_EMAIL']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['dataStoreConnectorFindVar', 1, 'B']
+Running command ['dataStoreConnectorFindVar', 1, '__inherit_cache']
+Running command ['clientComplete']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2181167 at 2024-02-18 08:49:13.650461 ---
+Started bitbake server pid 2181167
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'invalidate_stamp': None, 'prefile': [], 'verbose': False, 'force': False, 'abort': True, 'dry_run': False, 'extra_assume_provided': [], 'postfile': [], 'debug_domains': [], 'debug': 0, 'profile': False, 'server_timeout': None, 'dump_signatures': []}, {'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'TERM': 'xterm', 'BBPATH': '/var/build/opensource/poky/build', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LOGNAME': 'builduser', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LC_CTYPE': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'USER': 'builduser', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'VARIANT': 'debug', 'BUILDDIR': '/var/build/opensource/poky/build', 'SHLVL': '2', 'HOSTNAME': 'e20c2f99f5a8', 'LANGUAGE': 'en_US:en', 'LANG': 'en_US.UTF-8', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'DEBIAN_FRONTEND': 'noninteractive', 'MAIL': '/var/mail/builduser', 'PRODUCT': 'robot', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LC_ALL': 'en_US.UTF-8', 'OLDPWD': '/var/build/opensource/poky/build/workspace', 'HOME': '/var/build', 'SHELL': '/bin/bash', 'MACHINE': 'apq8009-robot', 'PWD': '/var/build/opensource/poky/build', 'INITRD': 'no'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['wiretestprog'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2181187 at 2024-02-18 08:49:42.763543 ---
+Started bitbake server pid 2181187
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'verbose': False, 'invalidate_stamp': None, 'force': False, 'dump_signatures': [], 'profile': False, 'abort': True, 'extra_assume_provided': [], 'dry_run': False, 'postfile': [], 'debug': 0, 'prefile': [], 'debug_domains': [], 'server_timeout': None}, {'USER': 'builduser', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'MAIL': '/var/mail/builduser', 'INITRD': 'no', 'BBPATH': '/var/build/opensource/poky/build', 'LOGNAME': 'builduser', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'MACHINE': 'apq8009-robot', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'TERM': 'xterm', 'LC_ALL': 'en_US.UTF-8', 'HOSTNAME': 'e20c2f99f5a8', 'SHELL': '/bin/bash', 'LANG': 'en_US.UTF-8', 'PWD': '/var/build/opensource/poky/build', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'LC_CTYPE': 'en_US.UTF-8', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'HOME': '/var/build', 'LANGUAGE': 'en_US:en', 'DEBIAN_FRONTEND': 'noninteractive', 'BUILDDIR': '/var/build/opensource/poky/build', 'OLDPWD': '/var/build/opensource/poky/build/workspace', 'SHLVL': '2', 'PRODUCT': 'robot', 'VARIANT': 'debug'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['wiretestprog'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2181693 at 2024-02-18 08:50:44.732334 ---
+Started bitbake server pid 2181693
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'debug': 0, 'verbose': False, 'profile': False, 'extra_assume_provided': [], 'force': False, 'postfile': [], 'debug_domains': [], 'server_timeout': None, 'invalidate_stamp': None, 'dry_run': False, 'dump_signatures': [], 'prefile': [], 'abort': True}, {'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'LC_ALL': 'en_US.UTF-8', 'DEBIAN_FRONTEND': 'noninteractive', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'HOSTNAME': 'e20c2f99f5a8', 'VARIANT': 'debug', 'LC_CTYPE': 'en_US.UTF-8', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LOGNAME': 'builduser', 'HOME': '/var/build', 'BUILDDIR': '/var/build/opensource/poky/build', 'MACHINE': 'apq8009-robot', 'BBPATH': '/var/build/opensource/poky/build', 'SHLVL': '2', 'PWD': '/var/build/opensource/poky/build', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANGUAGE': 'en_US:en', 'INITRD': 'no', 'OLDPWD': '/var/build/opensource/poky/build/workspace', 'USER': 'builduser', 'MAIL': '/var/mail/builduser', 'PRODUCT': 'robot', 'LANG': 'en_US.UTF-8', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'TERM': 'xterm', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'cleansstate', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'cleansstate']
+Running command ['buildTargets', ['wiretestprog'], 'cleansstate']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2181766 at 2024-02-18 08:52:17.551413 ---
+Started bitbake server pid 2181766
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'debug': 0, 'debug_domains': [], 'invalidate_stamp': None, 'verbose': False, 'prefile': [], 'dry_run': False, 'profile': False, 'server_timeout': None, 'abort': True, 'extra_assume_provided': [], 'dump_signatures': [], 'postfile': [], 'force': False}, {'LC_ALL': 'en_US.UTF-8', 'HOSTNAME': 'e20c2f99f5a8', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LANG': 'en_US.UTF-8', 'SHELL': '/bin/bash', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'PRODUCT': 'robot', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'MAIL': '/var/mail/builduser', 'INITRD': 'no', 'LANGUAGE': 'en_US:en', 'MACHINE': 'apq8009-robot', 'PWD': '/var/build/opensource/poky/build', 'LOGNAME': 'builduser', 'SHLVL': '2', 'HOME': '/var/build', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'DEBIAN_FRONTEND': 'noninteractive', 'OLDPWD': '/var/build/opensource/poky/build/workspace', 'USER': 'builduser', 'VARIANT': 'debug', 'LC_CTYPE': 'en_US.UTF-8', 'BBPATH': '/var/build/opensource/poky/build', 'BUILDDIR': '/var/build/opensource/poky/build', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'TERM': 'xterm'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['wiretestprog'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2182269 at 2024-02-18 08:53:27.013939 ---
+Started bitbake server pid 2182269
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'server_timeout': None, 'debug_domains': [], 'dry_run': False, 'force': False, 'postfile': [], 'verbose': False, 'debug': 0, 'prefile': [], 'extra_assume_provided': [], 'dump_signatures': [], 'profile': False, 'abort': True, 'invalidate_stamp': None}, {'OLDPWD': '/var/build/opensource/poky/build/workspace', 'LC_CTYPE': 'en_US.UTF-8', 'VARIANT': 'debug', 'PWD': '/var/build/opensource/poky/build', 'MAIL': '/var/mail/builduser', 'TERM': 'xterm', 'LC_ALL': 'en_US.UTF-8', 'DEBIAN_FRONTEND': 'noninteractive', 'BBPATH': '/var/build/opensource/poky/build', 'LANGUAGE': 'en_US:en', 'SHLVL': '2', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'HOSTNAME': 'e20c2f99f5a8', 'BUILDDIR': '/var/build/opensource/poky/build', 'MACHINE': 'apq8009-robot', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LOGNAME': 'builduser', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'INITRD': 'no', 'HOME': '/var/build', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LANG': 'en_US.UTF-8', 'USER': 'builduser', 'SHELL': '/bin/bash', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'PRODUCT': 'robot'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'cleansstate', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'cleansstate']
+Running command ['buildTargets', ['wiretestprog'], 'cleansstate']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2182341 at 2024-02-18 08:53:57.859129 ---
+Started bitbake server pid 2182341
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'invalidate_stamp': None, 'force': False, 'verbose': False, 'postfile': [], 'prefile': [], 'dump_signatures': [], 'extra_assume_provided': [], 'dry_run': False, 'debug_domains': [], 'server_timeout': None, 'profile': False, 'abort': True, 'debug': 0}, {'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'SHLVL': '2', 'INITRD': 'no', 'HOME': '/var/build', 'BUILDDIR': '/var/build/opensource/poky/build', 'USER': 'builduser', 'LANGUAGE': 'en_US:en', 'LC_CTYPE': 'en_US.UTF-8', 'TERM': 'xterm', 'OLDPWD': '/var/build/opensource/poky/build/workspace', 'DEBIAN_FRONTEND': 'noninteractive', 'LOGNAME': 'builduser', 'PRODUCT': 'robot', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LC_ALL': 'en_US.UTF-8', 'MAIL': '/var/mail/builduser', 'PWD': '/var/build/opensource/poky/build', 'VARIANT': 'debug', 'BBPATH': '/var/build/opensource/poky/build', 'MACHINE': 'apq8009-robot', 'SHELL': '/bin/bash', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'HOSTNAME': 'e20c2f99f5a8', 'TEMPLATECONF': 'meta-qti-bsp/conf'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['wiretestprog'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2182852 at 2024-02-18 08:55:40.119862 ---
+Started bitbake server pid 2182852
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'force': False, 'debug': 0, 'server_timeout': None, 'extra_assume_provided': [], 'profile': False, 'verbose': False, 'dump_signatures': [], 'prefile': [], 'postfile': [], 'dry_run': False, 'abort': True, 'debug_domains': [], 'invalidate_stamp': None}, {'OLDPWD': '/var/build/opensource/poky', 'MACHINE': 'apq8009-robot', 'VARIANT': 'debug', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'HOSTNAME': 'e20c2f99f5a8', 'TERM': 'xterm', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'SHLVL': '2', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANGUAGE': 'en_US:en', 'BBPATH': '/var/build/opensource/poky/build', 'PRODUCT': 'robot', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'MAIL': '/var/mail/builduser', 'USER': 'builduser', 'HOME': '/var/build', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'PWD': '/var/build/opensource/poky/build', 'DEBIAN_FRONTEND': 'noninteractive', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LC_CTYPE': 'en_US.UTF-8', 'LANG': 'en_US.UTF-8', 'INITRD': 'no', 'SHELL': '/bin/bash', 'LC_ALL': 'en_US.UTF-8', 'BUILDDIR': '/var/build/opensource/poky/build', 'LOGNAME': 'builduser'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'cleansstate', 'wiretestprog', 'base-files', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'cleansstate']
+Running command ['buildTargets', ['wiretestprog', 'base-files', 'machine-robot-image'], 'cleansstate']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2182928 at 2024-02-18 08:56:02.324883 ---
+Started bitbake server pid 2182928
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'debug_domains': [], 'server_timeout': None, 'verbose': False, 'invalidate_stamp': None, 'postfile': [], 'abort': True, 'prefile': [], 'debug': 0, 'profile': False, 'force': False, 'extra_assume_provided': [], 'dump_signatures': [], 'dry_run': False}, {'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'SHELL': '/bin/bash', 'LC_CTYPE': 'en_US.UTF-8', 'INITRD': 'no', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_ALL': 'en_US.UTF-8', 'TERM': 'xterm', 'DEBIAN_FRONTEND': 'noninteractive', 'BBPATH': '/var/build/opensource/poky/build', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'USER': 'builduser', 'LOGNAME': 'builduser', 'HOSTNAME': 'e20c2f99f5a8', 'MAIL': '/var/mail/builduser', 'SHLVL': '2', 'PWD': '/var/build/opensource/poky/build', 'OLDPWD': '/var/build/opensource/poky/build', 'HOME': '/var/build', 'MACHINE': 'apq8009-robot', 'BUILDDIR': '/var/build/opensource/poky/build', 'LANGUAGE': 'en_US:en', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LESSOPEN': '| /usr/bin/lesspipe %s', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'VARIANT': 'debug', 'PRODUCT': 'robot'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['machine-robot-image'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2201612 at 2024-02-18 09:04:21.669211 ---
+ERROR: Layer directory '/var/build/opensource/poky/build/workspace' does not exist! Please check BBLAYERS in /var/build/opensource/poky/build/conf/bblayers.conf
+--- Starting bitbake server pid 2202205 at 2024-02-18 09:04:31.986040 ---
+Started bitbake server pid 2202205
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+NOTE: Your conf/bblayers.conf has been automatically updated.
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+Entering server connection loop
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'debug_domains': [], 'force': False, 'server_timeout': None, 'verbose': False, 'abort': True, 'postfile': [], 'invalidate_stamp': None, 'debug': 0, 'extra_assume_provided': [], 'prefile': [], 'dump_signatures': [], 'profile': False, 'dry_run': False}, {'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'DEBIAN_FRONTEND': 'noninteractive', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'HOSTNAME': 'e20c2f99f5a8', 'LC_CTYPE': 'en_US.UTF-8', 'PWD': '/var/build/opensource/poky/build', 'HOME': '/var/build', 'LANGUAGE': 'en_US:en', 'SHELL': '/bin/bash', 'LOGNAME': 'builduser', 'LC_ALL': 'en_US.UTF-8', 'TERM': 'xterm', 'LANG': 'en_US.UTF-8', 'INITRD': 'no', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'BBPATH': '/var/build/opensource/poky/build', 'OLDPWD': '/var/build/opensource/poky', 'MAIL': '/var/mail/builduser', 'BUILDDIR': '/var/build/opensource/poky/build', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'USER': 'builduser', 'SHLVL': '2', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY ANKI_AMAZON_ENDPOINTS_ENABLED BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY BETA DEV DISTRO DL_DIR FACTORY FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE PRODUCT QSN SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE VARIANT all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-s', 'cleansstate', 'wiretestprog', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['showVersions']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2202226 at 2024-02-18 09:05:00.608259 ---
+Started bitbake server pid 2202226
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'verbose': False, 'dry_run': False, 'prefile': [], 'dump_signatures': [], 'profile': False, 'extra_assume_provided': [], 'debug_domains': [], 'postfile': [], 'server_timeout': None, 'debug': 0, 'force': False, 'invalidate_stamp': None, 'abort': True}, {'LANGUAGE': 'en_US:en', 'SHELL': '/bin/bash', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'DEBIAN_FRONTEND': 'noninteractive', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LOGNAME': 'builduser', 'USER': 'builduser', 'LANG': 'en_US.UTF-8', 'INITRD': 'no', 'BUILDDIR': '/var/build/opensource/poky/build', 'SHLVL': '2', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'BBPATH': '/var/build/opensource/poky/build', 'PWD': '/var/build/opensource/poky/build', 'MAIL': '/var/mail/builduser', 'TERM': 'xterm', 'OLDPWD': '/var/build/opensource/poky', 'LC_CTYPE': 'en_US.UTF-8', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY ANKI_AMAZON_ENDPOINTS_ENABLED BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY BETA DEV DISTRO DL_DIR FACTORY FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE PRODUCT QSN SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE VARIANT all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'HOME': '/var/build', 'LC_ALL': 'en_US.UTF-8', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'HOSTNAME': 'e20c2f99f5a8'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'cleansstate', 'wiretestprog', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'cleansstate']
+Running command ['buildTargets', ['wiretestprog', 'machine-robot-image'], 'cleansstate']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2202291 at 2024-02-18 09:05:52.360379 ---
+Started bitbake server pid 2202291
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'verbose': False, 'invalidate_stamp': None, 'prefile': [], 'postfile': [], 'dump_signatures': [], 'debug': 0, 'force': False, 'abort': True, 'server_timeout': None, 'extra_assume_provided': [], 'profile': False, 'debug_domains': [], 'dry_run': False}, {'LOGNAME': 'builduser', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'HOSTNAME': 'e20c2f99f5a8', 'LC_ALL': 'en_US.UTF-8', 'MACHINE': 'apq8009-robot', 'LC_CTYPE': 'en_US.UTF-8', 'HOME': '/var/build', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'DEBIAN_FRONTEND': 'noninteractive', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'OLDPWD': '/var/build/opensource/poky/build', 'INITRD': 'no', 'VARIANT': 'debug', 'TERM': 'xterm', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'SHLVL': '2', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY ANKI_AMAZON_ENDPOINTS_ENABLED BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY BETA DEV DISTRO DL_DIR FACTORY FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE PRODUCT QSN SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE VARIANT all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'PRODUCT': 'robot', 'SHELL': '/bin/bash', 'LANGUAGE': 'en_US:en', 'BUILDDIR': '/var/build/opensource/poky/build', 'PWD': '/var/build/opensource/poky/build', 'LANG': 'en_US.UTF-8', 'USER': 'builduser', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'BBPATH': '/var/build/opensource/poky/build', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'MAIL': '/var/mail/builduser'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['machine-robot-image'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2220973 at 2024-02-18 09:41:56.892053 ---
+Started bitbake server pid 2220973
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+NOTE: Your conf/bblayers.conf has been automatically updated.
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'abort': True, 'dump_signatures': [], 'postfile': [], 'extra_assume_provided': [], 'profile': False, 'dry_run': False, 'force': False, 'debug': 0, 'server_timeout': None, 'debug_domains': [], 'prefile': [], 'verbose': False, 'invalidate_stamp': None}, {'HOME': '/var/build', 'LANGUAGE': 'en_US:en', 'MAIL': '/var/mail/builduser', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY ANKI_AMAZON_ENDPOINTS_ENABLED BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY BETA DEV DISTRO DL_DIR FACTORY FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE PRODUCT QSN SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE VARIANT all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LC_ALL': 'en_US.UTF-8', 'DEBIAN_FRONTEND': 'noninteractive', 'INITRD': 'no', 'LOGNAME': 'builduser', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'OLDPWD': '/var/build/opensource/poky', 'BUILDDIR': '/var/build/opensource/poky/build', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'SHLVL': '2', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'HOSTNAME': 'e20c2f99f5a8', 'BBPATH': '/var/build/opensource/poky/build', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'USER': 'builduser', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LANG': 'en_US.UTF-8', 'SHELL': '/bin/bash', 'PWD': '/var/build/opensource/poky/build', 'LC_CTYPE': 'en_US.UTF-8', 'TERM': 'xterm'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'cleansstate', 'wiretestprog', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'cleansstate']
+Running command ['buildTargets', ['wiretestprog', 'machine-robot-image'], 'cleansstate']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 2221038 at 2024-02-18 09:42:30.195104 ---
+Started bitbake server pid 2221038
+WARNING: Layer audio should set LAYERSERIES_COMPAT_audio in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_display should set LAYERSERIES_COMPAT_qti_display in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qti_cam should set LAYERSERIES_COMPAT_qti_cam in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer wlan should set LAYERSERIES_COMPAT_wlan in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer msm-data should set LAYERSERIES_COMPAT_msm-data in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer bt should set LAYERSERIES_COMPAT_bt in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer auto should set LAYERSERIES_COMPAT_auto in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vicos should set LAYERSERIES_COMPAT_meta-vicos in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer user-management should set LAYERSERIES_COMPAT_user-management in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer qsap should set LAYERSERIES_COMPAT_qsap in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc
+WARNING: Duplicate inclusion for /var/build/opensource/poky/meta/conf/distro/include/security_flags.inc in /var/build/opensource/poky/meta-qti-bsp/conf/distro/include/security_flags.inc
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'debug_domains': [], 'abort': True, 'postfile': [], 'debug': 0, 'dump_signatures': [], 'profile': False, 'server_timeout': None, 'prefile': [], 'invalidate_stamp': None, 'extra_assume_provided': [], 'force': False, 'verbose': False, 'dry_run': False}, {'VARIANT': 'debug', 'PWD': '/var/build/opensource/poky/build', 'INITRD': 'no', 'DEBIAN_FRONTEND': 'noninteractive', 'MAIL': '/var/mail/builduser', 'OLDPWD': '/var/build/opensource/poky/build', 'HOME': '/var/build', 'SHLVL': '2', 'LANGUAGE': 'en_US:en', 'LANG': 'en_US.UTF-8', 'TERM': 'xterm', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'BBPATH': '/var/build/opensource/poky/build', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'USER': 'builduser', 'BUILDDIR': '/var/build/opensource/poky/build', 'LC_CTYPE': 'en_US.UTF-8', 'LC_ALL': 'en_US.UTF-8', 'LOGNAME': 'builduser', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'MACHINE': 'apq8009-robot', 'HOSTNAME': 'e20c2f99f5a8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'SHELL': '/bin/bash', 'PRODUCT': 'robot', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY ANKI_AMAZON_ENDPOINTS_ENABLED BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY BETA DEV DISTRO DL_DIR FACTORY FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE PRODUCT QSN SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE VARIANT all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LESSCLOSE': '/usr/bin/lesspipe %s %s'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['machine-robot-image'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
