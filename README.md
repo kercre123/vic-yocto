@@ -35,6 +35,7 @@ git clone https://github.com/kercre123/vic-yocto
 cd vic-yocto/poky
 ./docker.sh
 chmod 0777 .
+chown -R builduser ./*
 su builduser
 cd opensource/poky
 source build/conf/set_bb_env.sh
