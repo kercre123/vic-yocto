@@ -1,5 +1,5 @@
 # Pull in the default security flags
-require ${COREBASE}/meta/conf/distro/include/security_flags.inc
+#require ${COREBASE}/meta/conf/distro/include/security_flags.inc
 
 # Modify the primary security flag definitions of yocto
 # _FORTIFY_SOURCE requires -O1 or higher, otherwise results in a compiler warning.

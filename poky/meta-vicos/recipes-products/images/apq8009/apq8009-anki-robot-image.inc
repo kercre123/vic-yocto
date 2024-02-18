@@ -14,6 +14,8 @@ IMAGE_INSTALL += "alsa-utils"
 IMAGE_INSTALL += "dhcpcd"
 IMAGE_INSTALL += "openssl-bin"
 IMAGE_INSTALL += "wiretestprog"
+IMAGE_INSTALL += "emr-cat"
+IMAGE_INSTALL += "wpa-supplicant"
 
 IMAGE_INSTALL += "syslog-ng"
 IMAGE_INSTALL += "logrotate"

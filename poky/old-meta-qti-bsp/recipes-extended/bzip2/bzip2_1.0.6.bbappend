@@ -1,1 +1,0 @@
-ALTERNATIVE_${PN} := " "

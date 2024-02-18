@@ -15,6 +15,7 @@ dirs755_append = " ${MACHINE_MNT_POINTS}"
 # /systemrw partition is needed only when system is RO.
 # Otherwise files can be directly written to / itself.
 dirs755_append = " ${@bb.utils.contains('DISTRO_FEATURES','ro-rootfs','/systemrw','',d)}"
+dirs755_append_apq8009 += "/firmware /persist /factory"
 
 # Explicitly remove sepolicy entries from fstab when selinux is not present.
 fix_sepolicies () {

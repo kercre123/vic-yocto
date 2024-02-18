@@ -1,1 +1,0 @@
-inherit enable-selinux

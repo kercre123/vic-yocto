@@ -5,7 +5,7 @@ SOC_FAMILY ?= "msm8909"
 include conf/machine/include/soc-family.inc
 
 # Pull in security flags
-require ${COREBASE}/meta-qti-bsp/conf/distro/include/security_flags.inc
+#require ${COREBASE}/meta-qti-bsp/conf/distro/include/security_flags.inc
 
 DEFAULTTUNE ?= "armv7ahf-neon"
 

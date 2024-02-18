@@ -29,7 +29,7 @@
 [Unit]
 Description=WCNSS platform
 SourcePath=/etc/initscripts/set_wcnss_mode
-After=persist.mount firmware-mount.service firmware-links.service
+After=firmware-links.service
 
 [Service]
 Restart=no

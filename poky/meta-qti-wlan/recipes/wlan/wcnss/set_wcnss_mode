@@ -29,7 +29,7 @@
 #
 # wcnss        init.d script to set wcnss
 
-set -e
+#set -e
 
 echo -n "Setting WNCSS platform : "
 
