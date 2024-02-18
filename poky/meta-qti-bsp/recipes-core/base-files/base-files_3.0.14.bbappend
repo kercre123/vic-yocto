@@ -32,11 +32,11 @@ do_install_append(){
 
     ln -s /mnt/sdcard ${D}/sdcard
 
-    if [ ${BASEMACHINE} == "mdm9650" ]; then
-      ln -s /etc/resolvconf/run/resolv.conf ${D}/etc/resolv.conf
-    else
-      ln -s /var/run/resolv.conf ${D}/etc/resolv.conf
-    fi
+    #if [ ${BASEMACHINE} == "mdm9650" ]; then
+    #  ln -s /etc/resolvconf/run/resolv.conf ${D}/etc/resolv.conf
+    #else
+    #  ln -s /var/run/resolv.conf ${D}/etc/resolv.conf
+    #fi
 
 }
 
@@ -47,7 +47,8 @@ do_install_append() {
 #    else
         install -m 0644 ${WORKDIR}/fstab ${D}${sysconfdir}/fstab
 #    fi
-
+# kercre123 - install custom profile
+     install -m 0755 ${WORKDIR}/profile ${D}${sysconfdir}/profile
 }
 
 do_install_append_sdm845 () {
