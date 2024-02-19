@@ -6,7 +6,7 @@ EDITOR="vi"			# needed for packages like cron, git-commit
 [ "$TERM" ] || TERM="vt100"	# Basic terminal capab. For screen etc.
 
 # Add /sbin & co to $PATH for the root user
-[ "$HOME" != "ROOTHOME" ] || PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
+PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
 
 # Set the prompt for bash and ash (no other shells known to be in use here)
 [ -z "$PS1" ] || export PS1='\[\e[31m\][\u\[\e[33m\]@\h \[\e[32m\]\W\[\e[34m\]]\$\[\e[0m\] '
