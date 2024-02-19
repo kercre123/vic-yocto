@@ -73,7 +73,7 @@ mount $IMAGEPATH edits
 echo "Placing wpa_supplicant entry for WiFi connectivity"
 echo "" >> edits/data/misc/wifi/wpa_supplicant.conf
 echo "network={" >> edits/data/misc/wifi/wpa_supplicant.conf
-echo "  ssid_ssid=1" >> edits/data/misc/wifi/wpa_supplicant.conf
+echo "  scan_ssid=1" >> edits/data/misc/wifi/wpa_supplicant.conf
 echo "  ssid=\"$3\"" >> edits/data/misc/wifi/wpa_supplicant.conf
 echo "  psk=\"$4\"" >> edits/data/misc/wifi/wpa_supplicant.conf
 echo "}" >> edits/data/misc/wifi/wpa_supplicant.conf
@@ -82,8 +82,14 @@ cat edits/data/misc/wifi/wpa_supplicant.conf
 
 umount edits
 
+DDBOOTCOMMAND="dd if=/dev/block/bootdevice/by-name/boot_${ORIGSLOT} of=/dev/block/bootdevice/by-name/boot_${TARGETSLOT}"
+echo $DDBOOTCOMMAND
+
+echo "Stopping anki-robot.target (makes this faster)"
+ssh -i $2 root@$1 "systemctl stop anki-robot.target"
+
 echo "Flashing boot partition"
-ssh -i $2 root@$1 "dd if=/dev/block/bootdevice/by-name/boot_$ORIGSLOT of=/dev/block/bootdevice/by-name/boot_$TARGETSLOT status=progress"
+ssh -i $2 root@$1 ${DDBOOTCOMMAND}
 
 echo "Flashing image to slot $TARGETSLOT (will get done at around 450MB)"
 dd if=$IMAGEPATH status=progress | ssh -i $2 root@$1 "dd of=/dev/block/bootdevice/by-name/system_$TARGETSLOT"
@@ -92,7 +98,7 @@ dd if=$IMAGEPATH status=progress | ssh -i $2 root@$1 "dd of=/dev/block/bootdevic
 echo "Dealing with kernel modules"
 ssh -i $2 root@$1 "mount /dev/block/bootdevice/by-name/system_$TARGETSLOT /mnt"
 ssh -i $2 root@$1 "rm -rf /mnt/lib/modules"
-ssh -i $2 root@$1 "cp -r /lib/modules /mnt/lib/"
+ssh -i $2 root@$1 "cp -r /usr/lib/modules /mnt/lib/"
 ssh -i $2 root@$1 "sync && umount /mnt"
 ssh -i $2 root@$1 "bootctl $ORIGSLOT set_active $TARGETSLOT"
 echo "Rebooting Vector to new system image"

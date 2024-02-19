@@ -9,7 +9,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d
 SRC_URI = "file://vic-test \
 	   file://vic-test.service \
 	   file://rampost \
-	   file://libvector-gobot.so"
+	   file://libvector-gobot.so \
+	   file://bootctl"
 
 S = "${WORKDIR}"
 
@@ -25,6 +26,7 @@ do_install () {
 	install -d ${D}/bin/
 	install -d ${D}/lib/
 	install -p -m 755 vic-test ${D}/bin/vic-test
+	install -p -m 755 bootctl ${D}/bin/bootctl
 	install -p -m 755 libvector-gobot.so ${D}/lib/libvector-gobot.so
 	install -m 644 vic-test.service -D ${D}/etc/systemd/system/vic-test.service
 	install -p -m 755 rampost ${D}/bin/
@@ -39,6 +41,7 @@ FILES_${PN} = "/bin/vic-test \
 		/lib/vector-gobot.so \
 		/lib/ld-linux-so.3 \
 		/bin/rampost \
+		/bin/bootctl \
 		/etc/systemd/system \
 		/etc/systemd/system/vic-test.service \
 		/etc/systemd/system/multi-user.target.wants \
