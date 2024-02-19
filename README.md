@@ -22,9 +22,8 @@ Vector's original OS is built with an old version of Yocto/OpenEmbedded. This pr
 -	I have attempted the msm-4.9 kernel, but haven't been able to get it to boot at all. The code is still included at ./kernel/msm-4.9.
 -	All of the meta-qti-* stuff is open-source, but there is no publicly available documentation for which branches go with which yocto version.
 	-	The branches I have chosen are in ./BRANCHES.txt
--	Currently, the built image boots. You need to hook up UART to get to a shell.
--	WLAN is functional, so you could get SSH working.
--	USB probably works too, though I haven't tested it.
+-	WLAN is implemented and will connect on bootup. /data/misc/wifi/wpa_supplicant.conf must be modified to include your WiFi credentials (install.sh does automatically).
+-	A test program will launch at startup. The head will move down then up, the backpack LEDs will light, and the screen will show the output of `uname -a`.
 
 ## Build
 
@@ -43,6 +42,19 @@ build-victor-robot-image
 ```
 
 Result will be in poky/build/tmp-glibc/deploy/images/
+
+## Install
+
+An install script is included. This patches the image to include the kernel modules corresponding to the boot partition of the current slot in your bot, and adds WiFi credentials for automatic connection.
+
+```
+# if you are in the docker container, run `exit` twice to get back to the host shell
+cd ../install-image
+# replace vectorip with vector's ip address, /path/to/sshkey with the path to his ssh key, ssid with your network name, password with your network password
+sudo ./install.sh vectorip /path/to/sshkey "ssid" "password"
+```
+
+He should eventually boot up to a screen showing "booted!" and SSH should be available (with [this key](http://wire.my.to:81/ssh_root_key)).
 
 ## Resources
 
