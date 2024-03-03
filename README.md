@@ -23,7 +23,7 @@ Vector's original OS is built with an old version of Yocto/OpenEmbedded. This pr
 -	All of the meta-qti-* stuff is open-source, but there is no publicly available documentation for which branches go with which yocto version.
 	-	The branches I have chosen are in ./BRANCHES.txt
 -	WLAN is implemented and will connect on bootup. /data/misc/wifi/wpa_supplicant.conf must be modified to include your WiFi credentials (install.sh does automatically).
--	A test program will launch at startup. The head will move down then up, the backpack LEDs will light, and the screen will show the output of `uname -a`.
+-	A test program will launch at startup. Use one of the wheels and the button to navigate it.
 
 ## Build
 
