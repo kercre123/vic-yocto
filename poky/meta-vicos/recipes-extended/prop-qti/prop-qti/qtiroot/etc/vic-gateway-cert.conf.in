@@ -1,0 +1,16 @@
+[ req ]
+default_bits        = 2048
+default_keyfile     = trust.key
+distinguished_name  = subject
+req_extensions      = extensions
+x509_extensions     = extensions
+string_mask         = utf8only
+
+[ subject ]
+
+[ extensions ]
+basicConstraints        = CA:TRUE
+subjectAltName          = @alternate_names
+
+[ alternate_names ]
+

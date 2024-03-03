@@ -1,0 +1,59 @@
+*filter
+
+# default deny incoming traffic
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT DROP [0:0]
+
+#drop invalid packets on the ground
+-A INPUT -m conntrack --ctstate INVALID -j DROP
+
+# Allow inbound responses to outgoing traffic
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+# Accept traffic on localhost
+-A INPUT -i lo -j ACCEPT
+-A OUTPUT -o lo -j ACCEPT
+
+# Accept all OUTPUT
+-A OUTPUT -p ALL -o wlan0 -j ACCEPT
+-A OUTPUT -p ALL -o tether -j ACCEPT
+
+# Accept DHCP traffic (Access Point mode)
+-A INPUT -p udp -m udp --dport 67 -i tether -j ACCEPT
+
+# Accept 443 traffic (vic-gateway)
+-A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+
+# mDNS
+-A INPUT -p udp --dport 5353 -j ACCEPT
+
+# Allow ping
+-A INPUT -p icmp -m icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT
+
+# dev-only
+
+# ssh
+-A INPUT -p tcp -m tcp -m tcp --dport 22 -j ACCEPT
+
+# adb-over-tcp
+-A INPUT -p tcp -m tcp -m tcp --dport 5555 -j ACCEPT
+
+# rsync (dev-deployment)
+-A INPUT -p tcp -m tcp -m tcp --dport 1873 -j ACCEPT
+
+# webots
+-A INPUT -p tcp -m tcp --dport 5103 -j ACCEPT
+-A INPUT -p udp -m udp --dport 5103 -j ACCEPT
+
+-A INPUT -p tcp -m tcp --dport 8080 -j ACCEPT
+-A INPUT -p udp -m udp --dport 8080 -j ACCEPT
+
+# dev-webservices
+-A INPUT -p tcp -m tcp -m multiport --dports 8887,8888,8889,8890 -j ACCEPT
+
+# wwise profiler
+-A INPUT -p tcp -m tcp -m multiport --dports 24024,24025,24026 -j ACCEPT
+-A INPUT -p udp --dport 24024 -j ACCEPT
+
+COMMIT

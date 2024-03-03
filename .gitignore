@@ -3,3 +3,6 @@
 /poky/build/downloads
 /poky/build/sstate-cache
 /poky/build/conf/bblayers.conf
+/poky/bitbake/lib/toaster/contrib/tts/backlog.txt
+/poky/bitbake/lib/toaster/contrib/tts/log/*
+/poky/bitbake/lib/toaster/contrib/tts/.cache/*

@@ -1,0 +1,1 @@
+KERNEL=="gpio0|gpio94", PROGRAM="/bin/chown engine %S%p/value %S%p/direction"

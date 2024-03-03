@@ -1,0 +1,3 @@
+engine ALL = (root, root) NOPASSWD: /usr/bin/timedatectl set-timezone *
+engine ALL = (root, root) NOPASSWD: /sbin/export-gpio 94
+engine ALL = (root, root) NOPASSWD: /sbin/export-gpio 0

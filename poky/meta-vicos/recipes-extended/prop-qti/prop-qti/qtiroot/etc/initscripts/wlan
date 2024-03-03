@@ -1,0 +1,122 @@
+#!/bin/sh
+#
+# Copyright (c) 2013, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of The Linux Foundation nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+export MODULE_BASE=/lib/modules/`uname -r`
+export RETRY_LIMIT=3
+HELP="Usage $0 {start | stop | restart} <sta>"
+DUMP_TO_KMSG=/dev/kmsg
+serialno=`cat /sys/devices/virtual/android_usb/android0/iSerial`
+
+do_ctrl_cld_ll () {
+    case "$1" in
+    start)
+        echo "Starting Pronto WLAN... $@" > $DUMP_TO_KMSG
+        shift
+        start_sta=0
+        if [ "$1" == "sta" ]; then
+            start_sta=1
+        fi
+	if [ -f /persist/wlan_mac ]; then
+	    macaddress=`cat /persist/wlan_mac`
+	    if [ -f /sys/devices/soc.0/a000000.qcom,wcnss-wlan/wcnss_mac_addr ]; then
+		echo  $macaddress > /sys/devices/soc.0/a000000.qcom,wcnss-wlan/wcnss_mac_addr
+	    elif [ -f /sys/bus/platform/drivers/wcnss_wlan/a000000.qcom,wcnss-wlan/wcnss_mac_addr ]; then
+		echo  $macaddress > /sys/bus/platform/drivers/wcnss_wlan/a000000.qcom,wcnss-wlan/wcnss_mac_addr
+            fi
+        fi
+        if [ -f /sys/bus/platform/drivers/wcnss_wlan/a000000.qcom,wcnss-wlan/serial_number ]; then
+            echo $serialno > /sys/bus/platform/drivers/wcnss_wlan/a000000.qcom,wcnss-wlan/serial_number
+        fi
+
+        echo "Starting PTT Socket App... $@" > $DUMP_TO_KMSG
+        /usr/bin/ptt_socket_app -d &
+
+        set -e
+        insmod $MODULE_BASE/extra/wlan.ko $@
+        set +e
+
+        if [ $start_sta -ne 1 ]; then
+		echo "Starting wpa supplicant and dhcp client $@" > $DUMP_TO_KMSG
+		wpa_supplicant -Dnl80211 -iwlan0 -c /data/misc/wifi/wpa_supplicant.conf &
+		/usr/sbin/dhcpcd wlan0 -t 0 -o domain_name_servers --noipv4ll -h -b
+	fi
+
+        c=1
+        ifconfig wlan0 up 2>  /dev/null
+        rc=$?
+        while [ $rc -ne 0 -a $c -le $RETRY_LIMIT ]; do
+            sleep 1
+            ifconfig wlan0 up 2> /dev/null
+            rc=$?
+            c=`expr $c + 1`
+        done
+
+        if [ $c -gt $RETRY_LIMIT ]; then
+            echo "WLAN bring-up failed!" > $DUMP_TO_KMSG
+            exit 1
+        fi
+
+        ;;
+
+    start_ftm)
+        echo "Starting Pronto WLAN in FTM Mode ..." > $DUMP_TO_KMSG
+        insmod $MODULE_BASE/extra/wlan.ko con_mode=5
+        ;;
+
+    stop)
+        echo "Stopping WLAN..." > $DUMP_TO_KMSG
+        rmmod wlan
+        ;;
+
+    restart)
+        do_ctrl_cld_ll stop
+        shift
+        do_ctrl_cld_ll start $@
+
+        return $?
+        ;;
+
+    *)
+        return 1
+        ;;
+    esac
+
+    return 0
+}
+echo "Starting cnss_diag by default" > $DUMP_TO_KMSG
+
+/usr/bin/cnss_diag -q -f &
+
+do_ctrl_cld_ll $@
+if [ $? -ne 0 ]; then
+    echo $HELP >&2
+    exit 1
+fi
+
+exit 0

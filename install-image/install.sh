@@ -62,10 +62,16 @@ VCMDLINE=$(ssh -i $2 root@$1 "cat /proc/cmdline")
 if [[ $VCMDLINE == *'slot_suffix=_b'* ]]; then
     export ORIGSLOT=b
     export TARGETSLOT=a
-else
+elif [[ $VCMDLINE == *'slot_suffix=_a'* ]]; then
     export ORIGSLOT=a
     export TARGETSLOT=b
+elif [[ $VCMDLINE == *'slot_suffix=_f'* ]]; then
+    export ORIGSLOT=a
+    export RECOVERY=true
+    export TARGETSLOT=b
 fi
+
+if [[ $SKIPWPA != "1" ]]; then
 
 mkdir -p edits
 mount $IMAGEPATH edits
@@ -81,6 +87,8 @@ echo "}" >> edits/data/misc/wifi/wpa_supplicant.conf
 cat edits/data/misc/wifi/wpa_supplicant.conf
 
 umount edits
+
+fi
 
 DDBOOTCOMMAND="dd if=/dev/block/bootdevice/by-name/boot_${ORIGSLOT} of=/dev/block/bootdevice/by-name/boot_${TARGETSLOT}"
 echo $DDBOOTCOMMAND
@@ -98,9 +106,17 @@ dd if=$IMAGEPATH status=progress | ssh -i $2 root@$1 "dd of=/dev/block/bootdevic
 echo "Dealing with kernel modules"
 ssh -i $2 root@$1 "mount /dev/block/bootdevice/by-name/system_$TARGETSLOT /mnt"
 ssh -i $2 root@$1 "rm -rf /mnt/lib/modules"
-ssh -i $2 root@$1 "cp -r /usr/lib/modules /mnt/lib/"
+if [[ $RECOVERY == "true" ]]; then
+	ssh -i $2 root@$1 "mount -o rw,remount / && mkdir -p /mnt2 && mount /dev/block/bootdevice/by-name/system_a /mnt2 && cp -r /mnt2/usr/lib/modules /mnt/lib/ && sync && umount /mnt2"
+else
+	ssh -i $2 root@$1 "cp -r /usr/lib/modules /mnt/lib/"
+fi
 ssh -i $2 root@$1 "sync && umount /mnt"
+if [[ ${RECOVERY} == "true" ]]; then
+	ORIGSLOT=f
+fi
 ssh -i $2 root@$1 "bootctl $ORIGSLOT set_active $TARGETSLOT"
+
 echo "Rebooting Vector to new system image"
 ssh -i $2 root@$1 "reboot &"
 

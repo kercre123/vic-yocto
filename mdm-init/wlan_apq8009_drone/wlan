@@ -49,9 +49,9 @@ do_ctrl_cld_ll () {
             return 1
         fi
 
-        set -e
+#        set -e
         insmod $MODULE_BASE/extra/wlan.ko con_mode=1
-        set +e
+#        set +e
 
         c=1
         ifconfig wlan0 up 2>  /dev/null
@@ -75,7 +75,7 @@ do_ctrl_cld_ll () {
             return $?
         fi
 
-        mode="softap"
+        mode="client"
         if [ -f "$WLAN_CONF_FILE" ]; then
             read mode < $WLAN_CONF_FILE
         fi

@@ -1,5 +1,5 @@
 #! /bin/sh
-# Copyright (c) 2009-2018, 2016 The Linux Foundation. All rights reserved.
+# Copyright (c) 2009-2011, 2016 The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -286,98 +286,6 @@ case "$target" in
     ;;
 esac
 
-case "$target" in
-    "QCS405" | "qcs405")
-        if [ -f /sys/devices/soc0/soc_id ]; then
-            soc_id=`cat /sys/devices/soc0/soc_id`
-        else
-            soc_id=`cat /sys/devices/system/soc/soc0/id`
-        fi
-
-        if [ -f /sys/devices/soc0/hw_platform ]; then
-            hw_platform=`cat /sys/devices/soc0/hw_platform`
-        else
-            hw_platform=`cat /sys/devices/system/soc/soc0/hw_platform`
-        fi
-
-        case "$soc_id" in
-           "352" )
-
-                #disable sched_boost in qcs405
-                if [ -f /proc/sys/kernel/sched_boost ]; then
-                    boost=`cat /proc/sys/kernel/sched_boost`
-                    if [ $boost != 0 ] ; then
-                        echo 0 > /proc/sys/kernel/sched_boost
-                    fi
-                fi
-
-                # core_ctl is not needed for qcs405. Disable it.
-                if [ -f /sys/devices/system/cpu/cpu0/core_ctl/disable ]; then
-                    echo 1 > /sys/devices/system/cpu/cpu0/core_ctl/disable
-                fi
-
-                for latfloor in /sys/devices/platform/soc/*cpu-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
-                do
-                    echo "compute" > $latfloor/governor
-                    echo 10 > $latfloor/polling_interval
-                done
-
-                for devfreq_gov in /sys/class/devfreq/soc:qcom,cpubw/governor
-                do
-                    node=`cat $devfreq_gov`
-                    if [ $node != "bw_hwmon" ] ; then
-                        echo "bw_hwmon" > $devfreq_gov
-                    fi
-                    for cpu_io_percent in /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/io_percent
-                    do
-                        echo 20 > $cpu_io_percent
-                    done
-
-                for cpu_guard_band in /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/guard_band_mbps
-                    do
-                        echo 30 > $cpu_guard_band
-                    done
-                done
-
-                # disable thermal core_control to update interactive gov settings
-                if [ -f /sys/module/msm_thermal/core_control/enabled ]; then
-                     echo 0 > /sys/module/msm_thermal/core_control/enabled
-                fi
-
-                echo 1 > /sys/devices/system/cpu/cpu0/online
-                echo "schedutil" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-                echo 0 > /sys/devices/system/cpu/cpufreq/schedutil/rate_limit_us
-                #set the hispeed freq
-                echo 1113600 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/hispeed_freq
-                echo 85 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/hispeed_load
-                echo 1113600 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-
-                # sched_load_boost as -6 is equivalent to target load as 85.
-                echo -6 > /sys/devices/system/cpu/cpu0/sched_load_boost
-                echo -6 > /sys/devices/system/cpu/cpu1/sched_load_boost
-                echo -6 > /sys/devices/system/cpu/cpu2/sched_load_boost
-                echo -6 > /sys/devices/system/cpu/cpu3/sched_load_boost
-
-                # re-enable thermal core_control now
-                if [ -f /sys/module/msm_thermal/core_control/enabled ]; then
-                     echo 1 > /sys/module/msm_thermal/core_control/enabled
-                fi
-
-                # Bring up all cores online
-                echo 1 > /sys/devices/system/cpu/cpu1/online
-                echo 1 > /sys/devices/system/cpu/cpu2/online
-                echo 1 > /sys/devices/system/cpu/cpu3/online
-
-                # Enable low power modes
-                echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
-                echo mem > /sys/power/autosleep
-
-                ;;
-                *)
-                ;;
-        esac
-    ;;
-esac
 
 case "$target" in
     "msm8953" | "apq8053" )
@@ -551,7 +459,7 @@ case "$target" in
      echo mem > /sys/power/autosleep
      ;;
 
-    "msm8996" | "apq8096" | "msm8996pro" | "apq8096pro")
+    "msm8996" | "apq8096" | "msm8996pro" )
         # disable thermal bcl hotplug to switch governor
         echo 0 > /sys/module/msm_thermal/core_control/enabled
         if [ -f /sys/devices/soc/soc:qcom,bcl/mode ] && [ -f /sys/devices/soc/soc:qcom,bcl/hotplug_mask ]; then
@@ -591,7 +499,7 @@ case "$target" in
         echo 20000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/timer_rate
         echo 1248000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/hispeed_freq
         echo 1 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/io_is_busy
-        echo "95" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads
+        echo "85 1500000:90 1800000:70 2100000:95" > /sys/devices/system/cpu/cpu2/cpufreq/interactive/target_loads
         echo 39000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/min_sample_time
         echo 79000 > /sys/devices/system/cpu/cpu2/cpufreq/interactive/max_freq_hysteresis
         echo 300000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
@@ -682,47 +590,29 @@ esac
 case "$target" in
     "apq8009" | "msm8909" )
         ProductName=`grep ro.product.name /build.prop | sed "s/ro.product.name=//"`
-	#if the kernel version >=4.9,use the schedutil governor
-	KernelVersionStr=`cat /proc/sys/kernel/osrelease`
-	KernelVersionS=${KernelVersionStr:2:2}
-	KernelVersionA=${KernelVersionStr:0:1}
-	KernelVersionB=${KernelVersionS%.*}
         case $ProductName in
             *robot*)
+                # HMP scheduler settings for 8909 similiar to 8916
+                echo 2 > /proc/sys/kernel/sched_window_stats_policy
+                echo 3 > /proc/sys/kernel/sched_ravg_hist_size
 
-		echo 1 > /sys/devices/system/cpu/cpu0/online
-		# Apply governor settings for 8909
+                # Apply governor settings for 8909
 
-		if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -ge 9 ]; then
-			echo "schedutil" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-			echo 400000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-			echo 0 > /sys/devices/system/cpu/cpufreq/schedutil/rate_limit_us
-			echo 800000 > /sys/devices/system/cpu/cpufreq/schedutil/hispeed_freq
-			echo -6 > /sys/devices/system/cpu/cpu0/sched_load_boost
-			echo -6 > /sys/devices/system/cpu/cpu1/sched_load_boost
-			echo -6 > /sys/devices/system/cpu/cpu2/sched_load_boost
-			echo -6 > /sys/devices/system/cpu/cpu3/sched_load_boost
-			echo 85 > /sys/devices/system/cpu/cpufreq/schedutil/hispeed_load
-		else
-			# HMP scheduler settings for 8909 similiar to 8916
-			echo 2 > /proc/sys/kernel/sched_window_stats_policy
-			echo 3 > /proc/sys/kernel/sched_ravg_hist_size
+                # disable thermal core_control to update scaling_min_freq
+                echo 0 > /sys/module/msm_thermal/core_control/enabled
+                echo 1 > /sys/devices/system/cpu/cpu0/online
+                echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+                echo 400000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+                # enable thermal core_control now
+                echo 1 > /sys/module/msm_thermal/core_control/enabled
 
-			# disable thermal core_control to update scaling_min_freq
-			echo 0 > /sys/module/msm_thermal/core_control/enabled
-			echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-			echo 400000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-			# enable thermal core_control now
-			echo 1 > /sys/module/msm_thermal/core_control/enabled
-
-			echo "25000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-			echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-			echo 30000 > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-			echo 800000 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-			echo 0 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-			echo "1 400000:85 998400:90 1094400:80" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
-			echo 50000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-		fi
+                echo "25000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+                echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+                echo 30000 > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+                echo 800000 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+                echo 0 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+                echo "1 400000:85 998400:90 1094400:80" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
+                echo 50000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
 
                 # Bring up all cores online
                 echo 1 > /sys/devices/system/cpu/cpu1/online
@@ -736,55 +626,29 @@ case "$target" in
                 done
                 ;;
             *)
-		echo 1 > /sys/devices/system/cpu/cpu0/online
-		# Apply governor settings for 8909
-
-		if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -ge 9 ]; then
-			echo "schedutil" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-			echo 800000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-			echo 0 > /sys/devices/system/cpu/cpufreq/schedutil/rate_limit_us
-			echo 1094400 > /sys/devices/system/cpu/cpufreq/schedutil/hispeed_freq
-			echo -6 > /sys/devices/system/cpu/cpu0/sched_load_boost
-			echo -6 > /sys/devices/system/cpu/cpu1/sched_load_boost
-			echo -6 > /sys/devices/system/cpu/cpu2/sched_load_boost
-			echo -6 > /sys/devices/system/cpu/cpu3/sched_load_boost
-			echo 70 > /sys/devices/system/cpu/cpufreq/schedutil/hispeed_load
-		else
-			echo 2 > /proc/sys/kernel/sched_window_stats_policy
-			echo 3 > /proc/sys/kernel/sched_ravg_hist_size
-
-			# disable thermal core_control to update scaling_min_freq
-			echo 0 > /sys/module/msm_thermal/core_control/enabled
-
-			echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-			echo 800000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-			echo "25000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-			echo 70 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-			echo 20000 > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
-			echo 1094400 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-			echo 0 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-			echo "1 400000:85 998400:90 1094400:80" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
-			echo 50000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-
-			# enable thermal core_control now
-			echo 1 > /sys/module/msm_thermal/core_control/enabled
-		fi
-
-                # Bring up all cores online
-                echo 1 > /sys/devices/system/cpu/cpu1/online
-                echo 1 > /sys/devices/system/cpu/cpu2/online
-                echo 1 > /sys/devices/system/cpu/cpu3/online
+                echo 1 > /sys/devices/system/cpu/cpu0/online
+                echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
                 # Enable all LPMs by default
                 echo N > /sys/module/lpm_levels/parameters/sleep_disabled
-
-                for cpubw in /sys/class/devfreq/*qcom,cpubw*
-                do
-                    echo "bw_hwmon" > $cpubw/governor
-                done
-            ;;
+                ;;
         esac
 ;;
 esac
+
+# disable msm thermal driver
+echo 0 > /sys/module/msm_thermal/core_control/enabled
+echo N > /sys/module/msm_thermal/parameters/enabled
+sleep 0.1
+
+echo 1267200 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+echo disabled > /sys/kernel/debug/msm_otg/bus_voting  # This prevents USB from pinning RAM to 400MHz
+echo 0 > /sys/kernel/debug/msm-bus-dbg/shell-client/update_request
+echo 1 > /sys/kernel/debug/msm-bus-dbg/shell-client/mas
+echo 512 > /sys/kernel/debug/msm-bus-dbg/shell-client/slv
+echo 0 > /sys/kernel/debug/msm-bus-dbg/shell-client/ab
+echo active clk2 0 1 max 800000 > /sys/kernel/debug/rpm_send_msg/message # Max RAM freq in KHz = 400MHz
+echo 1 > /sys/kernel/debug/msm-bus-dbg/shell-client/update_request
+
 
 echo "init_qcom_post_boot completed"
 ;;
@@ -800,4 +664,10 @@ restart)
     echo "Incorrect option specified"
     exit 1
 ;;
+esac
+
+export MODULE_BASE=/lib/modules/`uname -r`
+case "$1" in
+start)
+    insmod $MODULE_BASE/extra/wlan.ko
 esac

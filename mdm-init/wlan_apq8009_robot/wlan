@@ -31,7 +31,9 @@ export MODULE_BASE=/lib/modules/`uname -r`
 export RETRY_LIMIT=3
 HELP="Usage $0 {start | stop | restart} <ap | sta,ap>"
 DUMP_TO_KMSG=/dev/kmsg
+WLAN_CONF_FILE=/data/misc/wifi/wlan_mode
 
+#by default, softAP mode will be choosed
 do_ctrl_cld_ll () {
     case "$1" in
     start)
@@ -47,9 +49,9 @@ do_ctrl_cld_ll () {
             return 1
         fi
 
-        set -e
-        insmod $MODULE_BASE/extra/wlan.ko $@
-        set +e
+#        set -e
+        insmod $MODULE_BASE/extra/wlan.ko con_mode=1
+#        set +e
 
         c=1
         ifconfig wlan0 up 2>  /dev/null
@@ -70,7 +72,31 @@ do_ctrl_cld_ll () {
             echo "Adding second AP interface(wlan1)" > $DUMP_TO_KMSG
             iw dev wlan0 interface add wlan1 type __ap
             ifconfig wlan1 up 2> /dev/null
+            return $?
         fi
+
+        mode="client"
+        if [ -f "$WLAN_CONF_FILE" ]; then
+            read mode < $WLAN_CONF_FILE
+        fi
+
+        echo "Wlan bootup mode is $mode" > $DUMP_TO_KMSG
+
+        if [ "$mode" == "softap" ] || [ "$mode" == "ap" ] || [ "$mode" == "sap" ]; then
+            #start_ap
+            echo "Starting hostapd and DHCP server" > $DUMP_TO_KMSG
+            hostapd /data/misc/wifi/hostapd.conf &
+            ifconfig wlan0 192.168.1.1 netmask 255.255.255.0 up
+            killall -9 dnsmasq
+            dnsmasq -i wlan0 --dhcp-range=192.168.1.10,192.168.1.100,12h --dhcp-leasefile=/data/dnsmasq_d.leases
+
+            return $?
+        fi
+
+        #start_sta
+        echo "Starting STA and DHCP client" > $DUMP_TO_KMSG
+        wpa_supplicant -Dnl80211 -iwlan0 -c /data/misc/wifi/wpa_supplicant.conf&
+        /usr/sbin/dhcpcd wlan0 -t 0 -o domain_name_servers --noipv4ll -h -b
         ;;
 
     start_ftm)
@@ -79,6 +105,13 @@ do_ctrl_cld_ll () {
 
     stop)
         echo "Stopping WLAN..." > $DUMP_TO_KMSG
+        ps -e | grep 'dnsmasq -i wlan0 --dhcp-range=192.168.1.10,192.168.1.100,12h --dhcp-leasefile=/data/dnsmasq_d.leases'|grep -v grep
+        if [ $? -eq 0 ]; then
+            killall -9 dnsmasq
+        fi
+        killall -9 hostapd
+        killall -9 wpa_supplicant
+        killall -9 dhcpcd
         rmmod wlan
         ;;
 

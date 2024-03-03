@@ -1,7 +1,8 @@
 DESCRIPTION = "Anki Robot Electronic Medical Record Reading Utility"
-LICENSE = "Anki-Inc.-Proprietary"
-LIC_FILES_CHKSUM = "file://${COREBASE}/meta-qti-bsp/files/anki-licenses/\
-Anki-Inc.-Proprietary;md5=4b03b8ffef1b70b13d869dbce43e8f09"
+LICENSE = "MIT"
+#LICENSE = "Anki-Inc.-Proprietary"
+#LIC_FILES_CHKSUM = "file://${COREBASE}/meta-qti-bsp/files/anki-licenses/\
+#Anki-Inc.-Proprietary;md5=4b03b8ffef1b70b13d869dbce43e8f09"
 
 
 SRC_URI = "file://emr-cat.c"

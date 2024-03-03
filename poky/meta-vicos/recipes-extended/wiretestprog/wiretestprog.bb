@@ -8,8 +8,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d
 
 SRC_URI = "file://vic-test \
 	   file://vic-test.service \
-	   file://rampost \
 	   file://libvector-gobot.so \
+	   file://testSound.wav \
 	   file://bootctl"
 
 S = "${WORKDIR}"
@@ -25,13 +25,14 @@ do_install () {
         install -d ${D}/etc/systemd/system/multi-user.target.wants/
 	install -d ${D}/bin/
 	install -d ${D}/lib/
+	install -p -m 755 testSound.wav ${D}/etc/testSound.wav
 	install -p -m 755 vic-test ${D}/bin/vic-test
 	install -p -m 755 bootctl ${D}/bin/bootctl
 	install -p -m 755 libvector-gobot.so ${D}/lib/libvector-gobot.so
 	install -m 644 vic-test.service -D ${D}/etc/systemd/system/vic-test.service
-	install -p -m 755 rampost ${D}/bin/
+	#install -p -m 755 rampost ${D}/bin/
         ln -sf /etc/systemd/system/vic-test.service ${D}/etc/systemd/system/multi-user.target.wants/vic-test.service
-	#rampost requires this
+	#some things need this
 	ln -sf /lib/ld-2.28.so ${D}/lib/ld-linux.so.3
 }
 
@@ -40,7 +41,7 @@ FILES_${PN} = "/bin/vic-test \
 		/lib \
 		/lib/vector-gobot.so \
 		/lib/ld-linux-so.3 \
-		/bin/rampost \
+		/etc/testSound.wav \
 		/bin/bootctl \
 		/etc/systemd/system \
 		/etc/systemd/system/vic-test.service \

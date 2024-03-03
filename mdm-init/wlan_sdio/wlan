@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2013-2015, The Linux Foundation. All rights reserved.
+# Copyright (c) 2013, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
@@ -47,9 +47,9 @@ do_ctrl_cld_ll () {
             return 1
         fi
 
-        set -e
+        #set -e
         insmod $MODULE_BASE/extra/wlan.ko $@
-        set +e
+        #set +e
 
         c=1
         ifconfig wlan0 up 2>  /dev/null
