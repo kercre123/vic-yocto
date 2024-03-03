@@ -27,6 +27,8 @@ Vector's original OS is built with an old version of Yocto/OpenEmbedded. This pr
 
 ## Build
 
+### From scratch
+
 Make sure you have Docker installed.
 
 ```
@@ -37,6 +39,24 @@ chmod 0777 .
 chown -R builduser ./*
 su builduser
 cd opensource/poky
+source build/conf/set_bb_env.sh
+build-victor-robot-image
+```
+
+### Update then build
+
+If you have built this before and want to build new code:
+
+```
+cd vic-yocto/poky
+./docker.sh
+chmod 0777 .
+chown -R builduser ./*
+su builduser
+cd opensource
+git pull
+cd poky
+rm -rf build/tmp-glibc
 source build/conf/set_bb_env.sh
 build-victor-robot-image
 ```
