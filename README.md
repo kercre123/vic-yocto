@@ -57,6 +57,8 @@ cd opensource
 git pull
 cd poky
 rm -rf build/tmp-glibc
+rm -rf build/cache
+rm -rf build/sstate-cache
 source build/conf/set_bb_env.sh
 build-victor-robot-image
 ```
