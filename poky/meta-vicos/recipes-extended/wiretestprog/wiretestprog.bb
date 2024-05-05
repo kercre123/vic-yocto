@@ -3,8 +3,10 @@ DESCRIPTION = "Ensures functionality of robot"
 SECTION = "examples"
 PR = "r1"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
-                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/${LICENSE};md5=0835ade698e0bcf8506ecda2f7b4f302"
+#LICENSE = "MIT"
+#LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
+#                    file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 
 SRC_URI = "file://vic-test \
 	   file://vic-test.service \
@@ -33,7 +35,7 @@ do_install () {
 	#install -p -m 755 rampost ${D}/bin/
         ln -sf /etc/systemd/system/vic-test.service ${D}/etc/systemd/system/multi-user.target.wants/vic-test.service
 	#some things need this
-	ln -sf /lib/ld-2.28.so ${D}/lib/ld-linux.so.3
+	#ln -sf /lib/ld-2.28.so ${D}/lib/ld-linux.so.3
 }
 
 FILES_${PN} = "/bin/vic-test \

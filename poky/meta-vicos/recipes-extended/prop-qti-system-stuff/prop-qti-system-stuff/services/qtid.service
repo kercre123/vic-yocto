@@ -1,0 +1,10 @@
+[Unit]
+SourcePath=/usr/bin/qti
+Description= qti service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/qtirun /usr/bin/qti
+
+[Install]
+WantedBy=multi-user.target

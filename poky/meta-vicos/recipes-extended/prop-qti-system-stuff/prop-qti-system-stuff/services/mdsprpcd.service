@@ -1,0 +1,18 @@
+# Copyright (c) 2017 Qualcomm Technologies, Inc.
+# All Rights Reserved.
+# Confidential and Proprietary - Qualcomm Technologies, Inc.
+#
+
+[Unit]
+Description=mdsprpc Service
+SourcePath= /usr/bin/mdsprpcd
+#After=rmt_storage.service
+
+[Service]
+Restart=yes
+# temporary until i can figure out why DSP doesn't load firmware for a minute
+ExecStartPre=/bin/sleep 60
+ExecStart=/usr/bin/qtirun /usr/bin/mdsprpcd
+
+[Install]
+WantedBy=multi-user.target

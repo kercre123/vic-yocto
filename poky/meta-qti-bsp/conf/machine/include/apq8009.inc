@@ -7,7 +7,8 @@ include conf/machine/include/soc-family.inc
 # Pull in security flags
 #require ${COREBASE}/meta-qti-bsp/conf/distro/include/security_flags.inc
 
-DEFAULTTUNE ?= "armv7ahf-neon"
+# Wire: armv7ahf-neon = hardfloat
+DEFAULTTUNE ?= "armv7a-neon"
 
 include conf/machine/include/tune-cortexa7.inc
 

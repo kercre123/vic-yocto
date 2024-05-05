@@ -1,0 +1,14 @@
+qtid (/usr/bin/qti) - multi-user.target
+qti_system_daemon (/usr/bin/qti_system_daemon) - multi-user.target
+rmt_storage (/sbin/rmt_storage) - multi-user.target
+mdsprpcd (/usr/bin/mdsprpcd) - multi-user.target
+anki-audio-init (/etc/initscripts/anki-audio-init) - multi-user.target (originally anki-robot.target)
+mm-anki-camera (/usr/bin/mm-anki-camera) - m
+mm-qcamera-daemon (/system/bin/mm-qcamera-daemon) - m
+
+let's also include some niceties
+
+logd (/etc/initscripts/logd) - multi-user.target
+boot-successful (/etc/initscripts/boot-successful) - multi-user.target
+
+we are not going to install USB.

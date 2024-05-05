@@ -1,0 +1,9 @@
+#!/bin/bash
+
+        CAM_REG_GPIO=83
+        if [ ! -d /sys/class/gpio/gpio$CAM_REG_GPIO ]; then
+                echo $CAM_REG_GPIO > /sys/class/gpio/export
+        fi
+        echo out > /sys/class/gpio/gpio$CAM_REG_GPIO/direction
+        echo 1 > /sys/class/gpio/gpio$CAM_REG_GPIO/value
+
