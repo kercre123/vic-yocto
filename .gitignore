@@ -6,3 +6,7 @@
 /poky/bitbake/lib/toaster/contrib/tts/backlog.txt
 /poky/bitbake/lib/toaster/contrib/tts/log/*
 /poky/bitbake/lib/toaster/contrib/tts/.cache/*
+__pycache__/
+/poky/bitbake/lib/*/__pycache__/
+*.pyc
+
