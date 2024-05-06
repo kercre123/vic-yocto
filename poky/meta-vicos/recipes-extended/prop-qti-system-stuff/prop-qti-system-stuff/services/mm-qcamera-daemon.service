@@ -1,0 +1,17 @@
+[Unit]
+Description= MM Camera Daemon Service
+SourcePath=/system/bin/mm-qcamera-daemon
+#Wants=ankiinit.service
+#After=ankiinit.service
+
+[Service]
+Restart=always
+ExecStartPre=/bin/mkdir -p /data/misc/camera
+ExecStartPre=/etc/initscripts/init_cam
+ExecStartPre=/sbin/export-gpio 94
+ExecStartPre=/sbin/export-gpio 0
+ExecStartPre=/bin/sleep 0.1
+ExecStart=/usr/bin/qtirun /system/bin/mm-qcamera-daemon
+
+[Install]
+WantedBy=multi-user.target

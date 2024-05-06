@@ -1,0 +1,17 @@
+[Unit]
+Description=Anki Camera Service
+SourcePath=/usr/bin/mm-anki-camera
+Wants=mm-qcamera-daemon.service
+
+[Service]
+Restart=always
+#ExecStartPre=/etc/initscripts/init_cam
+#ExecStartPre=/sbin/export-gpio 94
+#ExecStartPre=/sbin/export-gpio 0
+#ExecStartPre=/bin/sleep 0.1
+ExecStart=/usr/bin/qtirun /usr/bin/mm-anki-camera -r 1 $MM_ANKI_CAMERA_OPTS
+#Group=camera
+UMask=0007
+
+[Install]
+WantedBy=multi-user.target

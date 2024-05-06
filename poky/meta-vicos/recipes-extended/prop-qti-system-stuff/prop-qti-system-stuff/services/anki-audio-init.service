@@ -1,0 +1,17 @@
+[Unit]
+SourcePath=/etc/initscripts/anki-audio-init
+Description=Anki ALSA init
+Wants=init_post_boot.service init_audio.service
+After=init_post_boot.service init_audio.service
+
+[Service]
+Type=oneshot
+IgnoreSIGPIPE=no
+KillMode=process
+RemainAfterExit=yes
+ExecStartPre=/bin/sleep 60
+ExecStart=/etc/initscripts/anki-audio-init
+#Group=anki
+
+[Install]
+WantedBy=multi-user.target

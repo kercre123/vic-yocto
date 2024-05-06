@@ -1,0 +1,14 @@
+[Unit]
+Description= Remote Storage Service
+SourcePath=/sbin/rmt_storage
+#Wants=systemd-udevd.service
+#After=systemd-udevd.service
+#Requires=init_audio.service
+#Before=init_sys_mss.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/qtirun /sbin/rmt_storage
+
+[Install]
+WantedBy=multi-user.target
