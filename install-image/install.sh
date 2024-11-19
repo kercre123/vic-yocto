@@ -25,10 +25,10 @@ if [[ "$3" == "" ]]; then
     exit 1
 fi
 
-if [[ "$4" == "" ]]; then
-    echo "You must provide a WiFi password."
-    exit 1
-fi
+#if [[ "$4" == "" ]]; then
+#    echo "You must provide a WiFi password."
+#    exit 1
+#fi
 
 sudo chmod 600 $2
 
@@ -40,7 +40,7 @@ if [[ $(cat /tmp/conntest) == *"no mutual"* ]]; then
     ssh -i $2 root@$1 "uname -a" > /tmp/conntest 2>> /tmp/conntest
 fi
 
-if [[ $(cat /tmp/conntest) == *"Vector"* ]]; then
+if [[ $(cat /tmp/conntest) == *"Vector"* || $(cat /tmp/conntest) == *"Cozmo"* ]]; then
     echo "Vector robot target verified"
 else
     echo "Target IP does not point to a Vector or your SSH key is invalid."

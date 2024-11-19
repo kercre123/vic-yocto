@@ -16,6 +16,6 @@ LIC_FILES_CHKSUM = "file://LICENSE.GPL2;md5=751419260aa954499f7abaabaa882bbe \
 
 SRCREV = "de7436b02badc82200dc127ff190b8155769b8e7"
 
-SRC_URI = "git://github.com/systemd/systemd.git;protocol=git"
+SRC_URI = "git://github.com/systemd/systemd.git;protocol=git;branch=main"
 
 S = "${WORKDIR}/git"

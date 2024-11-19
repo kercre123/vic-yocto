@@ -17484,3 +17484,838 @@ Processing Client
 Disconnecting Client
 No timeout, exiting.
 Exiting
+--- Starting bitbake server pid 642 at 2024-11-19 18:54:26.775649 ---
+Started bitbake server pid 642
+NOTE: Your conf/bblayers.conf has been automatically updated.
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'force': False, 'abort': True, 'debug': 0, 'server_timeout': None, 'invalidate_stamp': None, 'verbose': False, 'dump_signatures': [], 'profile': False, 'prefile': [], 'extra_assume_provided': [], 'postfile': [], 'debug_domains': [], 'dry_run': False}, {'HOME': '/var/build', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'OLDPWD': '/var/build/opensource/poky/build', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'HOSTNAME': '43e9675996dd', 'DEBIAN_FRONTEND': 'noninteractive', 'BBPATH': '/var/build/opensource/poky/build', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'TERM': 'xterm', 'PRODUCT': 'robot', 'LC_CTYPE': 'en_US.UTF-8', 'LANG': 'en_US.UTF-8', 'LC_ALL': 'en_US.UTF-8', 'INITRD': 'no', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'BUILDDIR': '/var/build/opensource/poky/build', 'MACHINE': 'apq8009-robot', 'PWD': '/var/build/opensource/poky/build', 'MAIL': '/var/mail/builduser', 'LOGNAME': 'builduser', 'VARIANT': 'debug', 'LANGUAGE': 'en_US:en', 'SHELL': '/bin/bash', 'SHLVL': '2', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'USER': 'builduser', '_': '/var/build/opensource/poky/bitbake/bin/bitbake'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['machine-robot-image'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 639 at 2024-11-19 19:14:08.360802 ---
+Started bitbake server pid 639
+NOTE: Your conf/bblayers.conf has been automatically updated.
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'invalidate_stamp': None, 'debug_domains': [], 'server_timeout': None, 'postfile': [], 'abort': True, 'verbose': False, 'prefile': [], 'debug': 0, 'dry_run': False, 'force': False, 'dump_signatures': [], 'extra_assume_provided': [], 'profile': False}, {'TERM': 'xterm', 'PRODUCT': 'robot', 'INITRD': 'no', 'SHELL': '/bin/bash', 'LANG': 'en_US.UTF-8', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'MAIL': '/var/mail/builduser', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'LOGNAME': 'builduser', 'PWD': '/var/build/opensource/poky/build', 'DEBIAN_FRONTEND': 'noninteractive', 'BBPATH': '/var/build/opensource/poky/build', 'HOSTNAME': '9f22cd5477f4', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'VARIANT': 'debug', 'MACHINE': 'apq8009-robot', 'OLDPWD': '/var/build/opensource/poky/build', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_US:en', 'LC_CTYPE': 'en_US.UTF-8', 'BUILDDIR': '/var/build/opensource/poky/build', 'LC_ALL': 'en_US.UTF-8', 'USER': 'builduser', 'HOME': '/var/build', 'SHLVL': '2'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['machine-robot-image'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 715815 at 2024-11-19 19:30:11.113711 ---
+Started bitbake server pid 715815
+DEBUG: BBCooker starting 1732044611.1147635
+DEBUG: BBCooker pyinotify1 1732044611.1180043
+DEBUG: BBCooker pyinotify2 1732044611.1198456
+DEBUG: BBCooker pyinotify3 1732044611.1224844
+DEBUG: BBCooker pyinotify complete 1732044611.1226575
+DEBUG: Found bblayers.conf (/var/build/opensource/poky/build/conf/bblayers.conf)
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-audio
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-core
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-display
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bt
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-drones
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-wlan
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-camera
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-ss-mgr
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-auto
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-data
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bsp
+DEBUG: Adding layer /var/build/opensource/poky/meta-python
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos-mods
+DEBUG: Adding layer /var/build/opensource/poky/meta-python2
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos
+DEBUG: Adding layer /var/build/opensource/poky/meta-oe
+DEBUG: Adding layer /var/build/opensource/poky/meta
+DEBUG: Adding layer /var/build/opensource/poky/meta-poky
+DEBUG: Adding layer /var/build/opensource/poky/meta-selinux
+DEBUG: Adding layer /var/build/opensource/poky/meta-user-managemement
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-qsap
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:748: including conf/abi_version.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:749: including conf/site.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:750: including conf/auto.conf
+DEBUG: CONF file 'conf/auto.conf' not found
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:751: including conf/local.conf
+DEBUG: CONF /var/build/opensource/poky/build/conf/local.conf:248: including conf/distro/include/security_flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:752: including conf/multiconfig/default.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:753: including conf/machine/apq8009-robot.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/apq8009-robot.conf:5: including conf/machine/include/apq8009.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:2: including conf/machine/include/basemachine.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:5: including conf/machine/include/soc-family.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:12: including conf/machine/include/tune-cortexa7.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/tune-cortexa7.inc:3: including conf/machine/include/arm/arch-armv7ve.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7ve.inc:8: including conf/machine/include/arm/arch-armv7a.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:9: including conf/machine/include/arm/arch-armv6.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv6.inc:8: including conf/machine/include/arm/arch-armv5-dsp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5-dsp.inc:4: including conf/machine/include/arm/arch-armv5.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:8: including conf/machine/include/arm/arch-armv4.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:15: including conf/machine/include/arm/arch-arm.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:16: including conf/machine/include/arm/feature-arm-thumb.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:9: including conf/machine/include/arm/feature-arm-vfp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:10: including conf/machine/include/arm/feature-arm-neon.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:754: including conf/machine-sdk/x86_64.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:755: including conf/distro/msm.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/distro/msm.conf:6: including conf/distro/include/base.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:756: including conf/distro/defaultsetup.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:1: including conf/distro/include/default-providers.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:2: including conf/distro/include/default-versions.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:3: including conf/distro/include/default-distrovars.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:4: including conf/distro/include/world-broken.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:7: including conf/distro/include/tcmode-default.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:10: including conf/distro/include/tclibc-glibc.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:12: including conf/distro/include/uninative-flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:757: including conf/documentation.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:758: including conf/licenses.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:759: including conf/sanity.conf
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/base.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/patch.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:4)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/terminal.bbclass (from /var/build/opensource/poky/meta/classes/patch.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/staging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/mirrors.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:7)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utils.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:8)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utility-tasks.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:9)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/metadata_scm.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:10)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/logging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/recipe_sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package_ipk.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package.bbclass (from /var/build/opensource/poky/meta/classes/package_ipk.bbclass:1)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/packagedata.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:41)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/chrpath.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:42)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/insane.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:45)
+DEBUG: Inheriting /var/build/opensource/poky/meta-qti-bsp/classes/buildname.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-mklibs.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/linuxloader.bbclass (from /var/build/opensource/poky/meta/classes/image-mklibs.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-prelink.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/debian.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/devshell.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sstate.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/license.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/remove-libtool.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/blacklist.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Clearing SRCREV cache due to cache policy of: clear
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/local_file_checksum_cache.dat'
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/bb_codeparser.dat'
+DEBUG: BBCooker parsed base configuration 1732044611.2346547
+DEBUG: BBCooker startup complete 1732044611.2347524
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'postfile': [], 'prefile': [], 'invalidate_stamp': None, 'server_timeout': None, 'dry_run': False, 'verbose': False, 'extra_assume_provided': [], 'abort': True, 'dump_signatures': [], 'force': False, 'debug_domains': [], 'profile': False, 'debug': 0}, {'MACHINE': 'apq8009-robot', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'MAIL': '/var/mail/builduser', 'SHLVL': '2', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PRODUCT': 'robot', 'PWD': '/var/build/opensource/poky', 'LANGUAGE': 'en_US:en', 'SHELL': '/bin/bash', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LANG': 'en_US.UTF-8', 'VARIANT': 'debug', 'BBPATH': '/var/build/opensource/poky/build', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'HOME': '/var/build', 'LC_ALL': 'en_US.UTF-8', 'LC_CTYPE': 'en_US.UTF-8', 'HOSTNAME': '9f22cd5477f4', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'OLDPWD': '/var/build', 'DEBIAN_FRONTEND': 'noninteractive', 'TERM': 'xterm', 'LOGNAME': 'builduser', 'USER': 'builduser', 'BUILDDIR': '/var/build/opensource/poky/build', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'INITRD': 'no'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'clean', 'prop-qti', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'clean']
+Running command ['buildTargets', ['prop-qti', 'wiretestprog'], 'clean']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 715880 at 2024-11-19 19:30:28.268152 ---
+Started bitbake server pid 715880
+DEBUG: BBCooker starting 1732044628.269387
+DEBUG: BBCooker pyinotify1 1732044628.2731307
+DEBUG: BBCooker pyinotify2 1732044628.2748866
+DEBUG: BBCooker pyinotify3 1732044628.2775192
+DEBUG: BBCooker pyinotify complete 1732044628.277735
+DEBUG: Found bblayers.conf (/var/build/opensource/poky/build/conf/bblayers.conf)
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-audio
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-core
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-display
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bt
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-drones
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-wlan
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-camera
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-ss-mgr
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-auto
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-data
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bsp
+DEBUG: Adding layer /var/build/opensource/poky/meta-python
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos-mods
+DEBUG: Adding layer /var/build/opensource/poky/meta-python2
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos
+DEBUG: Adding layer /var/build/opensource/poky/meta-oe
+DEBUG: Adding layer /var/build/opensource/poky/meta
+DEBUG: Adding layer /var/build/opensource/poky/meta-poky
+DEBUG: Adding layer /var/build/opensource/poky/meta-selinux
+DEBUG: Adding layer /var/build/opensource/poky/meta-user-managemement
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-qsap
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:748: including conf/abi_version.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:749: including conf/site.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:750: including conf/auto.conf
+DEBUG: CONF file 'conf/auto.conf' not found
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:751: including conf/local.conf
+DEBUG: CONF /var/build/opensource/poky/build/conf/local.conf:248: including conf/distro/include/security_flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:752: including conf/multiconfig/default.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:753: including conf/machine/apq8009-robot.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/apq8009-robot.conf:5: including conf/machine/include/apq8009.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:2: including conf/machine/include/basemachine.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:5: including conf/machine/include/soc-family.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:12: including conf/machine/include/tune-cortexa7.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/tune-cortexa7.inc:3: including conf/machine/include/arm/arch-armv7ve.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7ve.inc:8: including conf/machine/include/arm/arch-armv7a.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:9: including conf/machine/include/arm/arch-armv6.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv6.inc:8: including conf/machine/include/arm/arch-armv5-dsp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5-dsp.inc:4: including conf/machine/include/arm/arch-armv5.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:8: including conf/machine/include/arm/arch-armv4.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:15: including conf/machine/include/arm/arch-arm.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:16: including conf/machine/include/arm/feature-arm-thumb.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:9: including conf/machine/include/arm/feature-arm-vfp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:10: including conf/machine/include/arm/feature-arm-neon.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:754: including conf/machine-sdk/x86_64.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:755: including conf/distro/msm.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/distro/msm.conf:6: including conf/distro/include/base.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:756: including conf/distro/defaultsetup.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:1: including conf/distro/include/default-providers.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:2: including conf/distro/include/default-versions.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:3: including conf/distro/include/default-distrovars.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:4: including conf/distro/include/world-broken.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:7: including conf/distro/include/tcmode-default.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:10: including conf/distro/include/tclibc-glibc.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:12: including conf/distro/include/uninative-flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:757: including conf/documentation.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:758: including conf/licenses.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:759: including conf/sanity.conf
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/base.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/patch.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:4)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/terminal.bbclass (from /var/build/opensource/poky/meta/classes/patch.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/staging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/mirrors.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:7)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utils.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:8)
+Entering server connection loop
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utility-tasks.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:9)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/metadata_scm.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:10)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/logging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/recipe_sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package_ipk.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package.bbclass (from /var/build/opensource/poky/meta/classes/package_ipk.bbclass:1)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/packagedata.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:41)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/chrpath.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:42)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/insane.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:45)
+DEBUG: Inheriting /var/build/opensource/poky/meta-qti-bsp/classes/buildname.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-mklibs.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/linuxloader.bbclass (from /var/build/opensource/poky/meta/classes/image-mklibs.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-prelink.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/debian.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/devshell.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sstate.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/license.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/remove-libtool.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/blacklist.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Clearing SRCREV cache due to cache policy of: clear
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/local_file_checksum_cache.dat'
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/bb_codeparser.dat'
+DEBUG: BBCooker parsed base configuration 1732044628.390752
+DEBUG: BBCooker startup complete 1732044628.390851
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'invalidate_stamp': None, 'dump_signatures': [], 'abort': True, 'debug': 0, 'postfile': [], 'prefile': [], 'debug_domains': [], 'verbose': False, 'server_timeout': None, 'dry_run': False, 'extra_assume_provided': [], 'profile': False, 'force': False}, {'LESSOPEN': '| /usr/bin/lesspipe %s', 'LC_ALL': 'en_US.UTF-8', 'TERM': 'xterm', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'MAIL': '/var/mail/builduser', 'SHLVL': '2', 'MACHINE': 'apq8009-robot', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'HOME': '/var/build', 'BUILDDIR': '/var/build/opensource/poky/build', 'BBPATH': '/var/build/opensource/poky/build', 'PRODUCT': 'robot', 'OLDPWD': '/var/build', 'LANGUAGE': 'en_US:en', 'LOGNAME': 'builduser', 'DEBIAN_FRONTEND': 'noninteractive', 'LANG': 'en_US.UTF-8', 'SHELL': '/bin/bash', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'USER': 'builduser', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'VARIANT': 'debug', 'INITRD': 'no', 'PWD': '/var/build/opensource/poky', 'HOSTNAME': '9f22cd5477f4', 'LC_CTYPE': 'en_US.UTF-8'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'cleansstate', 'prop-qti', 'wiretestprog']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'cleansstate']
+Running command ['buildTargets', ['prop-qti', 'wiretestprog'], 'cleansstate']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 715945 at 2024-11-19 19:30:45.674984 ---
+Started bitbake server pid 715945
+DEBUG: BBCooker starting 1732044645.6764243
+DEBUG: BBCooker pyinotify1 1732044645.680468
+DEBUG: BBCooker pyinotify2 1732044645.6820753
+DEBUG: BBCooker pyinotify3 1732044645.6863382
+DEBUG: BBCooker pyinotify complete 1732044645.686552
+DEBUG: Found bblayers.conf (/var/build/opensource/poky/build/conf/bblayers.conf)
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-audio
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-core
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-display
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bt
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-drones
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-wlan
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-camera
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-ss-mgr
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-auto
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-data
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bsp
+DEBUG: Adding layer /var/build/opensource/poky/meta-python
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos-mods
+DEBUG: Adding layer /var/build/opensource/poky/meta-python2
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos
+DEBUG: Adding layer /var/build/opensource/poky/meta-oe
+DEBUG: Adding layer /var/build/opensource/poky/meta
+DEBUG: Adding layer /var/build/opensource/poky/meta-poky
+DEBUG: Adding layer /var/build/opensource/poky/meta-selinux
+DEBUG: Adding layer /var/build/opensource/poky/meta-user-managemement
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-qsap
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:748: including conf/abi_version.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:749: including conf/site.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:750: including conf/auto.conf
+DEBUG: CONF file 'conf/auto.conf' not found
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:751: including conf/local.conf
+DEBUG: CONF /var/build/opensource/poky/build/conf/local.conf:248: including conf/distro/include/security_flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:752: including conf/multiconfig/default.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:753: including conf/machine/apq8009-robot.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/apq8009-robot.conf:5: including conf/machine/include/apq8009.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:2: including conf/machine/include/basemachine.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:5: including conf/machine/include/soc-family.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:12: including conf/machine/include/tune-cortexa7.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/tune-cortexa7.inc:3: including conf/machine/include/arm/arch-armv7ve.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7ve.inc:8: including conf/machine/include/arm/arch-armv7a.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:9: including conf/machine/include/arm/arch-armv6.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv6.inc:8: including conf/machine/include/arm/arch-armv5-dsp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5-dsp.inc:4: including conf/machine/include/arm/arch-armv5.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:8: including conf/machine/include/arm/arch-armv4.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:15: including conf/machine/include/arm/arch-arm.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:16: including conf/machine/include/arm/feature-arm-thumb.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:9: including conf/machine/include/arm/feature-arm-vfp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:10: including conf/machine/include/arm/feature-arm-neon.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:754: including conf/machine-sdk/x86_64.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:755: including conf/distro/msm.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/distro/msm.conf:6: including conf/distro/include/base.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:756: including conf/distro/defaultsetup.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:1: including conf/distro/include/default-providers.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:2: including conf/distro/include/default-versions.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:3: including conf/distro/include/default-distrovars.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:4: including conf/distro/include/world-broken.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:7: including conf/distro/include/tcmode-default.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:10: including conf/distro/include/tclibc-glibc.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:12: including conf/distro/include/uninative-flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:757: including conf/documentation.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:758: including conf/licenses.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:759: including conf/sanity.conf
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/base.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/patch.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:4)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/terminal.bbclass (from /var/build/opensource/poky/meta/classes/patch.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/staging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/mirrors.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:7)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utils.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:8)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utility-tasks.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:9)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/metadata_scm.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:10)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/logging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/recipe_sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package_ipk.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package.bbclass (from /var/build/opensource/poky/meta/classes/package_ipk.bbclass:1)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/packagedata.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:41)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/chrpath.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:42)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/insane.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:45)
+DEBUG: Inheriting /var/build/opensource/poky/meta-qti-bsp/classes/buildname.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-mklibs.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/linuxloader.bbclass (from /var/build/opensource/poky/meta/classes/image-mklibs.bbclass:5)
+Entering server connection loop
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-prelink.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/debian.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/devshell.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sstate.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/license.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/remove-libtool.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/blacklist.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Clearing SRCREV cache due to cache policy of: clear
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/local_file_checksum_cache.dat'
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/bb_codeparser.dat'
+DEBUG: BBCooker parsed base configuration 1732044645.8032713
+DEBUG: BBCooker startup complete 1732044645.803374
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'dry_run': False, 'server_timeout': None, 'postfile': [], 'force': False, 'profile': False, 'verbose': False, 'extra_assume_provided': [], 'abort': True, 'invalidate_stamp': None, 'debug': 0, 'debug_domains': [], 'dump_signatures': [], 'prefile': []}, {'SHELL': '/bin/bash', 'BBPATH': '/var/build/opensource/poky/build', 'SHLVL': '2', 'INITRD': 'no', 'TERM': 'xterm', 'HOME': '/var/build', 'DEBIAN_FRONTEND': 'noninteractive', 'PRODUCT': 'robot', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'BUILDDIR': '/var/build/opensource/poky/build', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'MAIL': '/var/mail/builduser', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'USER': 'builduser', 'VARIANT': 'debug', 'LANGUAGE': 'en_US:en', 'LOGNAME': 'builduser', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LC_CTYPE': 'en_US.UTF-8', 'LANG': 'en_US.UTF-8', 'MACHINE': 'apq8009-robot', 'OLDPWD': '/var/build/opensource/poky', 'HOSTNAME': '9f22cd5477f4', 'LC_ALL': 'en_US.UTF-8', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'PWD': '/var/build/opensource/poky/build', 'TEMPLATECONF': 'meta-qti-bsp/conf'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['machine-robot-image'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 826928 at 2024-11-19 19:42:32.379283 ---
+Started bitbake server pid 826928
+DEBUG: BBCooker starting 1732045352.3804333
+DEBUG: BBCooker pyinotify1 1732045352.3842223
+DEBUG: BBCooker pyinotify2 1732045352.385616
+DEBUG: BBCooker pyinotify3 1732045352.3892102
+DEBUG: BBCooker pyinotify complete 1732045352.3894382
+DEBUG: Found bblayers.conf (/var/build/opensource/poky/build/conf/bblayers.conf)
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-audio
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-core
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-display
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bt
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-drones
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-wlan
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-camera
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-ss-mgr
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-auto
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-data
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bsp
+DEBUG: Adding layer /var/build/opensource/poky/meta-python
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos-mods
+DEBUG: Adding layer /var/build/opensource/poky/meta-python2
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos
+DEBUG: Adding layer /var/build/opensource/poky/meta-oe
+DEBUG: Adding layer /var/build/opensource/poky/meta
+DEBUG: Adding layer /var/build/opensource/poky/meta-poky
+DEBUG: Adding layer /var/build/opensource/poky/meta-selinux
+DEBUG: Adding layer /var/build/opensource/poky/meta-user-managemement
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-qsap
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:748: including conf/abi_version.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:749: including conf/site.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:750: including conf/auto.conf
+DEBUG: CONF file 'conf/auto.conf' not found
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:751: including conf/local.conf
+DEBUG: CONF /var/build/opensource/poky/build/conf/local.conf:248: including conf/distro/include/security_flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:752: including conf/multiconfig/default.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:753: including conf/machine/apq8009-robot.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/apq8009-robot.conf:5: including conf/machine/include/apq8009.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:2: including conf/machine/include/basemachine.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:5: including conf/machine/include/soc-family.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:12: including conf/machine/include/tune-cortexa7.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/tune-cortexa7.inc:3: including conf/machine/include/arm/arch-armv7ve.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7ve.inc:8: including conf/machine/include/arm/arch-armv7a.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:9: including conf/machine/include/arm/arch-armv6.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv6.inc:8: including conf/machine/include/arm/arch-armv5-dsp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5-dsp.inc:4: including conf/machine/include/arm/arch-armv5.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:8: including conf/machine/include/arm/arch-armv4.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:15: including conf/machine/include/arm/arch-arm.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:16: including conf/machine/include/arm/feature-arm-thumb.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:9: including conf/machine/include/arm/feature-arm-vfp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:10: including conf/machine/include/arm/feature-arm-neon.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:754: including conf/machine-sdk/x86_64.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:755: including conf/distro/msm.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/distro/msm.conf:6: including conf/distro/include/base.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:756: including conf/distro/defaultsetup.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:1: including conf/distro/include/default-providers.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:2: including conf/distro/include/default-versions.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:3: including conf/distro/include/default-distrovars.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:4: including conf/distro/include/world-broken.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:7: including conf/distro/include/tcmode-default.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:10: including conf/distro/include/tclibc-glibc.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:12: including conf/distro/include/uninative-flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:757: including conf/documentation.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:758: including conf/licenses.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:759: including conf/sanity.conf
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/base.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/patch.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:4)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/terminal.bbclass (from /var/build/opensource/poky/meta/classes/patch.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/staging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/mirrors.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:7)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utils.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:8)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utility-tasks.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:9)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/metadata_scm.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:10)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/logging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/recipe_sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package_ipk.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package.bbclass (from /var/build/opensource/poky/meta/classes/package_ipk.bbclass:1)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/packagedata.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:41)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/chrpath.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:42)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/insane.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:45)
+DEBUG: Inheriting /var/build/opensource/poky/meta-qti-bsp/classes/buildname.bbclass (from configuration INHERITs:0)
+Entering server connection loop
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-mklibs.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/linuxloader.bbclass (from /var/build/opensource/poky/meta/classes/image-mklibs.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-prelink.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/debian.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/devshell.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sstate.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/license.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/remove-libtool.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/blacklist.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Clearing SRCREV cache due to cache policy of: clear
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/local_file_checksum_cache.dat'
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/bb_codeparser.dat'
+DEBUG: BBCooker parsed base configuration 1732045352.5121658
+DEBUG: BBCooker startup complete 1732045352.5122705
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'invalidate_stamp': None, 'profile': False, 'debug_domains': [], 'extra_assume_provided': [], 'server_timeout': None, 'dry_run': False, 'debug': 0, 'dump_signatures': [], 'prefile': [], 'force': False, 'abort': True, 'verbose': False, 'postfile': []}, {'VARIANT': 'debug', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'INITRD': 'no', 'PRODUCT': 'robot', 'OLDPWD': '/var/build/opensource/poky', 'MAIL': '/var/mail/builduser', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'SHELL': '/bin/bash', 'BBPATH': '/var/build/opensource/poky/build', 'LC_ALL': 'en_US.UTF-8', 'TERM': 'xterm', 'BUILDDIR': '/var/build/opensource/poky/build', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'MACHINE': 'apq8009-robot', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LOGNAME': 'builduser', 'DEBIAN_FRONTEND': 'noninteractive', 'LANGUAGE': 'en_US:en', 'LC_CTYPE': 'en_US.UTF-8', 'SHLVL': '2', 'PWD': '/var/build/opensource/poky/build', 'LANG': 'en_US.UTF-8', 'HOSTNAME': '9f22cd5477f4', 'HOME': '/var/build', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'USER': 'builduser'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'cleansstate', 'world']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'cleansstate']
+Running command ['buildTargets', ['world'], 'cleansstate']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 826975 at 2024-11-19 19:43:20.908087 ---
+Started bitbake server pid 826975
+DEBUG: BBCooker starting 1732045400.9090967
+DEBUG: BBCooker pyinotify1 1732045400.9135053
+DEBUG: BBCooker pyinotify2 1732045400.9151564
+DEBUG: BBCooker pyinotify3 1732045400.9178298
+DEBUG: BBCooker pyinotify complete 1732045400.9180574
+DEBUG: Found bblayers.conf (/var/build/opensource/poky/build/conf/bblayers.conf)
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-audio
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-core
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-display
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bt
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-drones
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-wlan
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-camera
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-ss-mgr
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-auto
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-data
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bsp
+DEBUG: Adding layer /var/build/opensource/poky/meta-python
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos-mods
+DEBUG: Adding layer /var/build/opensource/poky/meta-python2
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos
+DEBUG: Adding layer /var/build/opensource/poky/meta-oe
+DEBUG: Adding layer /var/build/opensource/poky/meta
+DEBUG: Adding layer /var/build/opensource/poky/meta-poky
+DEBUG: Adding layer /var/build/opensource/poky/meta-selinux
+DEBUG: Adding layer /var/build/opensource/poky/meta-user-managemement
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-qsap
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:748: including conf/abi_version.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:749: including conf/site.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:750: including conf/auto.conf
+DEBUG: CONF file 'conf/auto.conf' not found
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:751: including conf/local.conf
+DEBUG: CONF /var/build/opensource/poky/build/conf/local.conf:248: including conf/distro/include/security_flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:752: including conf/multiconfig/default.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:753: including conf/machine/apq8009-robot.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/apq8009-robot.conf:5: including conf/machine/include/apq8009.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:2: including conf/machine/include/basemachine.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:5: including conf/machine/include/soc-family.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:12: including conf/machine/include/tune-cortexa7.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/tune-cortexa7.inc:3: including conf/machine/include/arm/arch-armv7ve.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7ve.inc:8: including conf/machine/include/arm/arch-armv7a.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:9: including conf/machine/include/arm/arch-armv6.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv6.inc:8: including conf/machine/include/arm/arch-armv5-dsp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5-dsp.inc:4: including conf/machine/include/arm/arch-armv5.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:8: including conf/machine/include/arm/arch-armv4.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:15: including conf/machine/include/arm/arch-arm.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:16: including conf/machine/include/arm/feature-arm-thumb.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:9: including conf/machine/include/arm/feature-arm-vfp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:10: including conf/machine/include/arm/feature-arm-neon.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:754: including conf/machine-sdk/x86_64.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:755: including conf/distro/msm.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/distro/msm.conf:6: including conf/distro/include/base.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:756: including conf/distro/defaultsetup.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:1: including conf/distro/include/default-providers.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:2: including conf/distro/include/default-versions.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:3: including conf/distro/include/default-distrovars.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:4: including conf/distro/include/world-broken.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:7: including conf/distro/include/tcmode-default.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:10: including conf/distro/include/tclibc-glibc.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:12: including conf/distro/include/uninative-flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:757: including conf/documentation.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:758: including conf/licenses.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:759: including conf/sanity.conf
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/base.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/patch.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:4)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/terminal.bbclass (from /var/build/opensource/poky/meta/classes/patch.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/staging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/mirrors.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:7)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utils.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:8)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utility-tasks.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:9)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/metadata_scm.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:10)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/logging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/recipe_sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package_ipk.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package.bbclass (from /var/build/opensource/poky/meta/classes/package_ipk.bbclass:1)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/packagedata.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:41)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/chrpath.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:42)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/insane.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:45)
+DEBUG: Inheriting /var/build/opensource/poky/meta-qti-bsp/classes/buildname.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-mklibs.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/linuxloader.bbclass (from /var/build/opensource/poky/meta/classes/image-mklibs.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-prelink.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/debian.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/devshell.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sstate.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/license.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/remove-libtool.bbclass (from configuration INHERITs:0)
+Entering server connection loop
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/blacklist.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Clearing SRCREV cache due to cache policy of: clear
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/local_file_checksum_cache.dat'
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/bb_codeparser.dat'
+DEBUG: BBCooker parsed base configuration 1732045401.0341158
+DEBUG: BBCooker startup complete 1732045401.0342171
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'dump_signatures': [], 'force': False, 'server_timeout': None, 'extra_assume_provided': [], 'invalidate_stamp': None, 'debug_domains': [], 'prefile': [], 'postfile': [], 'abort': True, 'dry_run': False, 'profile': False, 'verbose': False, 'debug': 0}, {'TEMPLATECONF': 'meta-qti-bsp/conf', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'SHELL': '/bin/bash', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'INITRD': 'no', 'TERM': 'xterm', 'SHLVL': '2', 'DEBIAN_FRONTEND': 'noninteractive', 'LC_CTYPE': 'en_US.UTF-8', 'USER': 'builduser', 'HOSTNAME': '9f22cd5477f4', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'VARIANT': 'debug', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'BUILDDIR': '/var/build/opensource/poky/build', 'OLDPWD': '/var/build/opensource/poky', 'HOME': '/var/build', 'PRODUCT': 'robot', 'LANG': 'en_US.UTF-8', 'LC_ALL': 'en_US.UTF-8', 'BBPATH': '/var/build/opensource/poky/build', 'MAIL': '/var/mail/builduser', 'MACHINE': 'apq8009-robot', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LANGUAGE': 'en_US:en', 'LOGNAME': 'builduser', 'PWD': '/var/build/opensource/poky/build', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'cleansstate', 'apq8009-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'cleansstate']
+Running command ['buildTargets', ['apq8009-robot-image'], 'cleansstate']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 826992 at 2024-11-19 19:43:33.349249 ---
+Started bitbake server pid 826992
+DEBUG: BBCooker starting 1732045413.350217
+DEBUG: BBCooker pyinotify1 1732045413.3540008
+DEBUG: BBCooker pyinotify2 1732045413.3558083
+DEBUG: BBCooker pyinotify3 1732045413.3584561
+DEBUG: BBCooker pyinotify complete 1732045413.358678
+DEBUG: Found bblayers.conf (/var/build/opensource/poky/build/conf/bblayers.conf)
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-audio
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-core
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-display
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bt
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-drones
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-wlan
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-camera
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-ss-mgr
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-auto
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-data
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bsp
+DEBUG: Adding layer /var/build/opensource/poky/meta-python
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos-mods
+DEBUG: Adding layer /var/build/opensource/poky/meta-python2
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos
+DEBUG: Adding layer /var/build/opensource/poky/meta-oe
+DEBUG: Adding layer /var/build/opensource/poky/meta
+DEBUG: Adding layer /var/build/opensource/poky/meta-poky
+DEBUG: Adding layer /var/build/opensource/poky/meta-selinux
+DEBUG: Adding layer /var/build/opensource/poky/meta-user-managemement
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-qsap
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:748: including conf/abi_version.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:749: including conf/site.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:750: including conf/auto.conf
+DEBUG: CONF file 'conf/auto.conf' not found
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:751: including conf/local.conf
+DEBUG: CONF /var/build/opensource/poky/build/conf/local.conf:248: including conf/distro/include/security_flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:752: including conf/multiconfig/default.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:753: including conf/machine/apq8009-robot.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/apq8009-robot.conf:5: including conf/machine/include/apq8009.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:2: including conf/machine/include/basemachine.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:5: including conf/machine/include/soc-family.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:12: including conf/machine/include/tune-cortexa7.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/tune-cortexa7.inc:3: including conf/machine/include/arm/arch-armv7ve.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7ve.inc:8: including conf/machine/include/arm/arch-armv7a.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:9: including conf/machine/include/arm/arch-armv6.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv6.inc:8: including conf/machine/include/arm/arch-armv5-dsp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5-dsp.inc:4: including conf/machine/include/arm/arch-armv5.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:8: including conf/machine/include/arm/arch-armv4.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:15: including conf/machine/include/arm/arch-arm.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:16: including conf/machine/include/arm/feature-arm-thumb.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:9: including conf/machine/include/arm/feature-arm-vfp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:10: including conf/machine/include/arm/feature-arm-neon.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:754: including conf/machine-sdk/x86_64.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:755: including conf/distro/msm.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/distro/msm.conf:6: including conf/distro/include/base.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:756: including conf/distro/defaultsetup.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:1: including conf/distro/include/default-providers.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:2: including conf/distro/include/default-versions.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:3: including conf/distro/include/default-distrovars.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:4: including conf/distro/include/world-broken.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:7: including conf/distro/include/tcmode-default.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:10: including conf/distro/include/tclibc-glibc.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:12: including conf/distro/include/uninative-flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:757: including conf/documentation.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:758: including conf/licenses.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:759: including conf/sanity.conf
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/base.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/patch.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:4)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/terminal.bbclass (from /var/build/opensource/poky/meta/classes/patch.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/staging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/mirrors.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:7)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utils.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:8)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utility-tasks.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:9)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/metadata_scm.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:10)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/logging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/recipe_sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package_ipk.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package.bbclass (from /var/build/opensource/poky/meta/classes/package_ipk.bbclass:1)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/packagedata.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:41)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/chrpath.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:42)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/insane.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:45)
+Entering server connection loop
+DEBUG: Inheriting /var/build/opensource/poky/meta-qti-bsp/classes/buildname.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-mklibs.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/linuxloader.bbclass (from /var/build/opensource/poky/meta/classes/image-mklibs.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-prelink.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/debian.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/devshell.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sstate.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/license.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/remove-libtool.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/blacklist.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Clearing SRCREV cache due to cache policy of: clear
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/local_file_checksum_cache.dat'
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/bb_codeparser.dat'
+DEBUG: BBCooker parsed base configuration 1732045413.472405
+DEBUG: BBCooker startup complete 1732045413.4725015
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'force': False, 'dump_signatures': [], 'postfile': [], 'prefile': [], 'server_timeout': None, 'extra_assume_provided': [], 'debug_domains': [], 'dry_run': False, 'debug': 0, 'invalidate_stamp': None, 'verbose': False, 'abort': True, 'profile': False}, {'OLDPWD': '/var/build/opensource/poky', 'BUILDDIR': '/var/build/opensource/poky/build', 'LANG': 'en_US.UTF-8', 'TERM': 'xterm', 'VARIANT': 'debug', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'HOSTNAME': '9f22cd5477f4', 'SHELL': '/bin/bash', 'INITRD': 'no', 'PWD': '/var/build/opensource/poky/build', 'PRODUCT': 'robot', 'BBPATH': '/var/build/opensource/poky/build', 'LC_CTYPE': 'en_US.UTF-8', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LOGNAME': 'builduser', 'MACHINE': 'apq8009-robot', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'DEBIAN_FRONTEND': 'noninteractive', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LC_ALL': 'en_US.UTF-8', 'MAIL': '/var/mail/builduser', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'LANGUAGE': 'en_US:en', 'USER': 'builduser', 'HOME': '/var/build', 'SHLVL': '2'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', '-c', 'cleansstate', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['setConfig', 'cmd', 'cleansstate']
+Running command ['buildTargets', ['machine-robot-image'], 'cleansstate']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 827055 at 2024-11-19 19:43:48.307477 ---
+Started bitbake server pid 827055
+DEBUG: BBCooker starting 1732045428.3085687
+DEBUG: BBCooker pyinotify1 1732045428.3129594
+DEBUG: BBCooker pyinotify2 1732045428.315179
+DEBUG: BBCooker pyinotify3 1732045428.318042
+DEBUG: BBCooker pyinotify complete 1732045428.3181305
+DEBUG: Found bblayers.conf (/var/build/opensource/poky/build/conf/bblayers.conf)
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-audio
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-core
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-display
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bt
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-drones
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-wlan
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-camera
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-ss-mgr
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-auto
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-data
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-bsp
+DEBUG: Adding layer /var/build/opensource/poky/meta-python
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos-mods
+DEBUG: Adding layer /var/build/opensource/poky/meta-python2
+DEBUG: Adding layer /var/build/opensource/poky/meta-vicos
+DEBUG: Adding layer /var/build/opensource/poky/meta-oe
+DEBUG: Adding layer /var/build/opensource/poky/meta
+DEBUG: Adding layer /var/build/opensource/poky/meta-poky
+DEBUG: Adding layer /var/build/opensource/poky/meta-selinux
+DEBUG: Adding layer /var/build/opensource/poky/meta-user-managemement
+DEBUG: Adding layer /var/build/opensource/poky/meta-qti-qsap
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:748: including conf/abi_version.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:749: including conf/site.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:750: including conf/auto.conf
+DEBUG: CONF file 'conf/auto.conf' not found
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:751: including conf/local.conf
+DEBUG: CONF /var/build/opensource/poky/build/conf/local.conf:248: including conf/distro/include/security_flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:752: including conf/multiconfig/default.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:753: including conf/machine/apq8009-robot.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/apq8009-robot.conf:5: including conf/machine/include/apq8009.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:2: including conf/machine/include/basemachine.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:5: including conf/machine/include/soc-family.inc
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/machine/include/apq8009.inc:12: including conf/machine/include/tune-cortexa7.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/tune-cortexa7.inc:3: including conf/machine/include/arm/arch-armv7ve.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7ve.inc:8: including conf/machine/include/arm/arch-armv7a.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:9: including conf/machine/include/arm/arch-armv6.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv6.inc:8: including conf/machine/include/arm/arch-armv5-dsp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5-dsp.inc:4: including conf/machine/include/arm/arch-armv5.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:8: including conf/machine/include/arm/arch-armv4.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:15: including conf/machine/include/arm/arch-arm.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv4.inc:16: including conf/machine/include/arm/feature-arm-thumb.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv5.inc:9: including conf/machine/include/arm/feature-arm-vfp.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/machine/include/arm/arch-armv7a.inc:10: including conf/machine/include/arm/feature-arm-neon.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:754: including conf/machine-sdk/x86_64.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:755: including conf/distro/msm.conf
+DEBUG: CONF /var/build/opensource/poky/meta-qti-bsp/conf/distro/msm.conf:6: including conf/distro/include/base.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:756: including conf/distro/defaultsetup.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:1: including conf/distro/include/default-providers.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:2: including conf/distro/include/default-versions.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:3: including conf/distro/include/default-distrovars.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:4: including conf/distro/include/world-broken.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:7: including conf/distro/include/tcmode-default.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:10: including conf/distro/include/tclibc-glibc.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/distro/defaultsetup.conf:12: including conf/distro/include/uninative-flags.inc
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:757: including conf/documentation.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:758: including conf/licenses.conf
+DEBUG: CONF /var/build/opensource/poky/meta/conf/bitbake.conf:759: including conf/sanity.conf
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/base.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/patch.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:4)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/terminal.bbclass (from /var/build/opensource/poky/meta/classes/patch.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/staging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/mirrors.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:7)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utils.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:8)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/utility-tasks.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:9)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/metadata_scm.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:10)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/logging.bbclass (from /var/build/opensource/poky/meta/classes/base.bbclass:11)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/recipe_sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package_ipk.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/package.bbclass (from /var/build/opensource/poky/meta/classes/package_ipk.bbclass:1)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/packagedata.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:41)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/chrpath.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:42)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/insane.bbclass (from /var/build/opensource/poky/meta/classes/package.bbclass:45)
+DEBUG: Inheriting /var/build/opensource/poky/meta-qti-bsp/classes/buildname.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-mklibs.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/linuxloader.bbclass (from /var/build/opensource/poky/meta/classes/image-mklibs.bbclass:5)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/image-prelink.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/debian.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/devshell.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sstate.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/license.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/remove-libtool.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/blacklist.bbclass (from configuration INHERITs:0)
+DEBUG: Inheriting /var/build/opensource/poky/meta/classes/sanity.bbclass (from configuration INHERITs:0)
+DEBUG: Clearing SRCREV cache due to cache policy of: clear
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/local_file_checksum_cache.dat'
+DEBUG: Using cache in '/var/build/opensource/poky/build/cache/bb_codeparser.dat'
+DEBUG: BBCooker parsed base configuration 1732045428.4353073
+DEBUG: BBCooker startup complete 1732045428.4354136
+Entering server connection loop
+Accepting [<socket.socket fd=6, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>] ([])
+Processing Client
+Connecting Client
+Running command ['setFeatures', [2]]
+Running command ['updateConfig', {'prefile': [], 'debug': 0, 'dump_signatures': [], 'extra_assume_provided': [], 'profile': False, 'verbose': False, 'debug_domains': [], 'postfile': [], 'dry_run': False, 'server_timeout': None, 'force': False, 'abort': True, 'invalidate_stamp': None}, {'LANGUAGE': 'en_US:en', 'BBPATH': '/var/build/opensource/poky/build', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy  DL_DIR PRODUCT VARIANT FACTORY DEV QSN BETA ANKI_AMAZON_ENDPOINTS_ENABLED', 'LOGNAME': 'builduser', 'LC_CTYPE': 'en_US.UTF-8', 'USER': 'builduser', 'TERM': 'xterm', 'VARIANT': 'debug', 'HOSTNAME': '9f22cd5477f4', 'PWD': '/var/build/opensource/poky/build', 'BUILDDIR': '/var/build/opensource/poky/build', 'MACHINE': 'apq8009-robot', 'MAIL': '/var/mail/builduser', 'DEBIAN_FRONTEND': 'noninteractive', 'LC_ALL': 'en_US.UTF-8', 'OLDPWD': '/var/build/opensource/poky/build', 'PATH': '/var/build/opensource/poky/scripts:/var/build/opensource/poky/bitbake/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'SHLVL': '2', 'PRODUCT': 'robot', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'INITRD': 'no', 'HOME': '/var/build', 'TEMPLATECONF': 'meta-qti-bsp/conf', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', '_': '/var/build/opensource/poky/bitbake/bin/bitbake', 'LANG': 'en_US.UTF-8', 'SHELL': '/bin/bash'}, ['/var/build/opensource/poky/bitbake/bin/bitbake', 'machine-robot-image']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['buildTargets', ['machine-robot-image'], 'build']
+Processing Client
+Disconnecting Client
+No timeout, exiting.
+Exiting

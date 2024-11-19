@@ -51,6 +51,7 @@ FILES_${PN} = "/usr/qtiroot \
 
 # yocto doesn't really allow precompiled binaries
 INSANE_SKIP_${PN} = "file-rdeps"
+INSANE_SKIP_${PN} += " libdir"
 INSANE_SKIP_${PN} += " dev-elf"
 INSANE_SKIP_${PN} += " dev-so"
 INSANE_SKIP_${PN} += " ldflags"
@@ -62,4 +63,6 @@ FILES_SOLIBSDEV = ""
 # Prevents do_package failures with:
 # debugsources.list: No such file or directory:
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
+
+QA_SKIP_${PN} += ".*qtiroot.*"
 
